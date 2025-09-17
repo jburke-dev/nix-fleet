@@ -2,7 +2,7 @@
 delib.module {
     name = "programs.nixvim.lsp";
 
-    options = delib.singleEnableOption false;
+    options = delib.singleEnableOption true;
 
     home.ifEnabled.programs.nixvim.plugins = {
         lsp = {

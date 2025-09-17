@@ -1,12 +1,14 @@
 { delib, ... }:
 delib.module {
-    name = "programs.nixvim.plugins.oil";
+    name = "programs.nixvim.plugins";
 
     options = delib.singleEnableOption true;
 
-    home.ifEnabled.programs.nixvim = { 
-        plugins.oil = {
-            enable = true;
+    home.ifEnabled.programs.nixvim = {
+        plugins = {
+            oil.enable = true;
+            lualine.enable = true;
+            web-devicons.enable = true;
         };
 
         keymaps = [
