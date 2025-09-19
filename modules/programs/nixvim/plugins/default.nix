@@ -2,7 +2,7 @@
 delib.module {
     name = "programs.nixvim.plugins";
 
-    options = delib.singleEnableOption true;
+    options = delib.singleCascadeEnableOption;
 
     home.ifEnabled.programs.nixvim = {
         plugins = {

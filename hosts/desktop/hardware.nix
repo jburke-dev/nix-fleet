@@ -35,16 +35,6 @@ delib.host {
       { device = "/dev/disk/by-uuid/e02b8a08-64db-483e-aa5c-922af6bb2fcd";
         fsType = "ext4";
       };
-  
-    fileSystems."/mnt/data1" =
-      { device = "/dev/disk/by-uuid/54d5b68d-f9af-4f91-baa3-abd65fb5b3a9";
-        fsType = "btrfs";
-      };
-  
-    fileSystems."/mnt/data2" =
-      { device = "/dev/disk/by-uuid/c6354fae-39d5-4d9e-9c08-ce4f05b1a897";
-        fsType = "btrfs";
-      };
 
     networking.useDHCP = lib.mkDefault true;
     hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

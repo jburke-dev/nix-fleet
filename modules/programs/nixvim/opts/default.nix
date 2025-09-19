@@ -2,7 +2,7 @@
 delib.module {
     name = "programs.nixvim.opts";
 
-    options = delib.singleEnableOption true;
+    options = delib.singleCascadeEnableOption;
 
     home.ifEnabled.programs.nixvim = {
         globals.mapleader = " ";
