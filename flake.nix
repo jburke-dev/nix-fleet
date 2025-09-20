@@ -45,11 +45,13 @@
                     "gui"
                     "gaming"
                     "dev"
+                    "dhcpClient"
+                    "installer"
                 ];
                 defaultByHostType = {
-                    desktop = [ "cli" "gui" "gaming" "dev" ];
+                    desktop = [ "cli" "gui" "gaming" "dev" "dhcpClient" ];
                     server = [];
-                    laptop = [ "cli" "gui" "dev" ];
+                    laptop = [ "cli" "gui" "dev" "dhcpClient" ];
                 };
               };
             })

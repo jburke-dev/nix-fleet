@@ -1,6 +1,7 @@
 {
     delib,
     lib,
+    host,
     ...
 }:
 delib.module {
@@ -25,7 +26,7 @@ delib.module {
     };
 
     nixos.ifEnabled = { cfg, ... }: {
-        boot.loader = {
+        boot.loader = lib.mkIf (!host.installerFeatured) {
             efi = {
                 canTouchEfiVariables = true;
             };
