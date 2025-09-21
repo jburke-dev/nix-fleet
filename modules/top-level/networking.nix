@@ -19,7 +19,7 @@ delib.module {
 
             firewall.enable = true;
 
-            useDHCP = host.dhcpClientFeatured;
+            useDHCP = lib.mkDefault host.dhcpClientFeatured;
             dhcpcd = lib.mkIf (host.dhcpClientFeatured) {
                 enable = true;
                 extraConfig = "nohook resolv.conf";
@@ -31,6 +31,7 @@ delib.module {
             };
 
             nameservers = cfg.nameServers;
+            domain = "infra.chesurah.net";
         };
 
         user.extraGroups = lib.mkIf (host.isPC) [ "networkmanager" ];
