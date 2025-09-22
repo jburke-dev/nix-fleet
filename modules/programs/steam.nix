@@ -1,13 +1,13 @@
 {
-    delib,
-    host,
-    pkgs,
-    ...
+  delib,
+  host,
+  pkgs,
+  ...
 }:
 delib.module {
-    name = "programs.steam";
+  name = "programs.steam";
 
-    options = delib.singleEnableOption host.gamingFeatured;
+  options = delib.singleEnableOption host.gamingFeatured;
 
-    home.ifEnabled.home.packages = [pkgs.steam];
+  home.ifEnabled.home.packages = [ pkgs.steam ];
 }

@@ -1,15 +1,15 @@
 { delib, ... }:
 delib.module {
-    name = "programs.nixvim.lsp";
+  name = "programs.nixvim.lsp";
 
-    options = delib.singleCascadeEnableOption;
+  options = delib.singleCascadeEnableOption;
 
-    home.ifEnabled.programs.nixvim.plugins = {
-        lsp = {
-            enable = true;
-        };
-        lsp-format = {
-            enable = true;
-        };
+  home.ifEnabled.programs.nixvim.plugins = {
+    lsp = {
+      enable = true;
     };
+    lsp-format = {
+      enable = true;
+    };
+  };
 }

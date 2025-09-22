@@ -1,13 +1,13 @@
 {
-    delib,
-    host,
-    pkgs,
-    ...
+  delib,
+  host,
+  pkgs,
+  ...
 }:
 delib.module {
-    name = "programs.teams";
+  name = "programs.teams";
 
-    options = delib.singleEnableOption host.guiFeatured;
+  options = delib.singleEnableOption host.guiFeatured;
 
-    home.ifEnabled.home.packages = [pkgs.teams-for-linux];
+  home.ifEnabled.home.packages = [ pkgs.teams-for-linux ];
 }

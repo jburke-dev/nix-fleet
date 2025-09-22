@@ -1,27 +1,29 @@
 {
-    delib,
-    inputs,
-    host,
-    pkgs,
-    ...
+  delib,
+  inputs,
+  host,
+  pkgs,
+  ...
 }:
 delib.module {
-    name = "programs.nixvim";
+  name = "programs.nixvim";
 
-    options.programs.nixvim = with delib; {
-        enable = boolOption host.devFeatured;
-        defaultEditor = boolOption true;
-    };
+  options.programs.nixvim = with delib; {
+    enable = boolOption host.devFeatured;
+    defaultEditor = boolOption true;
+  };
 
-    myconfig.always.args.shared.nixvimLib = inputs.nixvim.lib;
+  myconfig.always.args.shared.nixvimLib = inputs.nixvim.lib;
 
-    home.always.imports = [inputs.nixvim.homeManagerModules.nixvim];
+  home.always.imports = [ inputs.nixvim.homeManagerModules.nixvim ];
 
-    home.ifEnabled = { cfg, ... }: {
-        home.packages = with pkgs; [ xclip ];
-        programs.nixvim = {
-            enable = true;
-            inherit (cfg) defaultEditor;
-        };
+  home.ifEnabled =
+    { cfg, ... }:
+    {
+      home.packages = with pkgs; [ xclip ];
+      programs.nixvim = {
+        enable = true;
+        inherit (cfg) defaultEditor;
+      };
     };
 }

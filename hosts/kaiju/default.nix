@@ -1,6 +1,6 @@
 { delib, ... }:
 delib.host {
-    name = "kaiju";
+  name = "kaiju";
 
-    type = "server";
+  type = "server";
 }

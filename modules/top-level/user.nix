@@ -9,7 +9,7 @@ delib.module {
     in
     {
       # this allows other modules to set user.Setting instead of users.users.${username}.setting
-      imports = [(lib.mkAliasOptionModule [ "user" ] [ "users" "users" username ] )];
+      imports = [ (lib.mkAliasOptionModule [ "user" ] [ "users" "users" username ]) ];
       users = {
         groups.${username} = { };
 

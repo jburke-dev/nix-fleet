@@ -1,32 +1,32 @@
 { delib, ... }:
 delib.module {
-    name = "programs.nixvim.opts";
+  name = "programs.nixvim.opts";
 
-    options = delib.singleCascadeEnableOption;
+  options = delib.singleCascadeEnableOption;
 
-    home.ifEnabled.programs.nixvim = {
-        globals.mapleader = " ";
+  home.ifEnabled.programs.nixvim = {
+    globals.mapleader = " ";
 
-        opts = {
-            number = true;
+    opts = {
+      number = true;
 
-            expandtab = true;
-            tabstop = 4;
-            shiftwidth = 4;
-            softtabstop = 4;
+      expandtab = true;
+      tabstop = 4;
+      shiftwidth = 4;
+      softtabstop = 4;
 
-            title = true;
-            cursorline = true;
-            termguicolors = true;
-            signcolumn = "yes";
+      title = true;
+      cursorline = true;
+      termguicolors = true;
+      signcolumn = "yes";
 
-            hlsearch = false;
-            incsearch = true;
+      hlsearch = false;
+      incsearch = true;
 
-            scrolloff = 8;
-            updatetime = 50;
+      scrolloff = 8;
+      updatetime = 50;
 
-            clipboard = "unnamedplus";
-        };
+      clipboard = "unnamedplus";
     };
+  };
 }

@@ -1,15 +1,15 @@
 {
-    delib,
-    inputs,
-    host,
-    ...
+  delib,
+  inputs,
+  host,
+  ...
 }:
 delib.module {
-    name = "programs.zen-browser";
+  name = "programs.zen-browser";
 
-    options = delib.singleEnableOption host.guiFeatured;
+  options = delib.singleEnableOption host.guiFeatured;
 
-    home.always.imports = [inputs.zen-browser.homeModules.twilight];
+  home.always.imports = [ inputs.zen-browser.homeModules.twilight ];
 
-    home.ifEnabled.programs.zen-browser.enable = true;
+  home.ifEnabled.programs.zen-browser.enable = true;
 }

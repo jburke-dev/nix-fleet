@@ -1,12 +1,15 @@
 {
-    delib,
-    pkgs,
-    ...
+  delib,
+  pkgs,
+  ...
 }:
 delib.module {
-    name = "programs.network-utils";
+  name = "programs.network-utils";
 
-    options = delib.singleEnableOption true;
+  options = delib.singleEnableOption true;
 
-    home.ifEnabled.home.packages = with pkgs; [ dig ];
+  home.ifEnabled.home.packages = with pkgs; [
+    dig
+    nmap
+  ];
 }

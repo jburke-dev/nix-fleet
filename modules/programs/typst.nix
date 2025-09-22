@@ -1,9 +1,18 @@
-{ delib, host, pkgs, ... }:
+{
+  delib,
+  host,
+  pkgs,
+  ...
+}:
 delib.module {
-    name = "programs.typst";
+  name = "programs.typst";
 
-    options = delib.singleEnableOption host.devFeatured;
+  options = delib.singleEnableOption host.devFeatured;
 
-    # TODO: figure out dev-shell stuff for this
-    home.ifEnabled.home.packages = with pkgs; [ typst tinymist typstPackages.fontawesome ];
+  # TODO: figure out dev-shell stuff for this
+  home.ifEnabled.home.packages = with pkgs; [
+    typst
+    tinymist
+    typstPackages.fontawesome
+  ];
 }

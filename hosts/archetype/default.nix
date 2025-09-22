@@ -1,22 +1,22 @@
 /**
-# Host config: archetype
+  # Host config: archetype
 
-## Description
-Server configuration running NixOS.  Only includes base programs needed for any server, used as a cloud-init template in Proxmox.
+  ## Description
+  Server configuration running NixOS.  Only includes base programs needed for any server, used as a cloud-init template in Proxmox.
 */
 {
-    delib,
-    ...
+  delib,
+  ...
 }:
 delib.host {
-    name = "archetype";
+  name = "archetype";
 
-    type = "server";
+  type = "server";
 
-    nixos = {
-        nixpkgs.config.allowUnfree = true;
-        system.stateVersion = "25.05";
+  nixos = {
+    nixpkgs.config.allowUnfree = true;
+    system.stateVersion = "25.05";
 
-        myconfig = {};
-    };
+    myconfig = { };
+  };
 }

@@ -1,8 +1,8 @@
 { delib, host, ... }:
 delib.module {
-    name = "programs.firefox";
+  name = "programs.firefox";
 
-    options = delib.singleEnableOption host.guiFeatured;
+  options = delib.singleEnableOption host.guiFeatured;
 
-    home.ifEnabled.programs.firefox.enable = true;
+  home.ifEnabled.programs.firefox.enable = true;
 }

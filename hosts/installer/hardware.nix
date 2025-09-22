@@ -1,15 +1,15 @@
 { delib, modulesPath, ... }:
 delib.host {
-    name = "installer";
+  name = "installer";
 
-    system = "x86_64-linux";
+  system = "x86_64-linux";
 
-    homeManagerSystem = "x86_64-linux";
-    home.home.stateVersion = "25.05";
+  homeManagerSystem = "x86_64-linux";
+  home.home.stateVersion = "25.05";
 
-    nixos = {
-        system.stateVersion = "25.05";
+  nixos = {
+    system.stateVersion = "25.05";
 
-        imports = [(modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix")];
-    };
+    imports = [ (modulesPath + "/installer/cd-dvd/installation-cd-minimal.nix") ];
+  };
 }

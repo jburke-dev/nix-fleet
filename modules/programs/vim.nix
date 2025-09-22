@@ -1,12 +1,12 @@
 {
-    delib,
-    pkgs,
-    ...
+  delib,
+  pkgs,
+  ...
 }:
 delib.module {
-    name = "programs.vim";
+  name = "programs.vim";
 
-    options = delib.singleEnableOption true;
+  options = delib.singleEnableOption true;
 
-    nixos.ifEnabled.environment.systemPackages = [pkgs.vim];
+  nixos.ifEnabled.environment.systemPackages = [ pkgs.vim ];
 }

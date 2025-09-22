@@ -1,15 +1,15 @@
 {
-    delib,
-    host,
-    pkgs,
-    ...
+  delib,
+  host,
+  pkgs,
+  ...
 }:
 delib.module {
-    name = "programs.discord";
+  name = "programs.discord";
 
-    options = delib.singleEnableOption host.guiFeatured;
+  options = delib.singleEnableOption host.guiFeatured;
 
-    home.ifEnabled.home.packages = [
-        pkgs.discord
-    ];
+  home.ifEnabled.home.packages = [
+    pkgs.discord
+  ];
 }

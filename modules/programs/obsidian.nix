@@ -1,13 +1,13 @@
 {
-    delib,
-    host,
-    pkgs,
-    ...
+  delib,
+  host,
+  pkgs,
+  ...
 }:
 delib.module {
-    name = "programs.obsidian";
+  name = "programs.obsidian";
 
-    options = delib.singleEnableOption host.guiFeatured;
+  options = delib.singleEnableOption host.guiFeatured;
 
-    home.ifEnabled.home.packages = [pkgs.obsidian];
+  home.ifEnabled.home.packages = [ pkgs.obsidian ];
 }

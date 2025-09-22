@@ -1,8 +1,8 @@
 { delib, ... }:
 delib.host {
-    name = "installer";
+  name = "installer";
 
-    type = "server";
+  type = "server";
 
-    features = [ "installer" ];
+  features = [ "installer" ];
 }

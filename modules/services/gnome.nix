@@ -1,33 +1,33 @@
 {
-    delib,
-    host,
-    pkgs,
-    ...
+  delib,
+  host,
+  pkgs,
+  ...
 }:
 delib.module {
-    name = "services.gnome";
+  name = "services.gnome";
 
-    options = delib.singleEnableOption host.guiFeatured;
+  options = delib.singleEnableOption host.guiFeatured;
 
-    nixos.ifEnabled = {
-        services.xserver = {
-            enable = true;
+  nixos.ifEnabled = {
+    services.xserver = {
+      enable = true;
 
-            displayManager.gdm.enable = true;
-            desktopManager.gnome.enable = true;
-        };
+      displayManager.gdm.enable = true;
+      desktopManager.gnome.enable = true;
     };
+  };
 
-    home.ifEnabled = {
-        dconf.settings = {
-            "org/gnome/desktop/interface" = {
-              color-scheme = "prefer-dark";
-            };
-            "org/gnome/shell" = {
-              enabled-extensions = [
-                pkgs.gnomeExtensions.tiling-shell.extensionUuid
-              ];
-            };
-        };
+  home.ifEnabled = {
+    dconf.settings = {
+      "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+      };
+      "org/gnome/shell" = {
+        enabled-extensions = [
+          pkgs.gnomeExtensions.tiling-shell.extensionUuid
+        ];
+      };
     };
+  };
 }

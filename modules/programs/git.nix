@@ -1,23 +1,24 @@
 { delib, pkgs, ... }:
 delib.module {
-    name = "programs.git";
+  name = "programs.git";
 
-    options = delib.singleEnableOption true;
+  options = delib.singleEnableOption true;
 
-    home.ifEnabled = { myconfig, ... }:
+  home.ifEnabled =
+    { myconfig, ... }:
     {
-        programs.git = {
-            enable = true;
-            lfs.enable = true;
+      programs.git = {
+        enable = true;
+        lfs.enable = true;
 
-            userName = myconfig.constants.userfullname;
-            userEmail = myconfig.constants.useremail;
+        userName = myconfig.constants.userfullname;
+        userEmail = myconfig.constants.useremail;
 
-            extraConfig = {
-                init.defaultBranch = "main";
-            };
+        extraConfig = {
+          init.defaultBranch = "main";
         };
+      };
     };
 
-    nixos.ifEnabled.environment.systemPackages = [pkgs.git];
+  nixos.ifEnabled.environment.systemPackages = [ pkgs.git ];
 }
