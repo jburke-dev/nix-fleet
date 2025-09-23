@@ -55,7 +55,6 @@
                       "gui"
                       "gaming"
                       "dev"
-                      "dhcpClient"
                       "installer"
                     ];
                     defaultByHostType = {
@@ -64,14 +63,12 @@
                         "gui"
                         "gaming"
                         "dev"
-                        "dhcpClient"
                       ];
                       server = [ ];
                       laptop = [
                         "cli"
                         "gui"
                         "dev"
-                        "dhcpClient"
                       ];
                     };
                   };
@@ -91,10 +88,6 @@
       perSystem =
         { pkgs, ... }:
         {
-          devShells.default = pkgs.mkShell {
-            packages = with pkgs; [ just ];
-          };
-
           formatter = pkgs.nixfmt-tree;
         };
     };

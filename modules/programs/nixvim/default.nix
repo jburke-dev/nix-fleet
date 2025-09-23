@@ -20,7 +20,11 @@ delib.module {
   home.ifEnabled =
     { cfg, ... }:
     {
-      home.packages = with pkgs; [ xclip ];
+      home.packages = with pkgs; [
+        xclip
+        just
+        nixfmt-rfc-style
+      ];
       programs.nixvim = {
         enable = true;
         inherit (cfg) defaultEditor;

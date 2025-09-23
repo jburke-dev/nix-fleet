@@ -32,6 +32,8 @@ delib.module {
           ripgrep
           zoxide
         ];
+
+      programs.direnv.enable = true;
       programs.zsh = {
         enable = true;
         enableCompletion = cfg.enableExtras;

@@ -4,5 +4,7 @@ delib.host {
 
   type = "server";
 
-  features = [ "installer" ];
+  features = [
+    "installer"
+  ];
 }

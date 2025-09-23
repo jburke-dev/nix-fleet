@@ -1,4 +1,8 @@
-{ delib, modulesPath, ... }:
+{
+  delib,
+  modulesPath,
+  ...
+}:
 delib.host {
   name = "installer";
 

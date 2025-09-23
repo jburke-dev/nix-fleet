@@ -1,5 +1,7 @@
 {
   delib,
+  host,
+  lib,
   ...
 }:
 delib.module {
@@ -10,6 +12,6 @@ delib.module {
   home.ifEnabled.programs.ssh = {
     enable = true;
     # TODO: setup persist?
-    includes = [ "~/Code/nix-dotfiles/config/ssh/*" ];
+    includes = lib.mkIf (host.isPC) [ "~/Code/nix-dotfiles/config/ssh/*" ];
   };
 }

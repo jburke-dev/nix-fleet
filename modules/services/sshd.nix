@@ -25,10 +25,6 @@ delib.module {
         cfg.permitRootLogin == "yes"
       ) cfg.authorizedKeys;
 
-      systemd.services.sshd = lib.mkIf (host.installerFeatured) {
-        wantedBy = lib.mkForce [ "multi-user.target" ];
-      };
-
       services.openssh = {
         enable = true;
 
