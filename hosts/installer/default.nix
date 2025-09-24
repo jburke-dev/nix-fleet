@@ -7,4 +7,6 @@ delib.host {
   features = [
     "installer"
   ];
+
+  myconfig.networking.mode = "network-manager";
 }

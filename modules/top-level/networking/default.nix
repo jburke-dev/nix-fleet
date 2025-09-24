@@ -22,6 +22,9 @@ delib.module {
             "1.0.0.1"
           ]
       );
+      mode = enumOption [ "network-manager" "systemd" ] (
+        if host.isPC then "network-manager" else "systemd"
+      );
     };
 
   nixos.ifEnabled =

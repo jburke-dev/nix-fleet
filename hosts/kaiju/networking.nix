@@ -76,7 +76,7 @@ delib.host {
               Metric = 100;
             }
           ];
-          linkConfig.RequiredForOnline = "routable";
+          linkConfig.RequiredForOnline = "yes";
         };
         "40-vlan-services" = {
           matchConfig.Name = "vlan-services";
@@ -111,6 +111,10 @@ delib.host {
           ];
           linkConfig.RequiredForOnline = "no";
         };
+      };
+      wait-online = {
+        timeout = 30;
+        anyInterface = true;
       };
     };
   };

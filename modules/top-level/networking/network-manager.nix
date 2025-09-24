@@ -1,12 +1,18 @@
 {
   delib,
-  host,
   ...
 }:
 delib.module {
-  name = "networking.client";
+  name = "networking.network-manager";
 
-  options = delib.singleEnableOption host.isPC;
+  options =
+    with delib;
+    moduleOptions (
+      { parent, ... }:
+      {
+        enable = boolOption (parent.mode == "network-manager");
+      }
+    );
 
   nixos.ifEnabled = {
     networking = {
