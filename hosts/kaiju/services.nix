@@ -8,5 +8,6 @@ delib.host {
   myconfig.services.blocky = {
     enable = true;
     listenAddress = "192.168.11.2";
+    interface = "vlan-services";
   };
 }

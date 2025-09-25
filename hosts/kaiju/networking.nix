@@ -18,13 +18,6 @@ delib.host {
 
       firewall.interfaces = {
         "vlan-mgmt".allowedTCPPorts = [ 22 ];
-        "vlan-services" = {
-          allowedTCPPorts = [
-            53
-            4000
-          ];
-          allowedUDPPorts = [ 53 ];
-        };
       };
     };
 
