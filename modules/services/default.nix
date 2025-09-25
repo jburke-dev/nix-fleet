@@ -5,20 +5,13 @@
 delib.module {
   name = "services";
 
-  options =
-    with delib;
-    moduleOptions {
-      enable = boolOption true;
-      listenAddress = noDefault (strOption null);
-      interface = noDefault (strOption null);
-    };
-
-  myconfig.always =
-    { cfg, ... }:
-    {
-      args.nixos = {
-        listenAddress = cfg.listenAddress;
-        interface = cfg.listenAddress;
+  # TODO: not sure why this isn't working
+  /*
+    options =
+      with delib;
+      moduleOptions {
+        listenAddress = noDefault (strOption null);
+        interface = noDefault (strOption null);
       };
-    };
+  */
 }

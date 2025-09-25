@@ -1,7 +1,5 @@
 {
   delib,
-  listenAddress,
-  interface,
   ...
 }:
 # TODO: configure more!  caching, logging, prometheus exporter...
@@ -16,6 +14,8 @@ delib.module {
         "1.1.1.1"
         "1.0.0.1"
       ];
+      listenAddress = strOption "127.0.0.1";
+      interface = strOption "vlan-services";
     };
 
   nixos.ifEnabled =
@@ -27,11 +27,11 @@ delib.module {
           ports = {
             dns = [
               "127.0.0.1:53"
-              "${listenAddress}:53"
+              "${cfg.listenAddress}:53"
             ];
             http = [
               "127.0.0.1:4000"
-              "${listenAddress}:4000"
+              "${cfg.listenAddress}:4000"
             ];
           };
           upstreams.groups.default = cfg.upstreamAddresses;
@@ -41,11 +41,12 @@ delib.module {
           };
           customDNS.mapping = {
             "internal.chesurah.net" = "192.168.20.10";
+            "mgmt.chesurah.net" = "192.168.11.2";
           };
         };
       };
 
-      networking.firewall."${interface}" = {
+      networking.firewall.interfaces."${cfg.interface}" = {
         allowedTCPPorts = [
           53
           4000
