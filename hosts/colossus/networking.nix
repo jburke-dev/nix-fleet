@@ -14,7 +14,7 @@ delib.host {
 
   nixos = {
     networking = {
-      hostId = "deadc0ff";
+      hostId = "deadc100";
 
       firewall.interfaces = {
         "vlan-mgmt".allowedTCPPorts = [ 22 ];
