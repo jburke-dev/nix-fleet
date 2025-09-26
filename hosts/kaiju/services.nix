@@ -18,6 +18,13 @@ delib.host {
           virtualIp = myconfig.constants.traefikVip;
           state = "MASTER";
         };
+        forgejo = {
+          enable = true;
+          listenAddress = "192.168.11.2";
+          interface = "vlan-services";
+          stateDir = "/mnt/databases/forgejo";
+          domain = "forgejo.apps.chesurah.net";
+        };
       };
     };
 }

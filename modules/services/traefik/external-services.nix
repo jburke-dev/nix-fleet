@@ -19,6 +19,7 @@ delib.module {
         ];
       };
       mikrotik.loadBalancer.servers = [ { url = "http://192.168.21.3"; } ];
+      mikrotik2.loadBalancer.servers = [ { url = "http://192.168.22.2"; } ];
     };
     routers = {
       pfsense = {
@@ -33,6 +34,12 @@ delib.module {
         entryPoints = [ "https" ];
         tls.certResolver = "cloudflare";
         service = "mikrotik";
+      };
+      mikrotik2 = {
+        rule = "Host(`mikrotik2.mgmt.chesurah.net`)";
+        entryPoints = [ "https" ];
+        tls.certResolver = "cloudflare";
+        service = "mikrotik2";
       };
     };
     middlewares.pfsense-headers.headers.customRequestHeaders."X-Forwarded-Proto" = "https";

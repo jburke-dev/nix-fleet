@@ -10,10 +10,5 @@ delib.module {
       zfs.forceImportRoot = false;
 
     };
-
-    # TODO: make zfs specific mountpoint?
-    systemd.tmpfiles.rules = [
-      "z /mnt/* 0777 root root - -"
-    ];
   };
 }
