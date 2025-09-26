@@ -40,8 +40,9 @@ delib.module {
             clientGroupsBlock.default = [ "ads" ];
           };
           customDNS.mapping = {
-            "internal.chesurah.net" = "192.168.20.10";
             "mgmt.chesurah.net" = "192.168.11.2";
+            "kaiju.infra.chesurah.net" = "192.168.21.5";
+            "colossus.infra.chesurah.net" = "192.168.21.4";
           };
         };
       };

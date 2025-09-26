@@ -15,6 +15,7 @@ delib.module {
         if host.isPC then
           [
             "192.168.11.2"
+            "192.168.11.3"
           ]
         else
           [
