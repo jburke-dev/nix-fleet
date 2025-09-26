@@ -1,6 +1,7 @@
 {
   delib,
   config,
+  host,
   ...
 }:
 delib.module {
@@ -9,8 +10,7 @@ delib.module {
   options =
     with delib;
     moduleOptions {
-      enable = boolOption false;
-      listenAddress = strOption "127.0.0.1";
+      enable = boolOption host.reverseProxyFeatured;
       interface = strOption "vlan-services";
     };
 
@@ -24,13 +24,13 @@ delib.module {
           api = { };
           entryPoints = {
             http = {
-              address = "${cfg.listenAddress}:80";
+              address = ":80";
               http.redirections.entryPoint = {
                 to = "https";
                 scheme = "https";
               };
             };
-            https.address = "${cfg.listenAddress}:443";
+            https.address = ":443";
           };
           serversTransport.insecureSkipVerify = true;
           certificatesResolvers = {
@@ -51,28 +51,19 @@ delib.module {
           };
         };
         dynamicConfigOptions = {
-          http.routers = {
-            api = {
-              rule = "Host(`traefik-dashboard.mgmt.chesurah.net`)";
-              service = "api@internal";
-              entrypoints = [ "https" ];
-              tls = {
-                certResolver = "cloudflare";
-                domains = [
-                  {
-                    main = "mgmt.chesurah.net";
-                    sans = [ "*.mgmt.chesurah.net" ];
-                  }
-                ];
-              };
+          http.routers.api = {
+            rule = "Host(`traefik-dashboard.mgmt.chesurah.net`)";
+            service = "api@internal";
+            entrypoints = [ "https" ];
+            tls = {
+              certResolver = "cloudflare";
+              domains = [
+                {
+                  main = "mgmt.chesurah.net";
+                  sans = [ "*.mgmt.chesurah.net" ];
+                }
+              ];
             };
-            pfsense = {
-              rule = "Host(`pfsense.mgmt.chesurah.net`)";
-              entrypoints = [ "https" ];
-              tls.certResolver = "cloudflare";
-              middlewares = [ "pfsense-headers" ];
-            };
-            mikrotik = { };
           };
         };
       };

@@ -13,6 +13,7 @@ delib.module {
     home.packages = with pkgs; [
       just
       nixfmt-rfc-style
+      sops
     ];
   };
 }

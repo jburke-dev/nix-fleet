@@ -6,6 +6,7 @@ delib.module {
     username = readOnly (strOption "jburke");
     userfullname = readOnly (strOption "Johan Burke");
     useremail = readOnly (strOption "jburke.create@gmail.com");
+    traefikVip = readOnly (strOption "192.168.11.10");
   };
 
   myconfig.always =

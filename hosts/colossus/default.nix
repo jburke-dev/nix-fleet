@@ -3,4 +3,5 @@ delib.host {
   name = "colossus";
 
   type = "server";
+  features = [ "reverseProxy" ];
 }

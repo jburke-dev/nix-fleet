@@ -1,8 +1,10 @@
 keys:
   - &desktop age1c9uturjx2ehtk9x7a4yec5z3r3xpyj670lewkfqcg0vktn5kefwsakplu8
   - &kaiju age1y7gnxlsx2tq5wecl6ahenrd6rcmvx3rtq7vks0utu9vgy450ffpq9mcvx7
+  - &colossus age10gq4xfspah2fuhhr8v3yz6tlrhzdzv8q3pn46xjr8ckc3fr2eftsn7uew6
 creation_rules:
   - key_groups:
     - age:
       - *desktop
       - *kaiju
+      - *colossus

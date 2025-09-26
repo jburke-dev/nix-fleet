@@ -61,6 +61,7 @@
                       "gaming"
                       "dev"
                       "installer"
+                      "reverseProxy"
                     ];
                     defaultByHostType = {
                       desktop = [
