@@ -7,7 +7,7 @@
 delib.module {
   name = "services.gnome";
 
-  options = delib.singleEnableOption host.guiFeatured;
+  options = delib.singleEnableOption host.gnomeFeatured;
 
   nixos.ifEnabled = {
     services.xserver = {
@@ -19,6 +19,7 @@ delib.module {
   };
 
   home.ifEnabled = {
+    home.ifEnabled = with pkgs; [ xclip ];
     dconf.settings = {
       "org/gnome/desktop/interface" = {
         color-scheme = "prefer-dark";

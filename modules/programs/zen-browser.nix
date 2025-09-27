@@ -11,5 +11,7 @@ delib.module {
 
   home.always.imports = [ inputs.zen-browser.homeModules.twilight ];
 
-  home.ifEnabled.programs.zen-browser.enable = true;
+  home.ifEnabled.programs.zen-browser = {
+    enable = true;
+  };
 }

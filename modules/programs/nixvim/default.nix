@@ -21,7 +21,6 @@ delib.module {
     { cfg, ... }:
     {
       home.packages = with pkgs; [
-        xclip
         just
         nixfmt-rfc-style
       ];

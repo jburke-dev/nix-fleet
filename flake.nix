@@ -58,6 +58,8 @@
                     features = [
                       "cli"
                       "gui"
+                      "gnome"
+                      "hyprland"
                       "gaming"
                       "dev"
                       "installer"
@@ -67,6 +69,7 @@
                       desktop = [
                         "cli"
                         "gui"
+                        "hyprland"
                         "gaming"
                         "dev"
                       ];
@@ -74,6 +77,7 @@
                       laptop = [
                         "cli"
                         "gui"
+                        "gnome"
                         "dev"
                       ];
                     };
