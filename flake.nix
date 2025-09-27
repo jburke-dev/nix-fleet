@@ -24,6 +24,10 @@
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    stylix = {
+      url = "github:nix-community/stylix/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -32,6 +36,7 @@
       flake-parts,
       nixpkgs-unstable,
       sops-nix,
+      stylix,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -47,13 +52,14 @@
               paths = [
                 ./hosts
                 ./modules
+                ./rices
               ];
 
               extensions = with denix.lib.extensions; [
                 args
                 (base.withConfig {
                   args.enable = true;
-                  rices.enable = false;
+                  rices.enable = true;
                   hosts.features = {
                     features = [
                       "cli"

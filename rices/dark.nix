@@ -1,0 +1,22 @@
+{ delib, pkgs, ... }:
+delib.rice {
+  name = "dark";
+  home.stylix = {
+    targets = {
+      dunst.enable = true;
+      rofi.enable = true;
+      hyprland.enable = true;
+      firefox = {
+        enable = true;
+        profileNames = [ "default" ];
+      };
+    };
+  };
+  nixos.stylix = {
+    enable = true;
+    base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-storm.yaml";
+    targets = {
+      gtk.enable = true;
+    };
+  };
+}
