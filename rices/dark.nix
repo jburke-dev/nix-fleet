@@ -10,6 +10,7 @@ delib.rice {
         enable = true;
         profileNames = [ "default" ];
       };
+      waybar.enable = true;
     };
   };
   nixos.stylix = {
@@ -18,5 +19,6 @@ delib.rice {
     targets = {
       gtk.enable = true;
     };
+    autoEnable = false;
   };
 }

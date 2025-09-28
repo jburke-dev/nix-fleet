@@ -40,6 +40,10 @@ delib.module {
           force_default_wallpaper = 0;
         };
 
+        exec-once = [
+          "waybar"
+        ];
+
         bindm = [
           "$mainMod, mouse:272, movewindow"
           "$mainMod, mouse:273, resizewindow"
@@ -47,7 +51,7 @@ delib.module {
 
         bind = [
           "$mainMod, q, killactive,"
-          "$mainMod, Return, exec, $terminal"
+          "$mainMod, T, exec, $terminal"
           "$mainMod, B, exec, $browser"
           "$mainMod, M, fullscreen, 1"
 
