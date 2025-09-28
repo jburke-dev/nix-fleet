@@ -19,10 +19,41 @@ delib.module {
           ];
           modules-center = [ "hyprland/window" ];
           modules-right = [
-            "network"
+            "group/hardware"
             "clock"
           ];
+          "group/hardware" = {
+            orientation = "horizontal";
+            drawer.transition-left-to-right = false;
+            modules = [
+              "custom/hardware-title"
+              "cpu"
+              "memory"
+              "disk"
+              "network"
+            ];
+          };
+          clock = {
+            interval = 1;
+            format = "{:%H:%M:%S}";
+          };
+          "custom/hardware-title" = {
+            format = "Hardware";
+            tooltip = false;
+          };
+          cpu = {
+            interval = 1;
+          };
+          disk = {
+            format = "{used} / {total}";
+            path = "/";
+          };
+          memory = {
+            interval = 5;
+            format = "{used} / {total}";
+          };
           network = {
+            interval = 1;
             interface = "enp16s0";
             format = "{icon} {ifname} - {bandwidthDownBytes} | {bandwidthUpBytes}";
           };
