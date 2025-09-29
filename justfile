@@ -23,4 +23,4 @@ rebuild-local:
 rebuild-remote HOST:
     #!/usr/bin/env bash
     set -euo pipefail
-    nixos-rebuild --target-host jburke@{{ HOST }}.infra.chesurah.net --use-remote-sudo --flake ".#{{ HOST }}" switch
+    nixos-rebuild --target-host {{ HOST }} --use-remote-sudo --flake ".#{{ HOST }}" switch

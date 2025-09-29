@@ -21,7 +21,6 @@ delib.module {
   nixos.ifEnabled =
     {
       cfg,
-      myconfig,
       ...
     }:
     {
