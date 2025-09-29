@@ -8,8 +8,13 @@ delib.module {
 
   options = delib.singleCascadeEnableOption;
 
-  home.ifEnabled.home.packages = with pkgs; [
-    wl-clipboard
-    dunst
-  ];
+  home.ifEnabled = {
+    home.packages = with pkgs; [
+      wl-clipboard
+      dunst
+      hyprcursor
+      hyprshot
+    ];
+    programs.rofi.enable = true;
+  };
 }
