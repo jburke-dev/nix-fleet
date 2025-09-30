@@ -14,6 +14,7 @@ delib.module {
       dunst
       hyprcursor
       hyprshot
+      wleave
     ];
     programs.rofi.enable = true;
   };

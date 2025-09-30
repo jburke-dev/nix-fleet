@@ -1,4 +1,5 @@
 theme = "TokyoNight Storm"
+font-family = "SpaceMono Nerd Font"
 
 keybind = ctrl+a>t=new_tab
 keybind = ctrl+a>n=next_tab

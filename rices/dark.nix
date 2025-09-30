@@ -10,12 +10,17 @@ delib.rice {
         enable = true;
         profileNames = [ "default" ];
       };
-      waybar.enable = true;
     };
   };
   nixos.stylix = {
     enable = true;
     base16Scheme = "${pkgs.base16-schemes}/share/themes/tokyo-night-storm.yaml";
+    fonts = {
+      monospace = {
+        package = pkgs.nerd-fonts.sauce-code-pro;
+        name = "SauceCodePro Nerd Font Propo";
+      };
+    };
     cursor = {
       size = 12;
       name = "rose-pine-hyprcursor";

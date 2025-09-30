@@ -14,6 +14,10 @@ delib.module {
 
     home.packages = with pkgs; [
       font-awesome
+      nerd-fonts.sauce-code-pro
+      nerd-fonts."_0xproto"
+      nerd-fonts.roboto-mono
+      nerd-fonts.space-mono
     ];
   };
 }

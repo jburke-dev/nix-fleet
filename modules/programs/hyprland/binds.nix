@@ -24,6 +24,8 @@ delib.module {
       "$mainMod, W, exec, pkill rofi || rofi -show window -show-icons -replace -i"
       "$mainMod, K, exec, pkill rofi || rofi -show keys -replace -i"
 
+      "$mainMod, Escape, exec, wleave"
+
       "$mainMod SHIFT, S, exec, $screenshot -m region"
 
       "$mainMod, 1, workspace, 1"
@@ -35,6 +37,9 @@ delib.module {
       "$mainMod, 7, workspace, 7"
       "$mainMod, 8, workspace, 8"
       "$mainMod, 9, workspace, 9"
+
+      "$mainMod SHIFT, Right, movetoworkspace, +1"
+      "$mainMod SHIFT, Left, movetoworkspace, -1"
 
       "$mainMod SHIFT, 1, workspace, 1"
       "$mainMod SHIFT, 2, workspace, 2"

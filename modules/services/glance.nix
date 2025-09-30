@@ -75,7 +75,53 @@ delib.module {
                               url = "https://vaultwarden.apps.chesurah.net";
                               icon = "si:vaultwarden";
                             }
+                            {
+                              title = "Forgejo";
+                              url = "https://forgejo.apps.chesurah.net";
+                              icon = "si:forgejo";
+                            }
                           ];
+                        }
+                      ];
+                    }
+                  ];
+                }
+              ];
+            }
+            {
+              name = "Tech";
+
+              head-widgets = [
+                {
+                  type = "search";
+                  search-engine = "duckduckgo";
+                  autofocus = true;
+                  new-tab = true;
+                }
+              ];
+              columns = [
+                {
+                  size = "full";
+                  widgets = [
+                    {
+                      type = "hacker-news";
+                    }
+                    {
+                      type = "group";
+                      widgets = [
+                        {
+                          type = "reddit";
+                          subreddit = "selfhosted";
+                        }
+                        {
+                          type = "reddit";
+                          subreddit = "homelab";
+                          show-thumbnails = true;
+                        }
+                        {
+                          type = "reddit";
+                          subreddit = "unixporn";
+                          show-thumbnails = true;
                         }
                       ];
                     }
