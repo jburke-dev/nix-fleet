@@ -13,6 +13,7 @@ delib.module {
       settings = {
         windowrule = [
           "workspace 5, class:zen-twilight"
+          "workspace 2, class:discord"
         ];
       };
     };

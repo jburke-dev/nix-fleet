@@ -2,6 +2,9 @@
   delib,
   ...
 }:
+let
+  toggle = program: args: "pkill ${program} || ${program} ${args}";
+in
 delib.module {
   name = "programs.hyprland.binds";
 
@@ -14,17 +17,18 @@ delib.module {
       "$mainMod, mouse:273, resizewindow"
     ];
 
+    bindr = [
+      "$mainMod, SUPER_L, exec, ${toggle "anyrun" ""}"
+      "$mainMod SHIFT, SUPER_L, hyprexpo:expo, toggle"
+    ];
+
     bind = [
       "$mainMod, q, killactive,"
       "$mainMod, T, exec, $terminal"
       "$mainMod, B, exec, $browser"
       "$mainMod, M, fullscreen, 1"
 
-      "$mainMod, Return, exec, pkill rofi || rofi -show combi -modes combi -combi-modes \"window,drun\" -show-icons -replace -i"
-      "$mainMod, W, exec, pkill rofi || rofi -show window -show-icons -replace -i"
-      "$mainMod, K, exec, pkill rofi || rofi -show keys -replace -i"
-
-      "$mainMod, Escape, exec, wleave"
+      "$mainMod, L, exec, wleave -b 2"
 
       "$mainMod SHIFT, S, exec, $screenshot -m region"
 

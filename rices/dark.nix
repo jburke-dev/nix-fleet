@@ -10,6 +10,7 @@ delib.rice {
         enable = true;
         profileNames = [ "default" ];
       };
+      hyprlock.enable = true;
     };
   };
   nixos.stylix = {
