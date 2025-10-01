@@ -17,6 +17,8 @@ delib.module {
         "${pkgs.anyrun}/lib/libsymbols.so"
         "${pkgs.anyrun}/lib/librink.so"
         "${pkgs.anyrun}/lib/librandr.so"
+        "${pkgs.anyrun}/lib/libwebsearch.so"
+        "${pkgs.anyrun}/lib/libdictionary.so"
       ];
       y.fraction = 0.3;
       width.fraction = 0.25;
@@ -28,6 +30,12 @@ delib.module {
       "shell.ron".text = ''
         Config(
             prefix: ">",
+        )
+      '';
+      "websearch.ron".text = ''
+        Config(
+            prefix: "?",
+            engines: [DuckDuckGo]
         )
       '';
     };

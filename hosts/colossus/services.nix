@@ -19,6 +19,7 @@ delib.host {
           virtualIp = myconfig.constants.traefikVip;
           state = "BACKUP";
         };
+        forgejo-runner.enable = true;
       };
     };
 }

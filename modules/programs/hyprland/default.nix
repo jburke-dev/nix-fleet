@@ -31,10 +31,12 @@ delib.module {
     services.hyprpolkitagent.enable = true;
     wayland.windowManager.hyprland = {
       enable = true;
+
       settings = {
         "$terminal" = "ghostty";
         "$browser" = "zen";
         "$mainMod" = "SUPER";
+        exec-once = [ "waybar" ];
 
         misc = {
           disable_hyprland_logo = true;

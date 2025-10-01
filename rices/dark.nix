@@ -11,6 +11,7 @@ delib.rice {
         profileNames = [ "default" ];
       };
       hyprlock.enable = true;
+      waybar.enable = true;
     };
   };
   nixos.stylix = {

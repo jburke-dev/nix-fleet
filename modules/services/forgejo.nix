@@ -37,6 +37,10 @@ delib.module {
             DISABLE_SSH = true;
           };
           session.COOKIE_SECURE = true;
+          actions = {
+            ENABLED = true;
+            DEFAULT_ACTIONS_URL = "https://data.forgejo.org";
+          };
         };
       };
 
