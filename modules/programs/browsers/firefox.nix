@@ -1,6 +1,6 @@
 { delib, host, ... }:
 delib.module {
-  name = "programs.firefox";
+  name = "programs.browsers.firefox";
 
   options = delib.singleEnableOption host.guiFeatured;
 

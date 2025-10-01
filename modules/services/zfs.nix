@@ -8,7 +8,6 @@ delib.module {
     boot = {
       supportedFilesystems = [ "zfs" ];
       zfs.forceImportRoot = false;
-
     };
   };
 }

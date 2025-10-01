@@ -5,7 +5,7 @@
   ...
 }:
 delib.module {
-  name = "programs.zen-browser";
+  name = "programs.browsers.zen-browser";
 
   options = delib.singleEnableOption host.guiFeatured;
 
