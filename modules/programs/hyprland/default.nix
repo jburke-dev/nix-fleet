@@ -34,7 +34,7 @@ delib.module {
 
       settings = {
         "$terminal" = "ghostty";
-        "$browser" = "zen";
+        "$browser" = "vivaldi";
         "$mainMod" = "SUPER";
         exec-once = [ "waybar" ];
 

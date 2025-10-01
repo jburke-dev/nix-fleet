@@ -12,7 +12,9 @@ delib.module {
     wayland.windowManager.hyprland = {
       settings = {
         windowrule = [
+          # TODO: adapt this for single-monitor hosts?
           "workspace 5, class:zen-twilight"
+          "workspace 5, class:vivaldi-stable"
           "workspace 2, class:discord"
           "bordersize 0, floating:0, onworkspace:w[tv1]s[false]"
           "rounding 0, floating:0, onworkspace:w[tv1]s[false]"
