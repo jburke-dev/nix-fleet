@@ -28,6 +28,12 @@
       url = "github:nix-community/stylix/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    /*
+      nix-ai-tools = {
+        url = "github:numtide/nix-ai-tools";
+        inputs.nixpkgs.follows = "nixpkgs";
+      };
+    */
   };
 
   outputs =
@@ -37,6 +43,7 @@
       nixpkgs-unstable,
       sops-nix,
       stylix,
+      #nix-ai-tools,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -57,6 +64,7 @@
 
               extensions = with denix.lib.extensions; [
                 args
+                overlays
                 (base.withConfig {
                   args.enable = true;
                   rices.enable = true;
@@ -92,7 +100,12 @@
               ];
 
               specialArgs = {
-                inherit inputs moduleSystem nixpkgs-unstable;
+                inherit
+                  inputs
+                  moduleSystem
+                  nixpkgs-unstable
+                  #nix-ai-tools
+                  ;
                 sops-nix = inputs.sops-nix;
               };
             };

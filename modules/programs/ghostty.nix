@@ -34,6 +34,7 @@ delib.module {
           "ctrl+a>h=goto_split:previous"
           "ctrl+a>k=goto_split:bottom"
           "ctrl+a>l=goto_split:next"
+          "shift+enter=text:\\\n\r"
         ];
         shell-integration-features = true;
       };
