@@ -22,5 +22,6 @@ delib.module {
       };
 
       security.sudo.wheelNeedsPassword = false;
+      environment.localBinInPath = true;
     };
 }

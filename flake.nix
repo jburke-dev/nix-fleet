@@ -28,12 +28,7 @@
       url = "github:nix-community/stylix/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    /*
-      nix-ai-tools = {
-        url = "github:numtide/nix-ai-tools";
-        inputs.nixpkgs.follows = "nixpkgs";
-      };
-    */
+    claude-code.url = "github:sadjow/claude-code-nix";
   };
 
   outputs =
@@ -43,7 +38,6 @@
       nixpkgs-unstable,
       sops-nix,
       stylix,
-      #nix-ai-tools,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -70,7 +64,6 @@
                   rices.enable = true;
                   hosts.features = {
                     features = [
-                      "cli"
                       "gui"
                       "gnome"
                       "hyprland"
@@ -81,7 +74,6 @@
                     ];
                     defaultByHostType = {
                       desktop = [
-                        "cli"
                         "gui"
                         "hyprland"
                         "gaming"
@@ -89,7 +81,6 @@
                       ];
                       server = [ ];
                       laptop = [
-                        "cli"
                         "gui"
                         "gnome"
                         "dev"
@@ -104,7 +95,6 @@
                   inputs
                   moduleSystem
                   nixpkgs-unstable
-                  #nix-ai-tools
                   ;
                 sops-nix = inputs.sops-nix;
               };

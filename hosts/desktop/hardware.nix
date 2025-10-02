@@ -34,12 +34,12 @@ delib.host {
     };
 
     fileSystems."/" = {
-      device = "/dev/disk/by-uuid/2f1d6706-d435-4fef-992c-dc9c2c0dca98";
+      device = "/dev/disk/by-uuid/c216a61c-0ff9-4b88-9920-7076d04db74a";
       fsType = "ext4";
     };
 
     fileSystems."/boot" = {
-      device = "/dev/disk/by-uuid/CB74-BF0B";
+      device = "/dev/disk/by-uuid/44C9-FBA7";
       fsType = "vfat";
       options = [
         "fmask=0077"

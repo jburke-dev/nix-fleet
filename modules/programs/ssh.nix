@@ -11,7 +11,12 @@ delib.module {
 
   home.ifEnabled.programs.ssh = {
     enable = true;
-    # TODO: setup persist?
-    includes = lib.mkIf (host.isPC) [ "~/Code/nix-dotfiles/config/ssh/*" ];
+    matchBlocks = {
+      "github.com" = {
+        hostname = "github.com";
+        identityFile = "/mnt/apps/ssh/id_github";
+      };
+    };
+    userKnownHostsFile = "/mnt/apps/ssh/known_hosts";
   };
 }

@@ -11,7 +11,7 @@ delib.module {
 
   options.programs.zsh = with delib; {
     enable = boolOption true;
-    enableExtras = boolOption host.cliFeatured;
+    enableExtras = boolOption host.devFeatured;
   };
 
   nixos.ifEnabled = {
@@ -39,6 +39,10 @@ delib.module {
         enableCompletion = cfg.enableExtras;
         autosuggestion.enable = cfg.enableExtras;
         syntaxHighlighting.enable = cfg.enableExtras;
+
+        shellAliases = lib.mkIf (cfg.enableExtras) {
+          claude-full = "claude --mcp-config ~/.config/claude/mcp-servers.json";
+        };
 
         zplug = lib.mkIf (cfg.enableExtras) {
           enable = true;
