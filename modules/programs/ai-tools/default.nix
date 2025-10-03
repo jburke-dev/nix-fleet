@@ -5,7 +5,9 @@
   ...
 }:
 delib.module {
-  name = "programs.claude-code";
+  name = "programs.ai-tools";
   options = delib.singleEnableOption host.devFeatured;
-  home.ifEnabled.home.packages = [ pkgs.claude-code ];
+  home.ifEnabled.home.packages = [
+    pkgs.claude-code
+  ];
 }

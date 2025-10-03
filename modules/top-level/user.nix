@@ -23,5 +23,6 @@ delib.module {
 
       security.sudo.wheelNeedsPassword = false;
       environment.localBinInPath = true;
+      programs.nix-ld.enable = true;
     };
 }
