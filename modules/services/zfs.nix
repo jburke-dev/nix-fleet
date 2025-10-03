@@ -2,7 +2,7 @@
 delib.module {
   name = "services.zfs";
 
-  options = delib.singleEnableOption host.isServer;
+  options = delib.singleEnableOption host.zfsFeatured;
 
   nixos.ifEnabled = {
     boot = {

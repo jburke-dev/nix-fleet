@@ -10,7 +10,7 @@ delib.module {
   options = delib.singleEnableOption host.hyprlandFeatured;
 
   nixos.ifEnabled = {
-    services.xserver.displayManager.gdm = {
+    services.displayManager.gdm = {
       enable = true;
       wayland = true;
     };

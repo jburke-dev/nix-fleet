@@ -3,5 +3,8 @@ delib.host {
   name = "kaiju";
 
   type = "server";
-  features = [ "reverseProxy" ];
+  features = [
+    "reverseProxy"
+    "zfs"
+  ];
 }

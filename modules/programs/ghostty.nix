@@ -1,16 +1,8 @@
 {
   delib,
   host,
-  nixpkgs-unstable,
-  pkgs,
   ...
 }:
-let
-  pkgs-unstable = import nixpkgs-unstable {
-    system = pkgs.system;
-    config = pkgs.config;
-  };
-in
 delib.module {
   name = "programs.ghostty";
 
@@ -19,7 +11,6 @@ delib.module {
   home.ifEnabled = {
     programs.ghostty = {
       enable = true;
-      package = pkgs-unstable.ghostty;
       settings = {
         theme = "TokyoNight Storm";
         font-family = "SauceCodePro Nerd Font";

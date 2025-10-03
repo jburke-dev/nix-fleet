@@ -2,11 +2,10 @@
   description = "Modular configuration of NixOS with Denix";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     denix = {
@@ -15,17 +14,14 @@
       inputs.home-manager.follows = "home-manager";
     };
     nixvim = {
-      url = "github:nix-community/nixvim/nixos-25.05";
-    };
-    zen-browser = {
-      url = "github:0xc000022070/zen-browser-flake";
+      url = "github:nix-community/nixvim";
     };
     sops-nix = {
       url = "github:Mic92/sops-nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix = {
-      url = "github:nix-community/stylix/release-25.05";
+      url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     claude-code.url = "github:sadjow/claude-code-nix";
@@ -35,7 +31,6 @@
     {
       denix,
       flake-parts,
-      nixpkgs-unstable,
       sops-nix,
       stylix,
       ...
@@ -71,6 +66,7 @@
                       "dev"
                       "installer"
                       "reverseProxy"
+                      "zfs"
                     ];
                     defaultByHostType = {
                       desktop = [
@@ -94,7 +90,6 @@
                 inherit
                   inputs
                   moduleSystem
-                  nixpkgs-unstable
                   ;
                 sops-nix = inputs.sops-nix;
               };

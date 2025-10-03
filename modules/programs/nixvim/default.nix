@@ -15,7 +15,7 @@ delib.module {
 
   myconfig.always.args.shared.nixvimLib = inputs.nixvim.lib;
 
-  home.always.imports = [ inputs.nixvim.homeManagerModules.nixvim ];
+  home.always.imports = [ inputs.nixvim.homeModules.nixvim ];
 
   home.ifEnabled =
     { cfg, ... }:
