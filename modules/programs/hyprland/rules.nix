@@ -20,6 +20,7 @@ delib.module {
           "rounding 0, floating:0, onworkspace:w[tv1]s[false]"
           "bordersize 0, floating:0, onworkspace:f[1]s[false]"
           "rounding 0, floating:0, onworkspace:f[1]s[false]"
+          "opacity 0.9 0.5, class:com.mitchellh.ghostty"
         ];
         workspace = [
           "1, monitor:HDMI-A-1, default:true"

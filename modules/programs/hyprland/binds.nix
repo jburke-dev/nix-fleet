@@ -26,7 +26,6 @@ delib.module {
       "$mainMod, q, killactive,"
       "$mainMod, T, exec, $terminal"
       "$mainMod, B, exec, $browser"
-      "$mainMod, M, fullscreen, 1"
 
       "$mainMod, L, exec, wleave -b 2"
 
@@ -44,6 +43,9 @@ delib.module {
 
       "$mainMod SHIFT, Right, movetoworkspace, +1"
       "$mainMod SHIFT, Left, movetoworkspace, -1"
+      "$mainMod, Right, cyclenext"
+      "$mainMod, Left, cyclenext, prev"
+      "$mainMod, Up, fullscreen, 1"
 
       "$mainMod SHIFT, 1, workspace, 1"
       "$mainMod SHIFT, 2, workspace, 2"

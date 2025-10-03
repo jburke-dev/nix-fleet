@@ -36,7 +36,9 @@ delib.module {
         "$terminal" = "ghostty";
         "$browser" = "vivaldi";
         "$mainMod" = "SUPER";
-        exec-once = [ "waybar" ];
+        exec-once = [
+          "waybar"
+        ];
 
         misc = {
           disable_hyprland_logo = true;

@@ -1,4 +1,9 @@
-{ delib, host, ... }:
+{
+  delib,
+  host,
+  homeconfig,
+  ...
+}:
 delib.module {
   name = "xdg";
 
@@ -15,6 +20,19 @@ delib.module {
         enable = true;
         mime.enable = true;
         mimeApps.enable = true;
+
+        userDirs =
+          let
+            homeDir = name: "${homeconfig.home.homeDirectory}/${name}";
+          in
+          {
+            enable = true;
+            createDirectories = true;
+
+            download = homeDir "Downloads";
+            pictures = homeDir "Pictures";
+            documents = homeDir "Documents";
+          };
       };
     };
 }
