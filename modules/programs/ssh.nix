@@ -18,7 +18,7 @@ delib.module {
           options = {
             host = strOption null;
             hostname = strOption "";
-            identityFileSuffix = strOption null;
+            identityFileSuffix = strOption "";
           };
         }
       )) [ ];
@@ -49,10 +49,16 @@ delib.module {
           (builtins.listToAttrs (
             map (keyConfig: {
               name = keyConfig.host;
-              value = {
-                hostname = if keyConfig.hostname != "" then keyConfig.hostname else keyConfig.host;
-                identityFile = "${cfg.sshRootDir}/id_${keyConfig.identityFileSuffix}";
-              };
+              value =
+                let
+                  hostnameFinal = if keyConfig.hostname != "" then keyConfig.hostname else keyConfig.host;
+                  identityFileSuffixFinal =
+                    if keyConfig.identityFileSuffix != "" then keyConfig.identityFileSuffix else keyConfig.host;
+                in
+                {
+                  hostname = hostnameFinal;
+                  identityFile = "${cfg.sshRootDir}/id_${identityFileSuffixFinal}";
+                };
             }) cfg.keyConfigs
           ))
         ];

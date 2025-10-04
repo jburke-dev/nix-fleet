@@ -28,6 +28,14 @@ delib.host {
         host = "github.com";
         identityFileSuffix = "github";
       }
+      {
+        host = "kaiju";
+        hostname = "192.168.21.5";
+      }
+      {
+        host = "colossus";
+        hostname = "192.168.21.4";
+      }
     ];
   };
 
