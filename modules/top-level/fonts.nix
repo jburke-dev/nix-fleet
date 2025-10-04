@@ -14,6 +14,7 @@ delib.module {
 
     home.packages = with pkgs; [
       font-awesome
+      hanken-grotesk
       nerd-fonts.sauce-code-pro
       nerd-fonts."_0xproto"
       nerd-fonts.roboto-mono

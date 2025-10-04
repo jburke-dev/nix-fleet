@@ -78,7 +78,7 @@
                       server = [ ];
                       laptop = [
                         "gui"
-                        "gnome"
+                        "hyprland"
                         "dev"
                       ];
                     };

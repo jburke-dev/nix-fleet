@@ -19,6 +19,7 @@ delib.module {
           in
           {
             "text/html" = defaultBrowser;
+            "application/pdg" = defaultBrowser;
             "x-scheme-handler/http" = defaultBrowser;
             "x-scheme-handler/https" = defaultBrowser;
             "x-scheme-handler/about" = defaultBrowser;
