@@ -11,9 +11,9 @@ delib.host {
     "DP-2, preferred, auto-right, 1"
   ];
 
-  myconfig.programs.hyprland.wallpaper.displays = {
-    "HDMI-A-1".path = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/ultrawide/";
-    "DP-2".path = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/hd/";
+  myconfig.programs.hyprland.displays = {
+    "HDMI-A-1".wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/ultrawide/";
+    "DP-2".wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/hd/";
   };
 
   rice = "dark";

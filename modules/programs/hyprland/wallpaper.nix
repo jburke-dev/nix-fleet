@@ -6,25 +6,10 @@
 delib.module {
   name = "programs.hyprland.wallpaper";
 
-  options =
-    with delib;
-    moduleOptions (
-      { parent, ... }:
-      {
-        enable = boolOption parent.enable;
-        displays = attrsOfOption (submodule (
-          { config, ... }:
-          {
-            options = {
-              path = noDefault (pathOption null);
-            };
-          }
-        )) { };
-      }
-    );
+  options = delib.singleCascadeEnableOption;
 
   home.ifEnabled =
-    { cfg, ... }:
+    { parent, ... }:
     {
       services.wpaperd = {
         enable = true;
@@ -35,8 +20,8 @@ delib.module {
             };
           }
           (builtins.mapAttrs (_: display: {
-            inherit (display) path;
-          }) cfg.displays)
+            path = display.wallpaperPath;
+          }) parent.displays)
         ];
       };
     };

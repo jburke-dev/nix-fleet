@@ -18,7 +18,9 @@ delib.module {
     ];
 
     bindr = [
-      "$mainMod, SUPER_L, exec, ${toggle "anyrun" ""}"
+      # anyrun seems borked after switching to unstable
+      # "$mainMod, SUPER_L, exec, ${toggle "anyrun" ""}"
+      "$mainMod, SUPER_L, exec, ${toggle "rofi" "-show drun -show-icons -replace -i"}"
       "$mainMod SHIFT, SUPER_L, hyprexpo:expo, toggle"
     ];
 

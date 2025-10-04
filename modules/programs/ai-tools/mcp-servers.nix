@@ -30,6 +30,10 @@ delib.module {
             MEMORY_FILE_PATH = "/mnt/apps/claude/memory.json";
           };
         };
+        git = {
+          command = "mcp-server-git";
+          kind = "uv";
+        };
       };
 
       toMcpConfig =

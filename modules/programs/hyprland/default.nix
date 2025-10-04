@@ -7,7 +7,20 @@
 delib.module {
   name = "programs.hyprland";
 
-  options = delib.singleEnableOption host.hyprlandFeatured;
+  options =
+    with delib;
+    moduleOptions {
+      enable = boolOption host.hyprlandFeatured;
+      displays = attrsOfOption (submodule (
+        { config, ... }:
+        {
+          options = {
+            wallpaperPath = pathOption null;
+          };
+        }
+      )) { };
+      workspacesPerDisplay = intOption 4;
+    };
 
   nixos.ifEnabled = {
     services.displayManager.gdm = {
