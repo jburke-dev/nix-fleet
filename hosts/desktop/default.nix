@@ -12,10 +12,24 @@ delib.host {
   ];
 
   myconfig.programs.hyprland.displays = [
-    { name = "HDMI-A-1"; wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/ultrawide/"; }
-    { name = "DP-2"; wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/hd/"; }
+    {
+      name = "HDMI-A-1";
+      wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/ultrawide/";
+    }
+    {
+      name = "DP-2";
+      wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/hd/";
+    }
   ];
-  myconfig.programs.ssh.sshRootDir = "/mnt/apps/ssh";
+  myconfig.programs.ssh = {
+    sshRootDir = "/mnt/apps/ssh";
+    keyConfigs = [
+      {
+        host = "github.com";
+        identityFileSuffix = "github";
+      }
+    ];
+  };
 
   rice = "dark";
 }
