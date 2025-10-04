@@ -11,10 +11,10 @@ delib.host {
     "DP-2, preferred, auto-right, 1"
   ];
 
-  myconfig.programs.hyprland.displays = {
-    "HDMI-A-1".wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/ultrawide/";
-    "DP-2".wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/hd/";
-  };
+  myconfig.programs.hyprland.displays = [
+    { name = "HDMI-A-1"; wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/ultrawide/"; }
+    { name = "DP-2"; wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/hd/"; }
+  ];
   myconfig.programs.ssh.sshRootDir = "/mnt/apps/ssh";
 
   rice = "dark";

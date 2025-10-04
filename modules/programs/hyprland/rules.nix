@@ -14,7 +14,7 @@ delib.module {
     {
       wayland.windowManager.hyprland =
         let
-          multiDisplay = builtins.len (builtins.attrNames parent.displays) > 1;
+          multiDisplay = builtins.length parent.displays > 1;
         in
         {
           settings = {
@@ -33,8 +33,8 @@ delib.module {
               "f[1]s[false], gapsout:0, gapsin:0" # same as above but maximized
             ]
             ++ (lib.lists.imap0 (
-              i: v: "${toString (i * parent.workspacesPerDisplay + 1)}, monitor:${v}, default:true"
-            ) (builtins.attrNames parent.displays));
+              i: display: "${toString (i * parent.workspacesPerDisplay + 1)}, monitor:${display.name}, default:true"
+            ) parent.displays);
           };
         };
     };

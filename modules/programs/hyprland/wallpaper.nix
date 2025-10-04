@@ -19,9 +19,10 @@ delib.module {
               duration = "1m";
             };
           }
-          (builtins.mapAttrs (_: display: {
-            path = display.wallpaperPath;
-          }) parent.displays)
+          (builtins.listToAttrs (map (display: {
+            name = display.name;
+            value = { path = display.wallpaperPath; };
+          }) parent.displays))
         ];
       };
     };

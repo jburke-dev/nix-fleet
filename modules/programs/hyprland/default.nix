@@ -11,14 +11,15 @@ delib.module {
     with delib;
     moduleOptions {
       enable = boolOption host.hyprlandFeatured;
-      displays = attrsOfOption (submodule (
+      displays = listOfOption (submodule (
         { config, ... }:
         {
           options = {
+            name = strOption null;
             wallpaperPath = pathOption null;
           };
         }
-      )) { };
+      )) [ ];
       workspacesPerDisplay = intOption 4;
     };
 
