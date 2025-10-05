@@ -25,6 +25,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     claude-code.url = "github:sadjow/claude-code-nix";
+    ags-shell = {
+      url = "github:jburke-dev/ags-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -33,6 +37,7 @@
       flake-parts,
       sops-nix,
       stylix,
+      ags-shell,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {

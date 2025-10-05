@@ -51,7 +51,7 @@ delib.module {
         "$browser" = "vivaldi";
         "$mainMod" = "SUPER";
         exec-once = [
-          "waybar"
+          "ags-shell"
         ];
 
         misc = {

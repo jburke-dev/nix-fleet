@@ -4,7 +4,7 @@ delib.rice {
   home.stylix = {
     targets = {
       dunst.enable = true;
-      rofi.enable = true;
+      #rofi.enable = true;
       hyprland.enable = true;
       firefox = {
         enable = true;

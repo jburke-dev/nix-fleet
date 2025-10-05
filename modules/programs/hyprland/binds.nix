@@ -30,6 +30,7 @@ delib.module {
       "$mainMod, B, exec, $browser"
 
       "$mainMod, L, exec, wleave -b 2"
+      "$mainMod, C, exec, hyprpicker -a"
 
       "$mainMod SHIFT, S, exec, $screenshot -m region"
 

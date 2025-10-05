@@ -33,6 +33,11 @@ delib.module {
             pictures = homeDir "Pictures";
             documents = homeDir "Documents";
           };
+
+        terminal-exec = {
+          enable = true;
+          settings.default = [ "com.mitchellh.ghostty.desktop" ];
+        };
       };
     };
 }
