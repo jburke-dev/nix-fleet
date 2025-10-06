@@ -9,6 +9,8 @@ delib.module {
       oil.enable = true;
       lualine.enable = true;
       web-devicons.enable = true;
+      vim-css-color.enable = true;
+      noice.enable = true;
     };
 
     keymaps = [

@@ -19,7 +19,6 @@ delib.module {
 
     environment.shells = with pkgs; [ zsh ];
     users.defaultUserShell = pkgs.zsh;
-    system.userActivationScripts.zshrc = "touch .zshrc";
   };
 
   home.ifEnabled =

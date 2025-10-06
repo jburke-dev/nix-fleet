@@ -8,6 +8,10 @@ delib.module {
       notify_on_errort = true;
       formatters_by_ft = {
         nix = [ "nixfmt" ];
+        scss = [ "prettier" ];
+        css = [ "prettier" ];
+        typescriptreact = [ "prettier" ];
+        typescript = [ "prettier" ];
       };
       format_on_save = {
         lsp_format = "fallback";
