@@ -27,7 +27,7 @@ delib.module {
     {
       services.vaultwarden = {
         enable = true;
-        backupDir = cfg.backupDir;
+        inherit (cfg) backupDir;
         config = {
           #DATA_FOLDER = cfg.dataDir;
           ROCKET_ADDRESS = cfg.listenAddress;

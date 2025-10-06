@@ -34,8 +34,7 @@ delib.module {
       networking = {
         hostName = host.name;
         firewall.enable = true;
-        domain = cfg.domain;
-        nameservers = cfg.nameservers;
+        inherit (cfg) domain nameservers;
 
         useDHCP = false;
         dhcpcd.enable = false;

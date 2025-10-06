@@ -13,6 +13,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    git-hooks-nix = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixvim = {
       url = "github:nix-community/nixvim";
     };
@@ -41,6 +45,7 @@
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [ inputs.git-hooks-nix.flakeModule ];
       systems = [ "x86_64-linux" ]; # this will eventually include at least darwin
       flake =
         let
@@ -96,7 +101,7 @@
                   inputs
                   moduleSystem
                   ;
-                sops-nix = inputs.sops-nix;
+                inherit (inputs) sops-nix;
               };
             };
         in
@@ -106,9 +111,22 @@
         };
 
       perSystem =
-        { pkgs, ... }:
+        { pkgs, config, ... }:
         {
           formatter = pkgs.nixfmt-tree;
+          pre-commit = {
+            settings.hooks = {
+              statix.enable = true;
+              nixfmt-rfc-style.enable = true;
+            };
+            check.enable = true;
+          };
+          devShells.default = pkgs.mkShell {
+            shellHook = ''
+              ${config.pre-commit.installationScript}
+            '';
+            packages = config.pre-commit.settings.enabledPackages;
+          };
         };
     };
 }

@@ -13,8 +13,7 @@ delib.host {
   myconfig.services = {
     blocky = {
       enable = true;
-      listenAddress = listenAddress;
-      interface = interface;
+      inherit listenAddress interface;
     };
     keepalived = {
       virtualIp = constants.traefikVip;
@@ -22,15 +21,13 @@ delib.host {
     };
     forgejo = {
       enable = true;
-      listenAddress = listenAddress;
-      interface = interface;
+      inherit listenAddress interface;
       stateDir = "/mnt/databases/forgejo";
       domain = "forgejo.apps.chesurah.net";
     };
     glance = {
       enable = true;
-      listenAddress = listenAddress;
-      interface = interface;
+      inherit listenAddress interface;
     };
     vaultwarden = {
       enable = true;

@@ -33,7 +33,8 @@ delib.module {
               "f[1]s[false], gapsout:0, gapsin:0" # same as above but maximized
             ]
             ++ (lib.lists.imap0 (
-              i: display: "${toString (i * parent.workspacesPerDisplay + 1)}, monitor:${display.name}, default:true"
+              i: display:
+              "${toString (i * parent.workspacesPerDisplay + 1)}, monitor:${display.name}, default:true"
             ) parent.displays);
           };
         };

@@ -23,8 +23,7 @@ delib.module {
         openFirewall = true;
 
         vrrpInstances.VIP_10 = {
-          state = cfg.state;
-          interface = cfg.interface;
+          inherit (cfg) state interface;
           virtualRouterId = 10;
           priority = if cfg.state == "MASTER" then 255 else 254;
           virtualIps = [ { addr = "${cfg.virtualIp}/24"; } ];

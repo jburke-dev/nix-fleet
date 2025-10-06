@@ -27,53 +27,57 @@ delib.module {
     {
       home.packages =
         with pkgs;
-        lib.mkIf (cfg.enableExtras) [
+        lib.mkIf cfg.enableExtras [
           fzf
           ripgrep
           zoxide
         ];
 
-      programs.direnv.enable = true;
-      programs.zsh = {
-        enable = true;
-        enableCompletion = cfg.enableExtras;
-        autosuggestion.enable = cfg.enableExtras;
-        syntaxHighlighting.enable = cfg.enableExtras;
-
-        shellAliases = lib.mkIf (cfg.enableExtras) {
-          claude-full = "claude --mcp-config ~/.config/claude/mcp-servers.json";
-        };
-
-        zplug = lib.mkIf (cfg.enableExtras) {
+      programs = {
+        direnv.enable = true;
+        zsh = {
           enable = true;
-          plugins = [
-            { name = "zsh-users/zsh-autosuggestions"; }
-            { name = "jeffreytse/zsh-vi-mode"; }
-            { name = "Aloxaf/fzf-tab"; }
-            {
-              name = "plugins/git";
-              tags = [ "from:oh-my-zsh" ];
-            }
-            {
-              name = "jackharrisonsherlock/common";
-              tags = [ "as:theme" ];
-            }
-          ];
+          enableCompletion = cfg.enableExtras;
+          autosuggestion.enable = cfg.enableExtras;
+          syntaxHighlighting.enable = cfg.enableExtras;
+
+          shellAliases = lib.mkIf cfg.enableExtras {
+            claude-full = "claude --mcp-config ~/.config/claude/mcp-servers.json";
+          };
+
+          zplug = lib.mkIf cfg.enableExtras {
+            enable = true;
+            plugins = [
+              { name = "zsh-users/zsh-autosuggestions"; }
+              { name = "jeffreytse/zsh-vi-mode"; }
+              { name = "Aloxaf/fzf-tab"; }
+              {
+                name = "plugins/git";
+                tags = [ "from:oh-my-zsh" ];
+              }
+              {
+                name = "jackharrisonsherlock/common";
+                tags = [ "as:theme" ];
+              }
+            ];
+          };
+
+          history = {
+            size = 10000;
+            ignoreAllDups = true;
+            path = "${homeconfig.home.homeDirectory}/.zsh_history";
+          };
         };
 
-        history.size = 10000;
-        history.ignoreAllDups = true;
-        history.path = "${homeconfig.home.homeDirectory}/.zsh_history";
-      };
+        fzf = lib.mkIf cfg.enableExtras {
+          enable = true;
+          enableZshIntegration = true;
+        };
 
-      programs.fzf = lib.mkIf (cfg.enableExtras) {
-        enable = true;
-        enableZshIntegration = true;
-      };
-
-      programs.zoxide = lib.mkIf (cfg.enableExtras) {
-        enable = true;
-        enableZshIntegration = true;
+        zoxide = lib.mkIf cfg.enableExtras {
+          enable = true;
+          enableZshIntegration = true;
+        };
       };
     };
 }

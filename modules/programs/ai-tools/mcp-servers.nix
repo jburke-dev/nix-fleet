@@ -55,9 +55,9 @@ delib.module {
                 [ ]
             )
             ++ [ cfg.command ]
-            ++ (if cfg ? args then cfg.args else [ ]);
+            ++ (cfg.args or [ ]);
         }
-        // (if cfg ? env && cfg.env != { } then { env = cfg.env; } else { });
+        // (if cfg ? env && cfg.env != { } then { inherit (cfg) env; } else { });
     in
     {
       xdg.configFile."claude/mcp-servers.json".text = builtins.toJSON {

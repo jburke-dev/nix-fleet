@@ -16,8 +16,7 @@ delib.host {
       services = {
         blocky = {
           enable = true;
-          listenAddress = listenAddress;
-          interface = interface;
+          inherit listenAddress interface;
         };
         keepalived = {
           virtualIp = myconfig.constants.traefikVip;

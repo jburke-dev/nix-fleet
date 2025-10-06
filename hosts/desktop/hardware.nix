@@ -33,23 +33,25 @@ delib.host {
       extraModulePackages = [ ];
     };
 
-    fileSystems."/" = {
-      device = "/dev/disk/by-uuid/c216a61c-0ff9-4b88-9920-7076d04db74a";
-      fsType = "ext4";
-    };
+    fileSystems = {
+      "/" = {
+        device = "/dev/disk/by-uuid/c216a61c-0ff9-4b88-9920-7076d04db74a";
+        fsType = "ext4";
+      };
 
-    fileSystems."/boot" = {
-      device = "/dev/disk/by-uuid/44C9-FBA7";
-      fsType = "vfat";
-      options = [
-        "fmask=0077"
-        "dmask=0077"
-      ];
-    };
+      "/boot" = {
+        device = "/dev/disk/by-uuid/44C9-FBA7";
+        fsType = "vfat";
+        options = [
+          "fmask=0077"
+          "dmask=0077"
+        ];
+      };
 
-    fileSystems."/mnt/apps" = {
-      device = "/dev/disk/by-uuid/e02b8a08-64db-483e-aa5c-922af6bb2fcd";
-      fsType = "ext4";
+      "/mnt/apps" = {
+        device = "/dev/disk/by-uuid/e02b8a08-64db-483e-aa5c-922af6bb2fcd";
+        fsType = "ext4";
+      };
     };
 
     networking.useDHCP = lib.mkDefault true;

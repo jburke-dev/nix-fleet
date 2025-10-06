@@ -1,7 +1,6 @@
 {
   delib,
   lib,
-  pkgs,
   ...
 }:
 delib.module {
@@ -25,9 +24,9 @@ delib.module {
     }:
     {
       services.forgejo = {
+        inherit (cfg) stateDir;
         enable = true;
         lfs.enable = true;
-        stateDir = cfg.stateDir;
         settings = {
           server = {
             DOMAIN = cfg.domain;
