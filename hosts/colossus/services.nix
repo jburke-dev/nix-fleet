@@ -22,7 +22,11 @@ delib.host {
           virtualIp = myconfig.constants.traefikVip;
           state = "BACKUP";
         };
-        forgejo-runner.enable = true;
+        forgejo-runner.enable = false;
+        traefik = {
+          atticd.enable = false;
+          forgejo.enable = false;
+        };
         /*
           atticd = {
             enable = true;

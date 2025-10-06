@@ -19,8 +19,12 @@ delib.host {
       virtualIp = constants.traefikVip;
       state = "MASTER";
     };
+    traefik = {
+      atticd.enable = false;
+      forgejo.enable = false;
+    };
     forgejo = {
-      enable = true;
+      enable = false;
       inherit listenAddress interface;
       stateDir = "/mnt/databases/forgejo";
       domain = "forgejo.apps.chesurah.net";

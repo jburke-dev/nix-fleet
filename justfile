@@ -14,6 +14,9 @@ build-installer: (build "installer" "isoImage")
 build HOST TARGET="toplevel":
     nix build '.#nixosConfigurations.{{ HOST }}.config.system.build.{{ TARGET }}'
 
+[parallel]
+rebuild-servers: (rebuild-remote "kaiju") (rebuild-remote "colossus")
+
 rebuild-local:
     #!/usr/bin/env bash
     set -euo pipefail
@@ -23,4 +26,4 @@ rebuild-local:
 rebuild-remote HOST:
     #!/usr/bin/env bash
     set -euo pipefail
-    nixos-rebuild --target-host {{ HOST }} --use-remote-sudo --flake ".#{{ HOST }}" switch
+    nixos-rebuild --build-host {{ HOST }} --target-host {{ HOST }} --use-remote-sudo --flake ".#{{ HOST }}" switch
