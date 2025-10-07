@@ -86,6 +86,16 @@ delib.module {
                               url = "https://pfsense.mgmt.chesurah.net";
                               icon = "si:pfsense";
                             }
+                            {
+                              title = "Mikrotik 1";
+                              url = "https://mikrotik.mgmt.chesurah.net";
+                              icon = "si:mikrotik";
+                            }
+                            {
+                              title = "Mikrotik 2";
+                              url = "https://mikrotik2.mgmt.chesurah.net";
+                              icon = "si:mikrotik";
+                            }
                           ];
                         }
                       ];

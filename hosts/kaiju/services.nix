@@ -3,17 +3,12 @@
   constants,
   ...
 }:
-let
-  listenAddress = "192.168.11.2";
-  interface = "vlan-services";
-in
 delib.host {
   name = "kaiju";
 
   myconfig.services = {
     blocky = {
       enable = true;
-      inherit listenAddress interface;
     };
     keepalived = {
       virtualIp = constants.traefikVip;
@@ -25,13 +20,14 @@ delib.host {
     };
     forgejo = {
       enable = false;
-      inherit listenAddress interface;
       stateDir = "/mnt/databases/forgejo";
       domain = "forgejo.apps.chesurah.net";
     };
+    postgres = {
+      enable = true;
+    };
     glance = {
       enable = true;
-      inherit listenAddress interface;
     };
     vaultwarden = {
       enable = true;
