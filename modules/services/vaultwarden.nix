@@ -9,15 +9,17 @@ delib.module {
 
   options =
     with delib;
-    moduleOptions {
-      enable = boolOption false;
-      listenAddress = strOption "127.0.0.1";
-      dataDir = strOption "/var/lib/vaultwarden";
-      backupDir = strOption "/var/backup/vaultwarden";
-      domain = strOption "localhost";
-      httpPort = portOption 8222;
-      interface = strOption "";
-    };
+    moduleOptions (
+      { parent, ... }:
+      {
+        enable = boolOption false;
+        listenAddress = strOption "127.0.0.1"; # vaultwarden won't listen over http on non-localhost
+        dataDir = strOption "/var/lib/vaultwarden";
+        backupDir = strOption "/var/backup/vaultwarden";
+        domain = strOption "localhost";
+        httpPort = portOption 8222;
+      }
+    );
 
   nixos.ifEnabled =
     {

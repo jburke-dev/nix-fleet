@@ -8,15 +8,18 @@ delib.module {
 
   options =
     with delib;
-    moduleOptions {
-      enable = boolOption false;
-      upstreamAddresses = listOfOption str [
-        "1.1.1.1"
-        "1.0.0.1"
-      ];
-      listenAddress = strOption "127.0.0.1";
-      interface = strOption "vlan-services";
-    };
+    moduleOptions (
+      { parent, ... }:
+      {
+        enable = boolOption false;
+        upstreamAddresses = listOfOption str [
+          "1.1.1.1"
+          "1.0.0.1"
+        ];
+        listenAddress = strOption parent.hostVlans.services.address;
+        interface = strOption parent.hostVlans.services.netdevName;
+      }
+    );
 
   nixos.ifEnabled =
     { cfg, ... }:

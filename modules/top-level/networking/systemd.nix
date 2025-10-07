@@ -121,4 +121,18 @@ delib.module {
         };
       };
     };
+
+  myconfig.ifEnabled =
+    { cfg, myconfig, ... }:
+    let
+      vlanDefs = myconfig.vlans;
+      hostVlans = cfg.vlans;
+      getSubnet = vlanName: vlanDefs."${vlanName}".subnet;
+    in
+    {
+      services.hostVlans = builtins.mapAttrs (name: hostCfg: {
+        netdevName = "vlan-${name}";
+        address = "${getSubnet name}.${hostCfg.hostIp}";
+      }) hostVlans;
+    };
 }

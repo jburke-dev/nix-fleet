@@ -8,14 +8,17 @@ delib.module {
 
   options =
     with delib;
-    moduleOptions {
-      enable = boolOption false;
-      stateDir = strOption "/var/lib/forgejo";
-      listenAddress = strOption "127.0.0.1";
-      domain = strOption "localhost";
-      httpPort = portOption 3000;
-      interface = strOption "";
-    };
+    moduleOptions (
+      { parent, ... }:
+      {
+        enable = boolOption false;
+        stateDir = strOption "/var/lib/forgejo";
+        listenAddress = strOption parent.hostVlans.services.address;
+        domain = strOption "localhost";
+        httpPort = portOption 3000;
+        interface = strOption parent.hostVlans.services.netdevName;
+      }
+    );
 
   nixos.ifEnabled =
     {

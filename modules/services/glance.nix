@@ -1,7 +1,5 @@
 {
   delib,
-  lib,
-  pkgs,
   ...
 }:
 delib.module {
@@ -9,12 +7,15 @@ delib.module {
 
   options =
     with delib;
-    moduleOptions {
-      enable = boolOption false;
-      listenAddress = strOption "127.0.0.1";
-      httpPort = portOption 8080;
-      interface = strOption "";
-    };
+    moduleOptions (
+      { parent, ... }:
+      {
+        enable = boolOption false;
+        listenAddress = strOption parent.hostVlans.services.address;
+        httpPort = portOption 8080;
+        interface = strOption parent.hostVlans.services.netdevName;
+      }
+    );
 
   nixos.ifEnabled =
     {
@@ -79,6 +80,11 @@ delib.module {
                               title = "Forgejo";
                               url = "https://forgejo.apps.chesurah.net";
                               icon = "si:forgejo";
+                            }
+                            {
+                              title = "pfSense";
+                              url = "https://pfsense.mgmt.chesurah.net";
+                              icon = "si:pfsense";
                             }
                           ];
                         }
