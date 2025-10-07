@@ -118,6 +118,7 @@
             settings.hooks = {
               statix.enable = true;
               nixfmt-rfc-style.enable = true;
+              commitizen.enable = true;
             };
             check.enable = true;
           };
