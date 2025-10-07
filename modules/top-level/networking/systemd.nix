@@ -34,6 +34,18 @@ delib.module {
       vlanDefs = myconfig.vlans;
       hostVlans = cfg.vlans;
 
+      # Group VLANs by their physical interface
+      vlansByInterface = lib.foldl' (
+        acc: name:
+        let
+          iface = hostVlans.${name}.interface;
+        in
+        acc
+        // {
+          ${iface} = (acc.${iface} or [ ]) ++ [ name ];
+        }
+      ) { } (builtins.attrNames hostVlans);
+
       mkVlanNetdev = name: {
         netdevConfig = {
           Kind = "vlan";
@@ -42,12 +54,18 @@ delib.module {
         vlanConfig.Id = vlanDefs."${name}".id;
       };
 
-      mkPhysicalNetwork = name: hostCfg: {
-        matchConfig.Name = hostCfg.interface;
-        vlan = [ "vlan-${name}" ];
-        linkConfig.RequiredForOnline = if hostCfg.isDefault then "carrier" else "no";
-        networkConfig.DHCP = "no";
-      };
+      mkPhysicalNetwork =
+        iface: vlanNames:
+        let
+          # Find if any VLAN on this interface is the default
+          hasDefault = lib.any (name: hostVlans.${name}.isDefault) vlanNames;
+        in
+        {
+          matchConfig.Name = iface;
+          vlan = map (name: "vlan-${name}") vlanNames;
+          linkConfig.RequiredForOnline = if hasDefault then "carrier" else "no";
+          networkConfig.DHCP = "no";
+        };
 
       mkVlanNetwork =
         name: hostCfg:
@@ -107,9 +125,11 @@ delib.module {
         ) hostVlans;
 
         networks = lib.mkMerge [
+          # Create one network file per physical interface with all its VLANs
           (lib.mapAttrs' (
-            name: hostCfg: lib.nameValuePair "30-${hostCfg.interface}-${name}" (mkPhysicalNetwork name hostCfg)
-          ) hostVlans)
+            iface: vlanNames: lib.nameValuePair "30-${iface}" (mkPhysicalNetwork iface vlanNames)
+          ) vlansByInterface)
+          # Create one network file per VLAN interface
           (lib.mapAttrs' (
             name: hostCfg: lib.nameValuePair "40-vlan-${name}" (mkVlanNetwork name hostCfg)
           ) hostVlans)

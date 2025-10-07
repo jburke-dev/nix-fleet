@@ -23,6 +23,11 @@ rebuild-local:
     host=$(hostname)
     sudo nixos-rebuild --flake ".#${host}" switch 
 
+rebuild-boot-remote HOST:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    nixos-rebuild --build-host {{ HOST }} --target-host {{ HOST }} --use-remote-sudo --flake ".#{{ HOST }}" boot
+
 rebuild-remote HOST:
     #!/usr/bin/env bash
     set -euo pipefail
