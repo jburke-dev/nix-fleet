@@ -12,6 +12,7 @@ delib.module {
     moduleOptions {
       enable = boolOption false;
       dataDir = strOption "/mnt/databases/postgres";
+      databases = listOfOption str [ ];
     };
 
   nixos.ifEnabled =
@@ -42,7 +43,12 @@ delib.module {
           host all all 192.168.30.0/24 scram-sha-256
         '';
 
-        # TODO: ensure users
+        ensureDatabases = cfg.databases;
+        ensureUsers = builtins.map (database: {
+          name = database;
+          ensureDBOwnership = true;
+          ensureClauses.login = true;
+        }) cfg.databases;
       };
 
       networking.firewall.interfaces."${parent.hostVlans.data.netdevName}".allowedTCPPorts = [ 5432 ];

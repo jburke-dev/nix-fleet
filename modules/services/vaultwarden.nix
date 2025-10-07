@@ -14,9 +14,7 @@ delib.module {
       {
         enable = boolOption false;
         listenAddress = strOption "127.0.0.1"; # vaultwarden won't listen over http on non-localhost
-        dataDir = strOption "/var/lib/vaultwarden";
-        backupDir = strOption "/var/backup/vaultwarden";
-        domain = strOption "localhost";
+        domain = allowNull (strOption null);
         httpPort = portOption 8222;
       }
     );
@@ -29,9 +27,9 @@ delib.module {
     {
       services.vaultwarden = {
         enable = true;
-        inherit (cfg) backupDir;
+        dbBackend = "postgresql";
         config = {
-          #DATA_FOLDER = cfg.dataDir;
+          DATABASE_URL = "postgresql://vaultwarden@/vaultwarden?host=/run/postgresql";
           ROCKET_ADDRESS = cfg.listenAddress;
           ROCKET_PORT = cfg.httpPort;
           DOMAIN = cfg.domain;
@@ -39,14 +37,14 @@ delib.module {
         };
       };
 
-      systemd.tmpfiles.settings = {
-        "11-vaultwarden".${cfg.dataDir}.d = {
-          user = "vaultwarden";
-          group = "vaultwarden";
-          mode = "0770";
-        };
-      };
-
       networking.firewall.allowedTCPPorts = [ cfg.httpPort ];
+    };
+
+  myconfig.ifEnabled =
+    { cfg, ... }:
+    {
+      services.postgres = {
+        databases = [ "vaultwarden" ];
+      };
     };
 }

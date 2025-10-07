@@ -32,8 +32,6 @@ delib.host {
     vaultwarden = {
       enable = true;
       domain = "https://vaultwarden.apps.chesurah.net";
-      backupDir = "/mnt/backups/vaultwarden";
-      dataDir = "/mnt/databases/vaultwarden";
     };
   };
 }
