@@ -29,6 +29,9 @@ delib.module {
       services.forgejo = {
         inherit (cfg) stateDir;
         enable = true;
+        database = {
+          type = "postgres";
+        };
         lfs.enable = true;
         settings = {
           server = {
@@ -36,7 +39,7 @@ delib.module {
             ROOT_URL = "https://${cfg.domain}";
             HTTP_ADDR = cfg.listenAddress;
             HTTP_PORT = cfg.httpPort;
-            DISABLE_SSH = true;
+            DISABLE_SSH = true; # FIXME
           };
           session.COOKIE_SECURE = true;
           actions = {
@@ -45,6 +48,20 @@ delib.module {
           };
         };
       };
+
+      # recommended in https://github.com/NixOS/nixpkgs/issues/423795
+      # but couldn't get this to work
+      # according to archwiki this also needs UsePAM = true
+      /*
+        systemd.sockets.forgejo = {
+          requiredBy = [ "forgejo.service" ];
+          wantedBy = [ "sockets.target" ];
+
+          listenStreams = [
+            "22"
+          ];
+        };
+      */
 
       networking.firewall = lib.mkIf (cfg.interface != "") {
         interfaces."${cfg.interface}".allowedTCPPorts = [

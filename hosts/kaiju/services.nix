@@ -16,10 +16,9 @@ delib.host {
     };
     traefik = {
       atticd.enable = false;
-      forgejo.enable = false;
     };
     forgejo = {
-      enable = false;
+      enable = true;
       stateDir = "/mnt/databases/forgejo";
       domain = "forgejo.apps.chesurah.net";
     };

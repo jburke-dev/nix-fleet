@@ -15,6 +15,7 @@ delib.module {
       listenAddresses = listOfOption str [ ];
       authorizedKeys = listOfOption str [ ];
       permitRootLogin = enumOption [ "yes" "no" ] (if host.installerFeatured then "yes" else "no");
+      UsePAM = boolOption false;
     };
 
   nixos.ifEnabled =
@@ -35,7 +36,7 @@ delib.module {
         settings = {
           PermitRootLogin = cfg.permitRootLogin;
           PasswordAuthentication = false;
-          UsePAM = false;
+          inherit (cfg) UsePAM;
           KbdInteractiveAuthentication = false;
         };
       };
