@@ -5,7 +5,7 @@ delib.module {
   nixos.always =
     { myconfig, ... }:
     let
-      inherit (myconfig.constants) username;
+      inherit (myconfig.constants) username userFullName;
     in
     {
       # this allows other modules to set user.Setting instead of users.users.${username}.setting
@@ -15,7 +15,8 @@ delib.module {
 
         users.${username} = {
           isNormalUser = true;
-          initialPassword = username;
+          description = userFullName;
+          initialHashedPassword = "$y$j9T$dEAJAyDaLnLNHJmq9sXfT1$b9xxCmTW3EAB82uDQFL6retuUvxBHb6WTTIU6Cdf2k.";
           extraGroups = [ "wheel" ];
           useDefaultShell = true;
         };

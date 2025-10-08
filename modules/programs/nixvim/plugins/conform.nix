@@ -12,6 +12,7 @@ delib.module {
         css = [ "prettier" ];
         typescriptreact = [ "prettier" ];
         typescript = [ "prettier" ];
+        sh = [ "shellcheck" ];
       };
       format_on_save = {
         lsp_format = "fallback";

@@ -9,7 +9,6 @@ delib.host {
       firewall.interfaces = {
         "vlan-mgmt".allowedTCPPorts = [ 22 ];
       };
-
     };
   };
 

@@ -5,6 +5,7 @@ delib.module {
     enable = true;
     lintersByFt = {
       nix = [ "statix" ];
+      sh = [ "shellcheck" ];
     };
   };
 }

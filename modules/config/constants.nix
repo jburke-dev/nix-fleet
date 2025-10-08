@@ -4,8 +4,8 @@ delib.module {
 
   options.constants = with delib; {
     username = readOnly (strOption "jburke");
-    userfullname = readOnly (strOption "Johan Burke");
-    useremail = readOnly (strOption "jburke.create@gmail.com");
+    userFullName = readOnly (strOption "Johan Burke");
+    userEmail = readOnly (strOption "jburke.create@gmail.com");
     traefikVip = readOnly (strOption "192.168.11.10");
   };
 

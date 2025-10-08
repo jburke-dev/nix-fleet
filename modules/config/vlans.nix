@@ -25,6 +25,10 @@ delib.module {
           id = 21;
           subnet = "192.168.21";
         };
+        mgmt2 = {
+          id = 22;
+          subnet = "192.168.22";
+        };
         services = {
           id = 11;
           subnet = "192.168.11";

@@ -14,17 +14,15 @@ delib.module {
 
       listenAddresses = listOfOption str [ ];
       authorizedKeys = listOfOption str [ ];
-      permitRootLogin = enumOption [ "yes" "no" ] (if host.installerFeatured then "yes" else "no");
-      UsePAM = boolOption false;
+      UsePAM = boolOption host.installerFeatured;
+      PasswordAuthentication = boolOption host.installerFeatured;
+      KbdInteractiveAuthentication = boolOption host.installerFeatured;
     };
 
   nixos.ifEnabled =
     { cfg, ... }:
     {
       user.openssh.authorizedKeys.keys = cfg.authorizedKeys;
-      users.users.root.openssh.authorizedKeys.keys = lib.mkIf (
-        cfg.permitRootLogin == "yes"
-      ) cfg.authorizedKeys;
 
       services.openssh = {
         enable = true;
@@ -34,10 +32,8 @@ delib.module {
         );
 
         settings = {
-          PermitRootLogin = cfg.permitRootLogin;
-          PasswordAuthentication = false;
-          inherit (cfg) UsePAM;
-          KbdInteractiveAuthentication = false;
+          PermitRootLogin = "no";
+          inherit (cfg) UsePAM PasswordAuthentication KbdInteractiveAuthentication;
         };
       };
     };

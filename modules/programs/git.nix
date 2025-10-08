@@ -11,11 +11,14 @@ delib.module {
         enable = true;
         lfs.enable = true;
 
-        userName = myconfig.constants.userfullname;
-        userEmail = myconfig.constants.useremail;
+        inherit (myconfig.constants) userEmail;
+
+        userName = myconfig.constants.userFullName;
 
         extraConfig = {
+          credential.helper = "${pkgs.git.override { withLibsecret = true; }}/bin/git-credential-libsecret";
           init.defaultBranch = "main";
+          push.autoSetupRemote = true;
         };
       };
     };

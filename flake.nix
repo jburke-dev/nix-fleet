@@ -119,6 +119,7 @@
               statix.enable = true;
               nixfmt-rfc-style.enable = true;
               commitizen.enable = true;
+              shellcheck.enable = true;
             };
             check.enable = true;
           };

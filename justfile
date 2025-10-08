@@ -6,7 +6,7 @@ _format-targets +TARGETS:
 
 write-installer DEV: (build-installer)
     #!/usr/bin/env bash
-    isoFile=./result/iso/nixos*.iso
+    isoFile=$(ls ./result/iso/nixos*.iso)
     sudo dd if=${isoFile} of=/dev/{{ DEV }} bs=4M status=progress conv=fdatasync
 
 build-installer: (build "installer" "isoImage")

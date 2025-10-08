@@ -8,5 +8,8 @@ delib.host {
     "installer"
   ];
 
-  myconfig.networking.mode = "network-manager";
+  myconfig = {
+    networking.mode = "network-manager";
+    programs.nix-fleet-install.enable = true;
+  };
 }
