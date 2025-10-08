@@ -52,9 +52,9 @@ fi
 # Partition the disk (UEFI/GPT layout)
 info "Partitioning $DISK..."
 parted -s "$DISK" -- mklabel gpt
-parted -s "$DISK" -- mkpart ESP fat32 1MiB 512MiB
-parted -s "$DISK" -- set 1 esp on
-parted -s "$DISK" -- mkpart primary ext4 512MiB 100%
+parted -s "$DISK" -- mkpart root ext4 1GB 100%
+parted -s "$DISK" -- mkpart ESP fat32 1MB 1GB
+parted -s "$DISK" -- set 2 esp on
 
 # Determine partition naming scheme
 if [[ "$DISK" == *"nvme"* ]] || [[ "$DISK" == *"mmcblk"* ]]; then
@@ -63,8 +63,8 @@ else
   DISK_PREFIX="$DISK"
 fi
 
-BOOT_PART="${DISK_PREFIX}1"
-ROOT_PART="${DISK_PREFIX}2"
+BOOT_PART="${DISK_PREFIX}2"
+ROOT_PART="${DISK_PREFIX}1"
 
 # Wait for partitions to be created
 sleep 2
@@ -76,13 +76,12 @@ mkfs.ext4 -L nixos "$ROOT_PART"
 
 # Mount filesystems
 info "Mounting filesystems..."
-mount "$ROOT_PART" /mnt
+mount /dev/disk/by-label/nixos /mnt
 mkdir -p /mnt/boot
-mount "$BOOT_PART" /mnt/boot
+mount -o umask=077 /dev/disk/by-label/boot /mnt/boot
 
 # Generate hardware configuration
 info "Generating hardware configuration..."
-mkdir -p /mnt/etc/nixos
 nixos-generate-config --root /mnt
 
 # Clone the flake
@@ -98,7 +97,7 @@ mkdir -p "hosts/$HOSTNAME"
 # Generate configuration files using helper scripts
 nix-fleet-output-config --hostname "$HOSTNAME"
 
-vim -O "./hosts/$HOSTNAME/*"
+vim -O ./hosts/"$HOSTNAME"/*
 
 read -rp "Type 'yes' to perform installation: " CONTINUE_INSTALLATION
 if [ "$CONTINUE_INSTALLATION" != "yes" ]; then
