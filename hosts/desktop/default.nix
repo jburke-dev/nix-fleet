@@ -36,6 +36,10 @@ delib.host {
           host = "colossus";
           hostname = "192.168.21.4";
         }
+        {
+          host = "kraken";
+          hostname = "192.168.21.6";
+        }
       ];
     };
   };

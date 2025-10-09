@@ -19,9 +19,9 @@ delib.host {
       isDefault = true;
       metric = 100;
     };
-    services = {
+    iot = {
       interface = "enp87s0";
-      hostIp = "4";
+      hostIp = "2";
       metric = 200;
       routingTable = 101;
     };

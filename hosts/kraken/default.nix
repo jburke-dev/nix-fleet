@@ -4,5 +4,6 @@ delib.host {
 
   type = "server";
   features = [
+    "homeAssistant"
   ];
 }

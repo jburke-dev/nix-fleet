@@ -77,6 +77,7 @@
                       "installer"
                       "reverseProxy"
                       "zfs"
+                      "homeAssistant"
                     ];
                     defaultByHostType = {
                       desktop = [

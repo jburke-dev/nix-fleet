@@ -27,6 +27,12 @@ delib.module {
               "bordersize 0, floating:0, onworkspace:f[1]s[false]"
               "rounding 0, floating:0, onworkspace:f[1]s[false]"
               "opacity 0.9 0.5, class:com.mitchellh.ghostty"
+              "monitor HDMI-A-1, class:steam_app*"
+            ];
+            layerrule = [
+              "blur, gtk4-layer-shell"
+              "ignorealpha 0, gtk4-layer-shell"
+              "noanim, gtk4-layer-shell"
             ];
             workspace = [
               "w[tv1]s[false], gapsout:0, gapsin:0" # set gaps for non-special workspaces with only 1 visible tiled window

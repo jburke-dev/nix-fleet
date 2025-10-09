@@ -24,6 +24,7 @@ delib.host {
     };
     postgres = {
       enable = true;
+      databases = [ "hass" ];
     };
     glance = {
       enable = true;

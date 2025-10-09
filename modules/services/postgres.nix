@@ -13,6 +13,20 @@ delib.module {
       enable = boolOption false;
       dataDir = strOption "/mnt/databases/postgres";
       databases = listOfOption str [ ];
+      authentications = listOfOption (submodule {
+        options = {
+          type = noDefault (enumOption [ "local" "host" ] null);
+          database = noDefault (strOption null);
+          user = noDefault (strOption null);
+          address = strOption "";
+          authMethod = noDefault (enumOption [
+            "trust"
+            "peer"
+            "scram-sha-256"
+          ]);
+          authOptions = attrsOfOption str { };
+        };
+      }) [ ];
     };
 
   nixos.ifEnabled =
@@ -35,13 +49,31 @@ delib.module {
           superuser_map /^(.*)$ \1
         '';
 
-        authentication = lib.mkOverride 10 ''
-          # type | database | user | address | auth-method
-          local sameuser all peer map=superuser_map
-          host all all 192.168.11.0/24 scram-sha-256
-          host all all 192.168.13.0/24 scram-sha-256
-          host all all 192.168.30.0/24 scram-sha-256
-        '';
+        authentication = lib.mkForce (
+          lib.concatMapStringsSep "\n"
+            (
+              a:
+              let
+                authOptsStr = lib.concatStringsSep " " (lib.mapAttrsToList (n: v: "${n}=${v}") a.authOptions);
+              in
+              "${a.type} ${a.database} ${a.user} ${a.address} ${a.authMethod} ${authOptsStr}"
+            )
+            (
+              [
+                {
+                  type = "local";
+                  database = "sameuser";
+                  user = "all";
+                  authMethod = "peer";
+                  address = "";
+                  authOptions = {
+                    map = "superuser_map";
+                  };
+                }
+              ]
+              ++ cfg.authentications
+            )
+        );
 
         ensureDatabases = cfg.databases;
         ensureUsers = builtins.map (database: {

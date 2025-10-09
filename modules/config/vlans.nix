@@ -33,6 +33,10 @@ delib.module {
           id = 13;
           subnet = "192.168.13";
         };
+        iot = {
+          id = 14;
+          subnet = "192.168.14";
+        };
       };
     };
 }
