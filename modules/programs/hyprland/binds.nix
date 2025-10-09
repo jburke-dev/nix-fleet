@@ -34,31 +34,29 @@ delib.module {
 
       "$mainMod SHIFT, S, exec, $screenshot -m region"
 
-      "$mainMod, 1, workspace, 1"
-      "$mainMod, 2, workspace, 2"
-      "$mainMod, 3, workspace, 3"
-      "$mainMod, 4, workspace, 4"
-      "$mainMod, 5, workspace, 5"
-      "$mainMod, 6, workspace, 6"
-      "$mainMod, 7, workspace, 7"
-      "$mainMod, 8, workspace, 8"
-      "$mainMod, 9, workspace, 9"
-
       "$mainMod SHIFT, Right, movetoworkspace, +1"
       "$mainMod SHIFT, Left, movetoworkspace, -1"
+      "$mainMod CTRL SHIFT, Right, movetoworkspacesilent, +1"
+      "$mainMod CTRL SHIFT, Left, movetoworkspacesilent, -1"
       "$mainMod, Right, cyclenext"
       "$mainMod, Left, cyclenext, prev"
       "$mainMod, Up, fullscreen, 1"
 
-      "$mainMod SHIFT, 1, workspace, 1"
-      "$mainMod SHIFT, 2, workspace, 2"
-      "$mainMod SHIFT, 3, workspace, 3"
-      "$mainMod SHIFT, 4, workspace, 4"
-      "$mainMod SHIFT, 5, workspace, 5"
-      "$mainMod SHIFT, 6, workspace, 6"
-      "$mainMod SHIFT, 7, workspace, 7"
-      "$mainMod SHIFT, 8, workspace, 8"
-      "$mainMod SHIFT, 9, workspace, 9"
-    ];
+      "$mainMod, S, layoutmsg, togglesplit"
+      "$mainMod SHIFT, L, layoutmsg, swapsplit"
+    ]
+    ++ builtins.concatLists (
+      builtins.genList (
+        i:
+        let
+          ws = toString (i + 1);
+        in
+        [
+          "$mainMod, ${ws}, workspace, ${ws}"
+          "$mainMod SHIFT, ${ws}, movetoworkspace, ${ws}"
+          "$mainMod CTRL SHIFT, ${ws}, movetoworkspacesilent, ${ws}"
+        ]
+      ) 9
+    );
   };
 }
