@@ -26,4 +26,13 @@ delib.host {
       routingTable = 101;
     };
   };
+
+  # Route services subnet traffic through IOT VLAN for proper return path
+  nixos.systemd.network.networks."40-vlan-iot".routingPolicyRules = [
+    {
+      To = "192.168.11.0/24";
+      Table = 101;
+      Priority = 100;
+    }
+  ];
 }

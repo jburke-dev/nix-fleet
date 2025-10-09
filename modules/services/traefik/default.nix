@@ -12,6 +12,11 @@ delib.module {
     moduleOptions {
       enable = boolOption host.reverseProxyFeatured;
       interface = strOption "vlan-services";
+      serviceUrls = readOnly (
+        attrsOfOption str {
+          homeAssistant = "http://192.168.14.2:8123";
+        }
+      );
     };
 
   nixos.ifEnabled =
