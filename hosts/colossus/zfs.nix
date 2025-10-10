@@ -8,11 +8,11 @@ delib.host {
         device = "tank/media";
         fsType = "zfs";
       };
-      "/mnt/data/cache" = {
+      "/mnt/cache" = {
         device = "data/cache";
         fsType = "zfs";
       };
-      "/mnt/data/databases" = {
+      "/mnt/databases" = {
         device = "data/databases";
         fsType = "zfs";
       };
