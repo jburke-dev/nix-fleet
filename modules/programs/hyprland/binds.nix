@@ -44,6 +44,10 @@ delib.module {
 
       "$mainMod, S, layoutmsg, togglesplit"
       "$mainMod SHIFT, L, layoutmsg, swapsplit"
+
+      "$mainMod, D, exec, ags-shell"
+      "$mainMod SHIFT, D, exec, pkill gjs || ags-shell" # refresh ags-shell
+      "$mainMod CTRL SHIFT, D, exec, pkill gjs"
     ]
     ++ builtins.concatLists (
       builtins.genList (

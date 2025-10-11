@@ -25,7 +25,9 @@ delib.host {
         forgejo-runner.enable = false;
         traefik = {
           atticd.enable = false;
-          forgejo.enable = false;
+        };
+        postgres = {
+          enable = true;
         };
         /*
           atticd = {
