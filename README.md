@@ -17,14 +17,17 @@ To update a system, run `nix flake update` followed by the normal rebuild comman
 - [zsh](https://github.com/zsh-users/zsh) shell
 - [ags-shell](https://github.com/jburke-dev/ags-shell) custom desktop shell written with [AGS](https://github.com/Aylur/ags)
 
+## Common Server Configuration
+- [Traefik](https://github.com/traefik/traefik) reverse proxy with LetsEncrypt ACME dns challenge for automated wildcard certs
+- [Keepalived](https://github.com/acassen/keepalived) virtual shared IP for Traefik failover
+- [Postgres](https://github.com/postgres/postgres) RDMS
+- Networking with systemd-networkd
+
 ## Kaiju
 Custom built AMD Epyc server
 - [Vaultwarden](https://github.com/dani-garcia/vaultwarden) local password manager
 - [Glance](https://github.com/glanceapp/glance) dashboard
-- [Traefik](https://github.com/traefik/traefik) reverse proxy with LetsEncrypt ACME dns challenge for automated wildcard certs
-- [Keepalived](https://github.com/acassen/keepalived) virtual shared IP for Traefik failover
 - [Forgejo](https://forgejo.org) local git forge
-- [Postgres](https://github.com/postgres/postgres) RDMS
 
 ## Colossus
 Custom built AMD Epyc server
