@@ -1,41 +1,48 @@
 # Nix 
 
-Modular Denix flake using [Denix](https://github.com/yunfachi/denix)
+Modular NixOS configuration for my desktop and servers.
 
 # Usage
 
-To modify the configuration on laptop or desktop, simply run `sudo nixos-rebuild switch --flake .#host`, where `host` is either `desktop` or `laptop`.
-
-To build installer image, run `nix build .#nixosConfigurations.installer.config.system.build.isoImage`.  This image can be written to a USB or CD and used to boot a minimal live install of Nix that is running SSH.
-
-To modify the configuration of a server, simply run `sudo nixos-rebuild switch --flake .#host --target-host host --use-remote-sudo`, where `host` is one of the servers.  Some servers (namely locust 1 through 3) will share configurations and deploy-rs will be used to deploy multiple profiles at once in the future.
+A host can be rebuilt locally with `just rebuild-local`.  Remote hosts can be rebuilt over ssh with `just rebuild-remote HOST`.
 
 To update a system, run `nix flake update` followed by the normal rebuild command.
 
-# Roadmap
+# Hosts
 
-- [x] Migrate desktop configuration
-- [ ] Migrate laptop configuration
-- [x] Setup common server config (allow SSH access, static IP configuration)
-- [x] Setup installer iso image
-- ~~[ ] Setup nixos-anywhere with disko~~
-- [ ] Scalable deployment with [deploy-rs](https://github.com/serokell/deploy-rs)
+## Desktop
+- [Hyprland](https://github.com/hyprwm/Hyprland) window manager
+- [Nixvim](https://github.com/nix-community/nixvim) code editor
+- [Ghostty](https://github.com/ghostty-org/ghostty) terminal emulator
+- [zsh](https://github.com/zsh-users/zsh) shell
+- [ags-shell](https://github.com/jburke-dev/ags-shell) custom desktop shell written with [AGS](https://github.com/Aylur/ags)
 
-# Server configuration
+## Kaiju
+Custom built AMD Epyc server
+- [Vaultwarden](https://github.com/dani-garcia/vaultwarden) local password manager
+- [Glance](https://github.com/glanceapp/glance) dashboard
+- [Traefik](https://github.com/traefik/traefik) reverse proxy with LetsEncrypt ACME dns challenge for automated wildcard certs
+- [Keepalived](https://github.com/acassen/keepalived) virtual shared IP for Traefik failover
+- [Forgejo](https://forgejo.org) local git forge
+- [Postgres](https://github.com/postgres/postgres) RDMS
 
-- [ ] kaiju - compute server and testing environment
-    - [x] initial configuration
-    - [ ] complete networking setup
-    - [ ] ZFS pools
-- [ ] locust 1-3 - mini-PC for HA and monitoring
-    - [ ] local DNS server
-    - [ ] load-balanced reverse proxy
-    - [ ] prometheus + grafana
-    - [ ] mission critical services
-        - [ ] authentik
-        - [ ] vaultwarden
-- [ ] colossus - compute and storage server
+## Colossus
+Custom built AMD Epyc server
+- [Jellyfin](https://github.com/jellyfin/jellyfin) local media server
 
-## Common configurations
+## Kraken
+Minisforum MS-01
+- [Home Assistant](https://github.com/home-assistant) home automation
 
-- [ ] System level prometheus exporters?
+# Flake
+This flake is supported by various utilities to make Nix development easier:
+- [Home manager](https://github.com/nix-community/home-manager) home directory and user profile management
+- [Denix](https://github.com/yunfachi/denix) modular multi-host nix config
+- [Sops-nix](https://github.com/Mic92/sops-nix) secret management
+- [Flake-parts](https://github.com/hercules-ci/flake-parts) multi-system flake support
+- [Git-hooks](https://github.com/cachix/git-hooks.nix) git hooks nix integration
+
+# Planned
+- Local SSO with [authentik-nix](https://github.com/nix-community/authentik-nix)
+- Monitoring with [Prometheus](https://github.com/prometheus/prometheus) and [Grafana](https://github.com/grafana/grafana)
+- Custom NixOS router/firewall to replace [PfSense](https://github.com/pfsense/pfsense)
