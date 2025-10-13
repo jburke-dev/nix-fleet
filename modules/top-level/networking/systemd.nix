@@ -4,6 +4,7 @@
   ...
 }:
 delib.module {
+  # TODO: move away from mgmt default gateway?
   name = "networking.systemd";
 
   options =
@@ -54,18 +55,12 @@ delib.module {
         vlanConfig.Id = vlanDefs."${name}".id;
       };
 
-      mkPhysicalNetwork =
-        iface: vlanNames:
-        let
-          # Find if any VLAN on this interface is the default
-          hasDefault = lib.any (name: hostVlans.${name}.isDefault) vlanNames;
-        in
-        {
-          matchConfig.Name = iface;
-          vlan = map (name: "vlan-${name}") vlanNames;
-          linkConfig.RequiredForOnline = if hasDefault then "carrier" else "no";
-          networkConfig.DHCP = "no";
-        };
+      mkPhysicalNetwork = iface: vlanNames: {
+        matchConfig.Name = iface;
+        vlan = map (name: "vlan-${name}") vlanNames;
+        linkConfig.RequiredForOnline = "no";
+        networkConfig.DHCP = "no";
+      };
 
       mkVlanNetwork =
         name: hostCfg:
@@ -77,7 +72,7 @@ delib.module {
           matchConfig.Name = "vlan-${name}";
           networkConfig.DHCP = "no";
           address = [ "${fullIp}/24" ];
-          linkConfig.RequiredForOnline = if hostCfg.isDefault then "yes" else "no";
+          linkConfig.RequiredForOnline = "routable";
         }
         // lib.optionalAttrs hostCfg.isDefault {
           routes = [
@@ -137,7 +132,7 @@ delib.module {
 
         wait-online = {
           timeout = 30;
-          anyInterface = true;
+          anyInterface = false;
         };
       };
     };

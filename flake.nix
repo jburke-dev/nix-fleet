@@ -78,6 +78,8 @@
                       "reverseProxy"
                       "zfs"
                       "homeAssistant"
+                      "nvidia"
+                      "mediaServer"
                     ];
                     defaultByHostType = {
                       desktop = [

@@ -6,5 +6,6 @@ delib.host {
   features = [
     "reverseProxy"
     "zfs"
+    "nvidia"
   ];
 }
