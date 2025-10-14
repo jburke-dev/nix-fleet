@@ -5,13 +5,12 @@ delib.rice {
     targets = {
       dunst.enable = true;
       #rofi.enable = true;
-      hyprland.enable = true;
+      #hyprland.enable = true;
       firefox = {
         enable = true;
         profileNames = [ "default" ];
       };
       hyprlock.enable = true;
-      waybar.enable = true;
     };
   };
   nixos.stylix = {
