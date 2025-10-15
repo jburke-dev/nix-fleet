@@ -36,6 +36,7 @@ Custom built AMD Epyc server
 ## Kraken
 Minisforum MS-01
 - [Home Assistant](https://github.com/home-assistant) home automation
+- Monitoring with [Prometheus](https://github.com/prometheus/prometheus) and [Grafana](https://github.com/grafana/grafana)
 
 # Flake
 This flake is supported by various utilities to make Nix development easier:
@@ -47,5 +48,4 @@ This flake is supported by various utilities to make Nix development easier:
 
 # Planned
 - Local SSO with [authentik-nix](https://github.com/nix-community/authentik-nix)
-- Monitoring with [Prometheus](https://github.com/prometheus/prometheus) and [Grafana](https://github.com/grafana/grafana)
 - Custom NixOS router/firewall to replace [PfSense](https://github.com/pfsense/pfsense)

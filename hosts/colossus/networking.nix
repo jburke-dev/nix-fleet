@@ -32,5 +32,11 @@ delib.host {
       metric = 300;
       routingTable = 102;
     };
+    monitoring = {
+      interface = "enp1s0f0";
+      hostIp = "4";
+      metric = 400;
+      routingTable = 103;
+    };
   };
 }

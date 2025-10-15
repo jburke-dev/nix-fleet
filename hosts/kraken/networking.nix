@@ -25,6 +25,12 @@ delib.host {
       metric = 200;
       routingTable = 101;
     };
+    monitoring = {
+      interface = "enp86s0";
+      hostIp = "6";
+      metric = 300;
+      routingTable = 102;
+    };
   };
 
   # Route services subnet traffic through IOT VLAN for proper return path

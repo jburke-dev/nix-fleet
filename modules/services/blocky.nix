@@ -45,6 +45,7 @@ delib.module {
           customDNS.mapping = {
             "mgmt.chesurah.net" = "192.168.11.10";
             "apps.chesurah.net" = "192.168.11.10";
+            "monitoring.chesurah.net" = "192.168.11.10";
             "kaiju.infra.chesurah.net" = "192.168.21.5";
             "colossus.infra.chesurah.net" = "192.168.21.4";
           };

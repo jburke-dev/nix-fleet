@@ -37,6 +37,10 @@ delib.module {
           id = 14;
           subnet = "192.168.14";
         };
+        monitoring = {
+          id = 15;
+          subnet = "192.168.15";
+        };
       };
     };
 }

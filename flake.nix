@@ -80,6 +80,7 @@
                       "homeAssistant"
                       "nvidia"
                       "mediaServer"
+                      "monitoring"
                     ];
                     defaultByHostType = {
                       desktop = [
