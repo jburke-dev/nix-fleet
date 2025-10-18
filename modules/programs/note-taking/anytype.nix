@@ -5,9 +5,9 @@
   ...
 }:
 delib.module {
-  name = "programs.obsidian";
+  name = "programs.note-taking.anytype";
 
   options = delib.singleEnableOption host.guiFeatured;
 
-  home.ifEnabled.home.packages = [ pkgs.obsidian ];
+  home.ifEnabled.home.packages = [ pkgs.anytype ];
 }

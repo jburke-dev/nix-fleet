@@ -10,5 +10,7 @@ delib.module {
   nixos.ifEnabled.environment.systemPackages = with pkgs; [
     htop
     pciutils
+    unzip
+    jq
   ];
 }

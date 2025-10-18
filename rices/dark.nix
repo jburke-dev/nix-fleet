@@ -4,13 +4,17 @@ delib.rice {
   home.stylix = {
     targets = {
       dunst.enable = true;
-      #rofi.enable = true;
       #hyprland.enable = true;
       firefox = {
         enable = true;
         profileNames = [ "default" ];
       };
+
       hyprlock.enable = true;
+      zen-browser = {
+        enable = true;
+        profileNames = [ "default" ];
+      };
     };
   };
   nixos.stylix = {

@@ -69,10 +69,11 @@ delib.module {
 
         settings = {
           "$terminal" = "ghostty";
-          "$browser" = "vivaldi";
+          "$browser" = "zen-twilight";
           "$mainMod" = "SUPER";
           exec-once = [
             "ags-shell"
+            "obsidian ~/obsidian-vaults/sol"
           ];
 
           general = {

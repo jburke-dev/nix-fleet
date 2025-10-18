@@ -6,7 +6,7 @@ delib.module {
     with delib;
     moduleOptions {
       enable = boolOption host.guiFeatured;
-      defaultBrowser = enumOption [ "vivaldi-stable" ] "vivaldi-stable";
+      defaultBrowser = enumOption [ "vivaldi-stable" "zen-twilight" ] "zen-twilight";
     };
 
   home.ifEnabled =
