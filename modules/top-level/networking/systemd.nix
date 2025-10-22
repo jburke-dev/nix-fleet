@@ -1,6 +1,7 @@
 {
   delib,
   lib,
+  pkgs,
   ...
 }:
 delib.module {
@@ -136,6 +137,14 @@ delib.module {
         };
       };
     };
+
+  home.ifEnabled = {
+    home.packages = with pkgs; [
+      tcpdump
+      conntrack-tools
+      traceroute
+    ];
+  };
 
   myconfig.ifEnabled =
     { cfg, myconfig, ... }:

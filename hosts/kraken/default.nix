@@ -5,7 +5,8 @@ delib.host {
   type = "server";
   features = [
     "homeAssistant"
-    "monitoring"
+    #"monitoring"
+    "k3s"
   ];
   myconfig.networking.nameservers = [
     "192.168.11.2"

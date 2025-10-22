@@ -15,7 +15,7 @@ build HOST TARGET="toplevel":
     nix build '.#nixosConfigurations.{{ HOST }}.config.system.build.{{ TARGET }}'
 
 [parallel]
-rebuild-servers: (rebuild-remote "kaiju") (rebuild-remote "colossus")
+rebuild-servers: (rebuild-remote "kaiju") (rebuild-remote "colossus") (rebuild-remote "kraken")
 
 rebuild-local:
     #!/usr/bin/env bash
@@ -23,12 +23,17 @@ rebuild-local:
     host=$(hostname)
     sudo nixos-rebuild --flake ".#${host}" switch 
 
+rebuild-boot-local:
+    #!/usr/bin/env bash
+    host=$(hostname)
+    sudo nixos-rebuild --flake ".#${host}" boot 
+
 rebuild-boot-remote HOST:
     #!/usr/bin/env bash
     set -euo pipefail
-    nixos-rebuild --build-host {{ HOST }} --target-host {{ HOST }} --use-remote-sudo --flake ".#{{ HOST }}" boot
+    nixos-rebuild --build-host {{ HOST }} --target-host {{ HOST }} --sudo --flake ".#{{ HOST }}" boot
 
 rebuild-remote HOST:
     #!/usr/bin/env bash
     set -euo pipefail
-    nixos-rebuild --build-host {{ HOST }} --target-host {{ HOST }} --use-remote-sudo --flake ".#{{ HOST }}" switch
+    nixos-rebuild --build-host {{ HOST }} --target-host {{ HOST }} --sudo --flake ".#{{ HOST }}" switch

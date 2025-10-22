@@ -45,7 +45,6 @@
       flake-parts,
       sops-nix,
       stylix,
-      ags-shell,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -85,6 +84,7 @@
                       "nvidia"
                       "mediaServer"
                       "monitoring"
+                      "k3s"
                     ];
                     defaultByHostType = {
                       desktop = [

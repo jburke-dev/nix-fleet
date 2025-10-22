@@ -7,5 +7,6 @@ delib.host {
     "reverseProxy"
     "zfs"
     "nvidia"
+    "k3s"
   ];
 }

@@ -13,6 +13,8 @@ delib.module {
         "192.168.11.3"
       ]
     );
+    k3sBootstrapServerIp = readOnly (strOption "192.168.19.2");
+    k3sVip = readOnly (strOption "192.168.21.10");
   };
 
   myconfig.always =

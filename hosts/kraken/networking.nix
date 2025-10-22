@@ -7,7 +7,10 @@ delib.host {
       hostId = "daedb04a";
 
       firewall.interfaces = {
-        "vlan-mgmt".allowedTCPPorts = [ 22 ];
+        "vlan-mgmt".allowedTCPPorts = [
+          22
+          6443
+        ];
       };
     };
   };
@@ -19,8 +22,15 @@ delib.host {
       isDefault = true;
       metric = 100;
     };
+    k3s = {
+      interface = "enp86s0";
+      hostIp = "2";
+      metric = 400;
+      # No routing table - prevents policy routing rules that break pod networking
+    };
+    # TODO: physical interface names seem to change between reboots -_-
     iot = {
-      interface = "enp87s0";
+      interface = "enp88s0";
       hostIp = "2";
       metric = 200;
       routingTable = 101;

@@ -29,11 +29,9 @@ delib.module {
         settings = {
           ports = {
             dns = [
-              "127.0.0.1:53"
               "${cfg.listenAddress}:53"
             ];
             http = [
-              "127.0.0.1:4000"
               "${cfg.listenAddress}:4000"
             ];
           };
