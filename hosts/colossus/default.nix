@@ -8,6 +8,5 @@ delib.host {
     "zfs"
     "nvidia"
     "mediaServer"
-    "k3s"
   ];
 }

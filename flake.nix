@@ -84,7 +84,6 @@
                       "nvidia"
                       "mediaServer"
                       "monitoring"
-                      "k3s"
                     ];
                     defaultByHostType = {
                       desktop = [
