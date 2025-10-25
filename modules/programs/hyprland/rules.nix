@@ -29,7 +29,7 @@ delib.module {
             "monitor HDMI-A-1, class:^steam_app_"
             "workspace 1, class:^steam_app_"
             # Obsidian - left 1/3 of ultrawide for sol workspace
-            "size 33% 100%, initialTitle:^.*sol - Obsidian.*$"
+            "size 33% 100%, initialTitle:^.*sol - Obsidian.*$" # TODO: size only works on floating windows
             "move 0 0, initialTitle:^.*sol - Obsidian.*$"
           ];
           layerrule = [

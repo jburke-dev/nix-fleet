@@ -13,6 +13,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    hyprXPrimary = {
+      url = "github:zakk4223/hyprXPrimary";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.hyprland.follows = "hyprland";
+    };
     git-hooks-nix = {
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -45,6 +54,8 @@
       flake-parts,
       sops-nix,
       stylix,
+      hyprland,
+      hyprXPrimary,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
