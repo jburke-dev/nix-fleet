@@ -3,6 +3,7 @@
   host,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 delib.module {
@@ -18,6 +19,8 @@ delib.module {
           options = {
             name = strOption null;
             wallpaperPath = pathOption null;
+            resolution = strOption "preferred";
+            leftMost = boolOption false;
           };
         }
       )) [ ];
@@ -43,12 +46,10 @@ delib.module {
     };
 
   nixos.ifEnabled = {
-    services.displayManager.gdm = {
-      enable = true;
-      wayland = true;
-    };
     programs.hyprland = {
       enable = true;
+      package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+      portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
       xwayland.enable = true;
     };
 
@@ -66,6 +67,8 @@ delib.module {
       services.hyprpolkitagent.enable = true;
       wayland.windowManager.hyprland = {
         enable = true;
+        package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+        portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
 
         settings = {
           "$terminal" = "ghostty";
@@ -104,6 +107,10 @@ delib.module {
               render_power = cfg.shadow.power;
               color_inactive = lib.mkIf (cfg.shadow.inactive_color != null) cfg.shadow.inactive_color;
             };
+          };
+
+          dwindle = {
+            split_width_multiplier = 1.5;
           };
 
           misc = {

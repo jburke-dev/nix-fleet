@@ -21,7 +21,7 @@ delib.module {
       # anyrun seems borked after switching to unstable
       # "$mainMod, SUPER_L, exec, ${toggle "anyrun" ""}"
       "$mainMod, SUPER_L, exec, ags-shell picker"
-      "$mainMod SHIFT, SUPER_L, hyprexpo:expo, toggle"
+      #"$mainMod SHIFT, SUPER_L, hyprexpo:expo, toggle"
     ];
 
     bind = [

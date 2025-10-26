@@ -2,6 +2,7 @@
   delib,
   host,
   pkgs,
+  inputs,
   ...
 }:
 delib.module {
@@ -12,11 +13,19 @@ delib.module {
   home.ifEnabled = {
     wayland.windowManager.hyprland = {
       plugins = [
-        pkgs.hyprlandPlugins.hyprexpo
+        #pkgs.hyprlandPlugins.hyprexpo
+        inputs.hyprXPrimary.packages.${pkgs.system}.default
       ];
-      settings.plugin.hyprexpo = {
-        skip_empty = true;
-        columns = 2;
+      settings.plugin = {
+        /*
+          hyprexpo = {
+            skip_empty = true;
+            columns = 2;
+          };
+        */
+        xwaylandprimary = {
+          display = "DP-1";
+        };
       };
     };
   };

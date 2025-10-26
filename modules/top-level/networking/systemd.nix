@@ -143,6 +143,7 @@ delib.module {
       tcpdump
       conntrack-tools
       traceroute
+      tcpdump
     ];
   };
 

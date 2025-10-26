@@ -11,5 +11,6 @@ delib.module {
   home.ifEnabled.home.packages = with pkgs; [
     dig
     nmap
+    traceroute
   ];
 }

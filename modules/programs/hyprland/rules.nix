@@ -26,10 +26,10 @@ delib.module {
           ];
           windowrulev2 = [
             # Steam games - force to HDMI display
-            "monitor HDMI-A-1, class:^steam_app_"
-            "workspace 1, class:^steam_app_"
+            #"monitor HDMI-A-1, class:^steam_app_"
+            #"workspace 1, class:^steam_app_"
             # Obsidian - left 1/3 of ultrawide for sol workspace
-            "size 33% 100%, initialTitle:^.*sol - Obsidian.*$"
+            "size 33% 100%, initialTitle:^.*sol - Obsidian.*$" # TODO: size only works on floating windows
             "move 0 0, initialTitle:^.*sol - Obsidian.*$"
           ];
           layerrule = [
@@ -37,6 +37,14 @@ delib.module {
             "ignorealpha 0, gtk4-layer-shell"
             "noanim, gtk4-layer-shell"
           ];
+          monitor =
+            (builtins.map (
+              display:
+              "${display.name}, ${display.resolution}, ${if display.leftMost then "0x0" else "auto-right"}, 1"
+            ) parent.displays)
+            ++ [
+              ", preferred, auto, 1" # place newly plugged in monitors to the right of existing ones with preferred resolution
+            ];
           workspace = [
             "w[tv1]s[false], gapsout:0, gapsin:0" # set gaps for non-special workspaces with only 1 visible tiled window
             "f[1]s[false], gapsout:0, gapsin:0" # same as above but maximized
