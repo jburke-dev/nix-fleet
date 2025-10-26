@@ -12,7 +12,7 @@ delib.module {
     moduleOptions (
       { parent, ... }:
       {
-        enable = boolOption (host.isServer && !host.installerFeatured);
+        enable = boolOption (host.isServer && !host.installerFeatured && !host.routerFeatured);
         listenAddress = strOption parent.listenAddress;
         httpPort = portOption 9100;
         interface = strOption parent.interface;

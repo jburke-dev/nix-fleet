@@ -40,6 +40,10 @@ delib.host {
           host = "kraken";
           hostname = "192.168.21.6";
         }
+        {
+          host = "pandora";
+          hostname = "192.168.5.24";
+        }
       ];
     };
   };

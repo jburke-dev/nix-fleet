@@ -30,7 +30,7 @@ delib.module {
       services.openssh = {
         enable = true;
 
-        listenAddresses = lib.mkIf (!host.installerFeatured) (
+        listenAddresses = lib.mkIf (!host.installerFeatured && !host.routerFeatured) (
           map (addr: { inherit addr; }) cfg.listenAddresses
         );
 

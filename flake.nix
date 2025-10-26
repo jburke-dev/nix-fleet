@@ -37,6 +37,14 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-anywhere = {
+      url = "github:nix-community/nixos-anywhere";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -45,6 +53,8 @@
       flake-parts,
       sops-nix,
       stylix,
+      nixos-anywhere,
+      disko,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
@@ -85,6 +95,7 @@
                       "mediaServer"
                       "monitoring"
                       "k3s"
+                      "router"
                     ];
                     defaultByHostType = {
                       desktop = [
@@ -119,7 +130,12 @@
         };
 
       perSystem =
-        { pkgs, config, ... }:
+        {
+          pkgs,
+          config,
+          inputs',
+          ...
+        }:
         {
           formatter = pkgs.nixfmt-tree;
           pre-commit = {
@@ -135,7 +151,9 @@
             shellHook = ''
               ${config.pre-commit.installationScript}
             '';
-            packages = config.pre-commit.settings.enabledPackages;
+            packages = config.pre-commit.settings.enabledPackages ++ [
+              inputs'.nixos-anywhere.packages.default
+            ];
           };
         };
     };

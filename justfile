@@ -37,3 +37,8 @@ rebuild-remote HOST:
     #!/usr/bin/env bash
     set -euo pipefail
     nixos-rebuild --build-host {{ HOST }} --target-host {{ HOST }} --sudo --flake ".#{{ HOST }}" switch
+
+deploy HOST IP:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    nixos-anywhere --flake ".#{{ HOST }}" --target-host {{ IP }} --build-on remote
