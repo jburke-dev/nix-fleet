@@ -4,17 +4,14 @@ delib.host {
 
   type = "desktop";
 
-  home.wayland.windowManager.hyprland.settings.monitor = [
-    "HDMI-A-1, preferred, 0x0, 1"
-    "DP-2, preferred, auto-right, 1"
-  ];
-
   myconfig.programs = {
     network-utils.enable = true;
     hyprland.displays = [
       {
-        name = "HDMI-A-1";
+        name = "DP-1";
         wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/ultrawide/";
+        resolution = "3440x1440@100.00Hz";
+        leftMost = true;
       }
       {
         name = "DP-2";

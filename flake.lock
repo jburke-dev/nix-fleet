@@ -32,11 +32,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1760477650,
-        "narHash": "sha256-w7Wt8p9XA9X5R9xqnwHghJiY6DqiP5CrUNf6gcD+a9U=",
+        "lastModified": 1761252427,
+        "narHash": "sha256-UPRLI0Kll7skLUyHXgehAMfsdoMQ/+aunoGN42DF6vk=",
         "owner": "jburke-dev",
         "repo": "ags-shell",
-        "rev": "6099a96c9278b3e0c47b7409370d343f8c7f93ce",
+        "rev": "39a0ba4b10016b9045c50eb8e596402318a326a0",
         "type": "github"
       },
       "original": {

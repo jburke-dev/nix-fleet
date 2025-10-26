@@ -24,7 +24,7 @@ delib.module {
           };
         */
         xwaylandprimary = {
-          display = "HDMI-A-1";
+          display = "DP-1";
         };
       };
     };

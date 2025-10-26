@@ -19,6 +19,8 @@ delib.module {
           options = {
             name = strOption null;
             wallpaperPath = pathOption null;
+            resolution = strOption "preferred";
+            leftMost = boolOption false;
           };
         }
       )) [ ];
@@ -44,10 +46,6 @@ delib.module {
     };
 
   nixos.ifEnabled = {
-    services.displayManager.gdm = {
-      enable = true;
-      wayland = true;
-    };
     programs.hyprland = {
       enable = true;
       package = inputs.hyprland.packages.${pkgs.system}.hyprland;
