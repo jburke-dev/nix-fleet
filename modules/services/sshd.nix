@@ -17,6 +17,9 @@ delib.module {
       UsePAM = boolOption host.installerFeatured;
       PasswordAuthentication = boolOption host.installerFeatured;
       KbdInteractiveAuthentication = boolOption host.installerFeatured;
+      PermitRootLogin = enumOption [ "yes" "prohibit-password" "no" ] (
+        if host.installerFeatured then "yes" else "no"
+      );
     };
 
   nixos.ifEnabled =
@@ -27,13 +30,17 @@ delib.module {
       services.openssh = {
         enable = true;
 
-        listenAddresses = lib.mkIf (!host.installerFeatured) (
+        listenAddresses = lib.mkIf (!host.installerFeatured && !host.routerFeatured) (
           map (addr: { inherit addr; }) cfg.listenAddresses
         );
 
         settings = {
-          PermitRootLogin = "no";
-          inherit (cfg) UsePAM PasswordAuthentication KbdInteractiveAuthentication;
+          inherit (cfg)
+            UsePAM
+            PasswordAuthentication
+            KbdInteractiveAuthentication
+            PermitRootLogin
+            ;
         };
       };
     };
