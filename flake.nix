@@ -84,6 +84,9 @@
                 ./modules
                 ./rices
               ];
+              exclude = [
+                ./modules/lib
+              ];
 
               extensions = with denix.lib.extensions; [
                 args

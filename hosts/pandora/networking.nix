@@ -3,7 +3,8 @@ delib.host {
   name = "pandora";
 
   myconfig = {
-    networking.router = {
+    networking = {
+      hostId = "dabd7000";
       links = {
         trunk1 = {
           mac = "20:7c:14:f8:34:c8";
