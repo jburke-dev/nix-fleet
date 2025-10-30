@@ -1,7 +1,6 @@
 {
   delib,
   host,
-  lib,
   ...
 }:
 delib.module {
@@ -23,7 +22,7 @@ delib.module {
         attrsOfOption
           (submodule {
             options = {
-              vlanId = intOption 10;
+              networkName = strOption "servers";
               ipFragment = strOption "";
               deviceType = enumOption [ "server" "router" ] "server";
               mac = strOption "";
@@ -31,55 +30,110 @@ delib.module {
           })
           {
             kaiju = {
-              vlanId = 12;
+              networkName = "servers";
               ipFragment = "1.1";
               mac = ""; # TODO: fill this in
             };
             colossus = {
-              vlanId = 12;
+              networkName = "servers";
               ipFragment = "1.2";
               mac = "";
             };
             kraken = {
-              vlanId = 12;
+              networkName = "servers";
               ipFragment = "1.3";
               mac = "";
             };
           }
       );
-      vlans = readOnly (
+      networks = readOnly (
         attrsOfOption
           (submodule {
             options = {
               id = intOption 0;
+              type = enumOption [ "bridge" "vlan" ] "vlan";
+              interface = nullOr strOption null;
               cidr = enumOption [ 24 16 ] 24;
               dhcpMode = enumOption [ "dynamic" "static" ] "dynamic";
+              firewall =
+                submoduleOption
+                  {
+                    options = {
+                      allowOutbound = listOfOption str [ ];
+                      limitedAccess = attrsOfOption (submodule {
+                        options = {
+                          ports = listOfOption int [ ];
+                          destIps = listOfOption str [ ];
+                        };
+                      }) { };
+                    };
+                  }
+                  {
+                    allowOutbound = [ ];
+                    limitedAccess = { };
+                  };
             };
           })
           {
+            lan = {
+              id = 10;
+              type = "bridge";
+              interface = "br-lan";
+              cidr = 24;
+              dhcpMode = "dynamic";
+              firewall = {
+                allowOutbound = [
+                  "wan"
+                  "servers"
+                  "trusted"
+                  "untrusted"
+                ];
+              };
+            };
             servers = {
               id = 12;
               cidr = 16;
               dhcpMode = "static";
+              firewall = {
+                allowOutbound = [
+                  "wan"
+                  "trusted"
+                ];
+              };
             };
             trusted = {
               id = 20;
               cidr = 16;
               dhcpMode = "dynamic";
+              firewall = {
+                allowOutbound = [
+                  "wan"
+                  "servers"
+                ];
+              };
             };
             untrusted = {
               id = 25;
               cidr = 16;
               dhcpMode = "dynamic";
+              firewall = {
+                allowOutbound = [ "wan" ];
+                limitedAccess = {
+                  servers = {
+                    ports = [
+                      80
+                      443
+                    ];
+                    destIps = [ ]; # TODO: add reverse proxy IPs when known
+                  };
+                };
+              };
             };
           }
       );
     };
 
   nixos.ifEnabled =
-    let
-      netLib = import ../lib/networking.nix { inherit lib; };
-    in
     {
       cfg,
       ...
@@ -97,14 +151,6 @@ delib.module {
         {
           assertion = !(cfg.enable && (builtins.length (builtins.attrNames cfg.links)) == 0);
           message = "must specify at least one link when using networking module!";
-        }
-        {
-          assertion = (netLib.vlanIp { id = 12; } "0.1") == "10.12.0.1";
-          message = "netLib vlanIp failed sanity check!";
-        }
-        {
-          assertion = (netLib.vlanGateway { id = 12; }) == "10.12.0.1";
-          message = "netLib vlanGateway failed sanity check!";
         }
       ];
       networking = {

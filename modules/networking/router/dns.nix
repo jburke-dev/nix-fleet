@@ -18,19 +18,25 @@ delib.module {
         bootstrapDns = [
           {
             upstream = "1.1.1.1";
-            ips = [ "1.1.1.1" ];
           }
           {
             upstream = "1.0.0.1";
-            ips = [ "1.0.0.1" ];
+          }
+          {
+            upstream = "2606:4700:4700::1111";
+          }
+          {
+            upstream = "2606:4700:4700::1001";
           }
         ];
-        connectIPVersion = "v4";
+        connectIPVersion = "dual";
         upstreams = {
           groups = {
             default = [
               "1.1.1.1"
               "1.0.0.1"
+              "2606:4700:4700::1111"
+              "2606:4700:4700::1001"
             ];
           };
         };

@@ -21,9 +21,18 @@ rec {
 
   vlanSubnet = { id, cidr, ... }@vlan: "${vlanPrefix vlan}.0.0/${toString vlan.cidr}";
 
-  vlanGateway = { id, ... }@vlan: (lanIp vlan "0.1");
+  vlanGateway = { id, ... }@vlan: (vlanIp vlan "0.1");
 
-  getHostIp = { vlanId, ipFragment, ... }: "${vlanPrefix { id = vlanId; }}.${ipFragment}";
+  getNetworkInterface =
+    name: network: if network.interface != null then network.interface else getVlanInterfaceName name;
+
+  getHostIpFromNetwork =
+    networks:
+    { networkName, ipFragment, ... }:
+    let
+      network = networks.${networkName};
+    in
+    "${vlanPrefix network}.${ipFragment}";
 
   vlanDhcpPool =
     {
@@ -37,4 +46,23 @@ rec {
     in
     "${prefix}.0.2-${poolEnd}";
   getVlanInterfaceName = name: "vlan-${name}";
+
+  # IPv6 ULA helpers
+  # ULA format: fd00::<vlan-id>::/64
+  vlanPrefixV6 = { id, ... }@vlan: "fd00::${lib.toLower (lib.toHexString id)}";
+  vlanIpV6 = { id, ... }@vlan: fragment: "${vlanPrefixV6 vlan}:${fragment}";
+
+  vlanSubnetV6 = { id, ... }@vlan: "${vlanPrefixV6 vlan}::/64";
+
+  vlanGatewayV6 = { id, ... }@vlan: "${vlanPrefixV6 vlan}::1";
+
+  # Get host IPv6 from networkName instead of vlanId
+  getHostIpV6FromNetwork =
+    networks:
+    { networkName, ipFragment, ... }:
+    let
+      network = networks.${networkName};
+      v6Fragment = lib.replaceStrings [ "." ] [ ":" ] ipFragment;
+    in
+    "${vlanPrefixV6 network}:${v6Fragment}";
 }

@@ -5,6 +5,6 @@ delib.module {
   options =
     with delib;
     moduleOptions {
-      enable = boolOption host.routerFeatured;
+      enable = readOnly (boolOption host.routerFeatured);
     };
 }

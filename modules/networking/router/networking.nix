@@ -8,35 +8,49 @@ delib.module {
   nixos.ifEnabled =
     { parent, ... }:
     let
-      bridgeName = "br-lan";
-      mkVlanNetdev =
-        name:
-        (id: {
-          netdevConfig = {
-            Name = netLib.getVlanInterfaceName name;
-            Kind = "vlan";
-          };
-          vlanConfig.Id = id;
-        });
-      mkVlanNetwork =
-        name:
-        (
-          { id, cidr, ... }@vlan:
+      inherit (parent.networks) lan;
+      vlans = lib.filterAttrs (n: v: v.type == "vlan") parent.networks;
+
+      mkVlanNetdev = name: network: {
+        netdevConfig = {
+          Name = netLib.getVlanInterfaceName name;
+          Kind = "vlan";
+        };
+        vlanConfig.Id = network.id;
+      };
+
+      mkVlanNetwork = name: network: {
+        matchConfig.Name = netLib.getVlanInterfaceName name;
+        address = [
+          "${netLib.vlanIp network "0.1"}/${toString network.cidr}"
+          "${netLib.vlanGatewayV6 network}/64"
+        ];
+        networkConfig = {
+          IPv6AcceptRA = false;
+          IPv6SendRA = true;
+        };
+        ipv6SendRAConfig = {
+          Managed = false;
+          OtherInformation = true;
+          EmitDNS = true;
+          DNS = [ "_link_local" ];
+          EmitDomains = true;
+          Domains = [ parent.domain ];
+        };
+        ipv6Prefixes = [
           {
-            matchConfig = netLib.getVlanInterfaceName name;
-            address = [
-              # TODO: what ipv6 prefix to use for ula?
-              "${netLib.vlanIp vlan "0.1"}/${vlan.cidr}"
-            ];
-            networkConfig = {
-              IPv6AcceptRA = false;
+            ipv6PrefixConfig = {
+              Prefix = netLib.vlanSubnetV6 network;
+              PreferredLifetimeSec = 1800;
+              ValidLifetimeSec = 3600;
             };
           }
-        );
+        ];
+      };
       mkBridgeNetwork = name: {
         matchConfig.Name = name;
         networkConfig = {
-          Bridge = bridgeName;
+          Bridge = lan.interface;
         };
         linkConfig.RequiredForOnline = "enslaved";
         bridgeConfig = {
@@ -79,8 +93,8 @@ delib.module {
           };
         }
         // lib.mapAttrs' (
-          name: id: lib.nameValuePair "20-vlan-${name}" (mkVlanNetdev name id)
-        ) parent.vlans;
+          name: network: lib.nameValuePair "20-vlan-${name}" (mkVlanNetdev name network)
+        ) vlans;
         networks = {
           "10-wan" = {
             matchConfig.Name = "wan";
@@ -104,13 +118,34 @@ delib.module {
           "11-lan1" = mkBridgeNetwork "lan1";
           "11-lan2" = mkBridgeNetwork "lan2";
           "11-lan3" = mkBridgeNetwork "lan3";
-          "15-${bridgeName}" = {
-            matchConfig.Name = bridgeName;
-            address = [ "10.10.0.1/24" ];
+          "15-${lan.interface}" = {
+            matchConfig.Name = lan.interface;
+            address = [
+              "${netLib.vlanIp lan "0.1"}/${toString lan.cidr}"
+              "${netLib.vlanGatewayV6 lan}/64"
+            ];
             networkConfig = {
               IPv4Forwarding = true;
-              IPv6Forwarding = false;
+              IPv6Forwarding = true;
+              IPv6SendRA = true;
             };
+            ipv6SendRAConfig = {
+              Managed = false;
+              OtherInformation = true;
+              EmitDNS = true;
+              DNS = [ "_link_local" ];
+              EmitDomains = true;
+              Domains = [ parent.domain ];
+            };
+            ipv6Prefixes = [
+              {
+                ipv6PrefixConfig = {
+                  Prefix = netLib.vlanSubnetV6 lan;
+                  PreferredLifetimeSec = 1800;
+                  ValidLifetimeSec = 3600;
+                };
+              }
+            ];
             linkConfig.RequiredForOnline = "no";
           };
           "30-trunk1" = {
@@ -129,10 +164,12 @@ delib.module {
               RequiredForOnline = "no";
             };
             networkConfig.LinkLocalAddressing = "no";
-            vlan = builtins.map netLib.getVlanInterfaceName (builtins.attrNames parent.vlans);
+            vlan = builtins.map netLib.getVlanInterfaceName (builtins.attrNames vlans);
           };
         }
-        // lib.mapAttrs' (name: id: lib.nameValuePair "50-vlan-${name}" (mkVlanNetwork name id));
+        // lib.mapAttrs' (
+          name: network: lib.nameValuePair "50-vlan-${name}" (mkVlanNetwork name network)
+        ) vlans;
       };
     };
 }

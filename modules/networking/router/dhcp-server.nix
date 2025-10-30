@@ -26,6 +26,7 @@ delib.module {
         (
           flock -x 200
 
+          # Handle DHCPv4 events
           case "$KEA_LEASE4_TYPE" in
             lease4_select|lease4_renew)
               if [ -n "$LEASE4_HOSTNAME" ] && [ "$LEASE4_HOSTNAME" != "null" ]; then
@@ -40,6 +41,21 @@ delib.module {
               ;;
           esac
 
+          # Handle DHCPv6 events
+          case "$KEA_LEASE6_TYPE" in
+            lease6_select|lease6_renew)
+              if [ -n "$LEASE6_HOSTNAME" ] && [ "$LEASE6_HOSTNAME" != "null" ]; then
+                grep -v "^$LEASE6_ADDRESS " "$HOSTS_FILE" 2>/dev/null > "$HOSTS_FILE.tmp" || true
+                mv -f "$HOSTS_FILE.tmp" "$HOSTS_FILE"
+                echo "$LEASE6_ADDRESS $LEASE6_HOSTNAME $LEASE6_HOSTNAME.lan" >> "$HOSTS_FILE"
+              fi
+              ;;
+            lease6_release|lease6_expire)
+              grep -v "^$LEASE6_ADDRESS " "$HOSTS_FILE" 2>/dev/null > "$HOSTS_FILE.tmp" || true
+              mv -f "$HOSTS_FILE.tmp" "$HOSTS_FILE"
+              ;;
+          esac
+
           cat "$STATIC_HOSTS" > "$HOSTS_FILE.new"
           if [ -f "$HOSTS_FILE" ]; then
             grep -v "^#" "$HOSTS_FILE" 2>/dev/null | grep -v "^$" | sort -u >> "$HOSTS_FILE.new" || true
@@ -49,6 +65,9 @@ delib.module {
       '';
     in
     { parent, ... }:
+    let
+      allNetworks = parent.networks;
+    in
     {
       services = {
         kea = {
@@ -56,7 +75,9 @@ delib.module {
             enable = true;
             settings = {
               interfaces-config = {
-                interfaces = [ "lan1" ];
+                interfaces = builtins.map (name: netLib.getNetworkInterface name allNetworks.${name}) (
+                  builtins.attrNames allNetworks
+                );
               };
 
               valid-lifetime = 172800; # 48 hours
@@ -97,21 +118,22 @@ delib.module {
                 }
               ];
               subnet4 = lib.imap1 (
-                idx: vlanName:
+                idx: networkName:
                 let
-                  vlan = parent.vlans.${vlanName};
+                  network = allNetworks.${networkName};
                 in
                 {
                   id = idx;
-                  subnet = netLib.vlanSubnet vlan;
+                  subnet = netLib.vlanSubnet network;
+                  interface = netLib.getNetworkInterface networkName network;
                   option-data = [
                     {
                       name = "routers";
-                      data = netLib.vlanGateway vlan;
+                      data = netLib.vlanGateway network;
                     }
                     {
                       name = "domain-name-servers";
-                      data = netLib.vlanGateway vlan;
+                      data = netLib.vlanGateway network;
                     }
                     {
                       name = "domain-name";
@@ -119,20 +141,75 @@ delib.module {
                     }
                   ];
                   reservations-global = false;
-                  reservations-in-subnet = vlan.dhcpMode == "static";
-                  reservations-out-of-pool = vlan.dhcpMode == "static";
+                  reservations-in-subnet = network.dhcpMode == "static";
+                  reservations-out-of-pool = network.dhcpMode == "static";
                   reservations = lib.mapAttrsToList (hostName: hostCfg: {
                     hw-address = hostCfg.mac;
-                    ip-address = netLib.getHostIp hostCfg;
+                    ip-address = netLib.getHostIpFromNetwork allNetworks hostCfg;
                     hostname = hostName;
-                  }) (lib.filterAttrs (_: host: host.vlanId == vlan.id) parent.staticHosts);
+                  }) (lib.filterAttrs (_: host: host.networkName == networkName) parent.staticHosts);
                   pools = [
                     {
-                      pool = netLib.vlanDhcpPool vlan;
+                      pool = netLib.vlanDhcpPool network;
                     }
                   ];
                 }
-              ) (builtins.attrNames parent.vlans);
+              ) (builtins.attrNames allNetworks);
+            };
+          };
+          dhcp6 = {
+            enable = true;
+            settings = {
+              interfaces-config = {
+                interfaces = builtins.map (name: netLib.getNetworkInterface name allNetworks.${name}) (
+                  builtins.attrNames allNetworks
+                );
+              };
+
+              preferred-lifetime = 1800; # 30 minutes
+              valid-lifetime = 3600; # 1 hour
+              renew-timer = 900; # 15 minutes
+              rebind-timer = 1350; # 22.5 minutes
+
+              lease-database = {
+                type = "memfile";
+                persist = true;
+                name = "/var/lib/kea/kea-leases6.csv";
+                lfc-interval = 600;
+                max-row-errors = 100;
+              };
+
+              hooks-libraries = [
+                {
+                  library = "${pkgs.kea}/lib/kea/hooks/libdhcp_run_script.so";
+                  parameters = {
+                    name = "${keaHostsHook}";
+                    sync = false;
+                  };
+                }
+              ];
+
+              subnet6 = lib.imap1 (
+                idx: networkName:
+                let
+                  network = allNetworks.${networkName};
+                in
+                {
+                  id = idx;
+                  subnet = netLib.vlanSubnetV6 network;
+                  interface = netLib.getNetworkInterface networkName network;
+                  option-data = [
+                    {
+                      name = "dns-servers";
+                      data = netLib.vlanGatewayV6 network;
+                    }
+                    {
+                      name = "domain-search";
+                      data = parent.domain;
+                    }
+                  ];
+                }
+              ) (builtins.attrNames allNetworks);
             };
           };
         };
@@ -151,8 +228,14 @@ delib.module {
             mapping = lib.mkMerge (
               lib.flatten (
                 lib.mapAttrsToList (name: host: {
-                  "${name}" = netLib.getHostIp host;
-                  "${name}.${parent.domain}" = netLib.getHostIp host;
+                  "${name}" = [
+                    (netLib.getHostIpFromNetwork allNetworks host)
+                    (netLib.getHostIpV6FromNetwork allNetworks host)
+                  ];
+                  "${name}.${parent.domain}" = [
+                    (netLib.getHostIpFromNetwork allNetworks host)
+                    (netLib.getHostIpV6FromNetwork allNetworks host)
+                  ];
                 }) parent.staticHosts
               )
             );
@@ -167,11 +250,20 @@ delib.module {
           "C ${dhcpHostsFile} 0644 kea kea - ${staticHostsFile}"
         ];
 
-        kea-dhcp4-server = {
-          serviceConfig = {
-            DynamicUser = lib.mkForce false;
-            User = "kea";
-            Group = "kea";
+        services = {
+          kea-dhcp4-server = {
+            serviceConfig = {
+              DynamicUser = lib.mkForce false;
+              User = "kea";
+              Group = "kea";
+            };
+          };
+          kea-dhcp6-server = {
+            serviceConfig = {
+              DynamicUser = lib.mkForce false;
+              User = "kea";
+              Group = "kea";
+            };
           };
         };
       };
@@ -180,7 +272,8 @@ delib.module {
         # Static hosts
         ${lib.concatStringsSep "\n" (
           lib.mapAttrsToList (
-            hostname: hostCfg: "${netLib.getHostIp hostCfg} ${hostname} ${hostname}.${parent.domain}"
+            hostname: hostCfg:
+            "${netLib.getHostIpFromNetwork allNetworks hostCfg} ${hostname} ${hostname}.${parent.domain}"
           ) parent.staticHosts
         )}
       '';
