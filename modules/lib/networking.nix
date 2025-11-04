@@ -48,9 +48,9 @@ rec {
   getVlanInterfaceName = name: "vlan-${name}";
 
   # IPv6 ULA helpers
-  # ULA format: fd00::<vlan-id>::/64
-  vlanPrefixV6 = { id, ... }@vlan: "fd00::${lib.toLower (lib.toHexString id)}";
-  vlanIpV6 = { id, ... }@vlan: fragment: "${vlanPrefixV6 vlan}:${fragment}";
+  # ULA format: fd00:0:0:<vlan-id>::/64
+  vlanPrefixV6 = { id, ... }@vlan: "fd00:0:0:${lib.toLower (lib.toHexString id)}";
+  vlanIpV6 = { id, ... }@vlan: fragment: "${vlanPrefixV6 vlan}::${fragment}";
 
   vlanSubnetV6 = { id, ... }@vlan: "${vlanPrefixV6 vlan}::/64";
 
