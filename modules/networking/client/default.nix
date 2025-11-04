@@ -6,14 +6,11 @@
 delib.module {
   name = "networking.client";
 
-  options = delib.singleEnableOption host.isPC;
+  options = delib.singleEnableOption (host.isPC || host.installerFeatured);
 
   nixos.ifEnabled = {
     networking = {
-      networkmanager = {
-        enable = true;
-        dns = "none"; # TODO: configure via DHCP
-      };
+      networkmanager.enable = true;
     };
 
     user.extraGroups = [ "networkmanager" ];

@@ -30,27 +30,10 @@ delib.module {
               in
               "    oifname \"${destIface}\" accept;"
           ) network.firewall.allowOutbound;
-
-          # Generate rules for limited access
-          limitedRules = lib.concatStringsSep "\n" (
-            lib.mapAttrsToList (
-              destName: rule:
-              let
-                destIface = netLib.getNetworkInterface destName allNetworks.${destName};
-                portList = lib.concatMapStringsSep ", " toString rule.ports;
-                ipList = lib.concatStringsSep ", " rule.destIps;
-              in
-              if rule.destIps == [ ] then
-                "    oifname \"${destIface}\" tcp dport { ${portList} } accept;"
-              else
-                "    oifname \"${destIface}\" ip daddr { ${ipList} } tcp dport { ${portList} } accept;"
-            ) network.firewall.limitedAccess
-          );
         in
         ''
           chain from_${networkName} {
           ${allowRules}
-          ${limitedRules}
           }
         '';
 
@@ -80,6 +63,7 @@ delib.module {
 
               # Allow established/related connections
               ct state established,related accept;
+              ct state invalid counter drop;
 
               # Allow loopback
               iifname "lo" accept;
@@ -106,7 +90,7 @@ delib.module {
 
               # Allow SSH from trusted networks (add specific network names as needed)
               iifname "vlan-trusted" tcp dport 22 accept;
-              iifname 
+              iifname "br-lan" tcp dport 22 accept;
 
               # Log and drop everything else
               # log prefix "INPUT DROP: " drop;
@@ -117,6 +101,7 @@ delib.module {
 
               # Allow established/related connections
               ct state established,related accept;
+              ct state invalid counter drop;
 
               # Jump to per-network chains based on input interface
               ${forwardJumps}

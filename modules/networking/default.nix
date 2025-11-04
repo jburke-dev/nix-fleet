@@ -52,7 +52,7 @@ delib.module {
             options = {
               id = intOption 0;
               type = enumOption [ "bridge" "vlan" ] "vlan";
-              interface = nullOr strOption null;
+              interface = allowNull (strOption null);
               cidr = enumOption [ 24 16 ] 24;
               dhcpMode = enumOption [ "dynamic" "static" ] "dynamic";
               firewall =
@@ -60,17 +60,10 @@ delib.module {
                   {
                     options = {
                       allowOutbound = listOfOption str [ ];
-                      limitedAccess = attrsOfOption (submodule {
-                        options = {
-                          ports = listOfOption int [ ];
-                          destIps = listOfOption str [ ];
-                        };
-                      }) { };
                     };
                   }
                   {
                     allowOutbound = [ ];
-                    limitedAccess = { };
                   };
             };
           })
@@ -79,14 +72,15 @@ delib.module {
               id = 10;
               type = "bridge";
               interface = "br-lan";
-              cidr = 24;
-              dhcpMode = "dynamic";
+              cidr = 16;
+              dhcpMode = "static";
               firewall = {
                 allowOutbound = [
                   "wan"
                   "servers"
                   "trusted"
                   "untrusted"
+                  "br-lan"
                 ];
               };
             };
@@ -98,6 +92,7 @@ delib.module {
                 allowOutbound = [
                   "wan"
                   "trusted"
+                  "servers"
                 ];
               };
             };
@@ -118,15 +113,6 @@ delib.module {
               dhcpMode = "dynamic";
               firewall = {
                 allowOutbound = [ "wan" ];
-                limitedAccess = {
-                  servers = {
-                    ports = [
-                      80
-                      443
-                    ];
-                    destIps = [ ]; # TODO: add reverse proxy IPs when known
-                  };
-                };
               };
             };
           }
@@ -145,18 +131,28 @@ delib.module {
           message = "hostId must not be empty when networking is enabled!";
         }
         {
-          assertion = !(cfg.enable && builtins.any (link: link.mac == "") (builtins.attrValues cfg.links));
-          message = "links must specify a mac address!";
+          assertion =
+            !(
+              cfg.enable
+              && !(host.isPC || host.installerFeatured)
+              && builtins.any (link: link.mac == "") (builtins.attrValues cfg.links)
+            );
+          message = "links must specify a mac address for non-clients!";
         }
         {
-          assertion = !(cfg.enable && (builtins.length (builtins.attrNames cfg.links)) == 0);
-          message = "must specify at least one link when using networking module!";
+          assertion =
+            !(
+              cfg.enable
+              && !(host.isPC || host.installerFeatured)
+              && (builtins.length (builtins.attrNames cfg.links)) == 0
+            );
+          message = "must specify at least one link when using networking module on non-clients!";
         }
       ];
       networking = {
         hostName = host.name;
         nftables.enable = true;
-        inherit (cfg) domain nameservers hostId;
+        inherit (cfg) domain hostId;
 
         # these are covered by nftables
         nat.enable = false;
