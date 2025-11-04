@@ -39,11 +39,9 @@ delib.module {
         };
         ipv6Prefixes = [
           {
-            ipv6PrefixConfig = {
-              Prefix = netLib.vlanSubnetV6 network;
-              PreferredLifetimeSec = 1800;
-              ValidLifetimeSec = 3600;
-            };
+            Prefix = netLib.vlanSubnetV6 network;
+            PreferredLifetimeSec = 1800;
+            ValidLifetimeSec = 3600;
           }
         ];
       };
@@ -139,11 +137,9 @@ delib.module {
             };
             ipv6Prefixes = [
               {
-                ipv6PrefixConfig = {
-                  Prefix = netLib.vlanSubnetV6 lan;
-                  PreferredLifetimeSec = 1800;
-                  ValidLifetimeSec = 3600;
-                };
+                Prefix = netLib.vlanSubnetV6 lan;
+                PreferredLifetimeSec = 1800;
+                ValidLifetimeSec = 3600;
               }
             ];
             linkConfig.RequiredForOnline = "no";

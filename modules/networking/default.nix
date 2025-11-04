@@ -80,7 +80,7 @@ delib.module {
                   "servers"
                   "trusted"
                   "untrusted"
-                  "br-lan"
+                  "lan"
                 ];
               };
             };
