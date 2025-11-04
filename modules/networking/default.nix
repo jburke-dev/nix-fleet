@@ -29,20 +29,27 @@ delib.module {
             };
           })
           {
-            kaiju = {
-              networkName = "servers";
+            /*
+              kaiju = {
+                networkName = "servers";
+                ipFragment = "1.1";
+                mac = ""; # TODO: fill this in
+              };
+              colossus = {
+                networkName = "servers";
+                ipFragment = "1.2";
+                mac = "";
+              };
+              kraken = {
+                networkName = "servers";
+                ipFragment = "1.3";
+                mac = "";
+              };
+            */
+            mikrotik = {
+              networkName = "lan";
               ipFragment = "1.1";
-              mac = ""; # TODO: fill this in
-            };
-            colossus = {
-              networkName = "servers";
-              ipFragment = "1.2";
-              mac = "";
-            };
-            kraken = {
-              networkName = "servers";
-              ipFragment = "1.3";
-              mac = "";
+              mac = "D4:01:C3:12:16:F4"; # combo3 port
             };
           }
       );
