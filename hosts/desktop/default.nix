@@ -4,14 +4,6 @@ delib.host {
 
   type = "desktop";
 
-  nixos.networking = {
-    nameservers = [
-      "1.1.1.1"
-      "1.0.0.1"
-    ];
-    networkmanager.dns = "none";
-  };
-
   myconfig.programs = {
     network-utils.enable = true;
     hyprland.displays = [
@@ -34,20 +26,8 @@ delib.host {
           identityFileSuffix = "github";
         }
         {
-          host = "kaiju";
-          hostname = "192.168.21.5";
-        }
-        {
-          host = "colossus";
-          hostname = "192.168.21.4";
-        }
-        {
-          host = "kraken";
-          hostname = "192.168.21.6";
-        }
-        {
           host = "pandora";
-          hostname = "192.168.5.24";
+          hostname = "10.10.0.1"; # not using hostname just incase dns breaks
         }
       ];
     };
