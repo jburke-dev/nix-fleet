@@ -4,6 +4,14 @@ delib.host {
 
   type = "desktop";
 
+  nixos.networking = {
+    nameservers = [
+      "1.1.1.1"
+      "1.0.0.1"
+    ];
+    networkmanager.dns = "none";
+  };
+
   myconfig.programs = {
     network-utils.enable = true;
     hyprland.displays = [

@@ -222,24 +222,26 @@ delib.module {
               refreshPeriod = "30s";
             };
           };
-          customDNS = {
-            customTTL = "1h";
-            filterUnmappedTypes = true;
-            mapping = lib.mkMerge (
-              lib.flatten (
-                lib.mapAttrsToList (name: host: {
-                  "${name}" = [
-                    (netLib.getHostIpFromNetwork allNetworks host)
-                    (netLib.getHostIpV6FromNetwork allNetworks host)
-                  ];
-                  "${name}.${parent.domain}" = [
-                    (netLib.getHostIpFromNetwork allNetworks host)
-                    (netLib.getHostIpV6FromNetwork allNetworks host)
-                  ];
-                }) parent.staticHosts
-              )
-            );
-          };
+          /*
+            customDNS = {
+              customTTL = "1h";
+              filterUnmappedTypes = true;
+              mapping = lib.mkMerge (
+                lib.flatten (
+                  lib.mapAttrsToList (name: host: {
+                    "${name}" = [
+                      (netLib.getHostIpFromNetwork allNetworks host)
+                      (netLib.getHostIpV6FromNetwork allNetworks host)
+                    ];
+                    "${name}.${parent.domain}" = [
+                      (netLib.getHostIpFromNetwork allNetworks host)
+                      (netLib.getHostIpV6FromNetwork allNetworks host)
+                    ];
+                  }) parent.staticHosts
+                )
+              );
+            };
+          */
         };
       };
 
