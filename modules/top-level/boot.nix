@@ -2,6 +2,7 @@
   delib,
   lib,
   host,
+  pkgs,
   ...
 }:
 delib.module {
@@ -26,24 +27,27 @@ delib.module {
   nixos.ifEnabled =
     { cfg, ... }:
     {
-      boot.loader = lib.mkIf (!host.installerFeatured) {
-        efi = {
-          canTouchEfiVariables = true;
-        };
+      boot = {
+        kernelPackages = pkgs.linuxPackages_latest;
+        loader = lib.mkIf (!host.installerFeatured) {
+          efi = {
+            canTouchEfiVariables = true;
+          };
 
-        grub = lib.mkIf (cfg.loader == "grub") {
-          enable = true;
-          efiSupport = cfg.mode == "uefi";
-          devices = [ "nodev" ];
-          configurationLimit = 10;
-        };
+          grub = lib.mkIf (cfg.loader == "grub") {
+            enable = true;
+            efiSupport = cfg.mode == "uefi";
+            devices = [ "nodev" ];
+            configurationLimit = 10;
+          };
 
-        systemd-boot = lib.mkIf (cfg.loader == "systemd-boot") {
-          enable = true;
-          configurationLimit = 10;
-        };
+          systemd-boot = lib.mkIf (cfg.loader == "systemd-boot") {
+            enable = true;
+            configurationLimit = 10;
+          };
 
-        timeout = 5;
+          timeout = 5;
+        };
       };
     };
 }

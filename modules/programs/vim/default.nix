@@ -9,7 +9,7 @@ delib.module {
   options = delib.singleEnableOption true;
 
   nixos.ifEnabled.environment.systemPackages = with pkgs; [
-    ((vim_configurable.override { }).customize {
+    ((vim-full.override { }).customize {
       name = "vim";
       vimrcConfig.customRC = builtins.readFile ./vimrc;
     })

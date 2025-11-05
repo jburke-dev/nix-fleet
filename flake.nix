@@ -28,6 +28,7 @@
     };
     nixvim = {
       url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     sops-nix = {
       url = "github:Mic92/sops-nix";
@@ -83,6 +84,9 @@
                 ./hosts
                 ./modules
                 ./rices
+              ];
+              exclude = [
+                ./modules/lib
               ];
 
               extensions = with denix.lib.extensions; [

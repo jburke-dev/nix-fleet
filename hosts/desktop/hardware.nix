@@ -54,7 +54,6 @@ delib.host {
       };
     };
 
-    networking.useDHCP = lib.mkDefault true;
     hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
   };
 }

@@ -9,7 +9,6 @@ delib.host {
   ];
 
   myconfig = {
-    networking.mode = "network-manager";
     programs.zsh.enable = false;
   };
 }
