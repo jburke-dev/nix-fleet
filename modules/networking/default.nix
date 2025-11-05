@@ -110,6 +110,7 @@ delib.module {
               firewall = {
                 allowOutbound = [
                   "wan"
+                  "lan"
                   "servers"
                 ];
               };
