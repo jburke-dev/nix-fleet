@@ -40,12 +40,12 @@ delib.module {
                 ipFragment = "1.2";
                 mac = "";
               };
-              kraken = {
-                networkName = "servers";
-                ipFragment = "1.3";
-                mac = "";
-              };
             */
+            kraken = {
+              networkName = "servers";
+              ipFragment = "1.1";
+              mac = "58:47:ca:7d:96:ae";
+            };
             mikrotik = {
               networkName = "lan";
               ipFragment = "1.1";

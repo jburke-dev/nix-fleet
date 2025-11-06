@@ -29,6 +29,10 @@ delib.host {
           host = "pandora";
           hostname = "10.10.0.1"; # not using hostname just incase dns breaks
         }
+        {
+          host = "kraken";
+          hostname = "10.12.1.1";
+        }
       ];
     };
   };

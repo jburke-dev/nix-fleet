@@ -1,4 +1,9 @@
-{ delib, ... }:
+{
+  delib,
+  pkgs,
+  lib,
+  ...
+}:
 delib.host {
   name = "installer";
 
@@ -10,5 +15,9 @@ delib.host {
 
   myconfig = {
     programs.zsh.enable = false;
+  };
+
+  nixos = {
+    boot.kernelPackages = lib.mkForce pkgs.linuxPackages; # using more stable kernel version to avoid broken zfs kernel errors during build
   };
 }
