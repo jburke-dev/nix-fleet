@@ -215,7 +215,7 @@ delib.module {
         };
         blocky.settings = {
           hostsFile = {
-            sources = [ dhcpHostsFile ];
+            sources = [ staticHostsFile ];
             hostsTTL = "30s";
             filterLoopback = false;
             loading = {
