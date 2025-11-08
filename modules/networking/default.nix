@@ -41,6 +41,11 @@ delib.module {
                 mac = "";
               };
             */
+            home-assistant = {
+              networkName = "untrusted"; # some iot devices like philips hue don't play nice in initial configuration across subnets
+              ipFragment = "1.1";
+              mac = "2c:cf:67:ae:5f:94";
+            };
             kraken = {
               networkName = "servers";
               ipFragment = "1.1";
@@ -112,15 +117,19 @@ delib.module {
                   "wan"
                   "lan"
                   "servers"
+                  "untrusted"
                 ];
               };
             };
             untrusted = {
               id = 25;
               cidr = 16;
-              dhcpMode = "dynamic";
+              dhcpMode = "static";
               firewall = {
-                allowOutbound = [ "wan" ];
+                allowOutbound = [
+                  "wan"
+                  "untrusted"
+                ];
               };
             };
           }
