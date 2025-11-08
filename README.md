@@ -1,58 +1,44 @@
-# Nix 
+# Nix Fleet
 
-Modular NixOS configuration for my desktop and servers.
+Modular NixOS configuration for my desktop, laptop, and homelab servers.
 
-# Usage
+## Disclaimer
 
-A host can be rebuilt locally with `just rebuild-local`.  Remote hosts can be rebuilt over ssh with `just rebuild-remote HOST`.
+This repository contains my personal NixOS configurations. While I welcome others to take inspiration from my setup and I strive to follow best practices, please note:
+
+- **No Guarantees**: I make no guarantee that these configurations will work on systems other than my own
+- **Hardware Dependencies**: Some configurations have dependencies on my specific hardware
+- **Use at Your Own Risk**: Always review and understand configurations before applying them to your own systems
+
+Feel free to learn from, fork, or adapt any part of this configuration for your own use!
+
+## Usage
+
+A host can be rebuilt locally with `just rebuild-local`. Remote hosts can be rebuilt over ssh with `just rebuild-remote HOST`.
 
 To update a system, run `nix flake update` followed by the normal rebuild command.
 
-# Hosts
+See the [justfile](justfile) for all available commands.
 
-## Desktop
-- [Hyprland](https://github.com/hyprwm/Hyprland) window manager
-- [Nixvim](https://github.com/nix-community/nixvim) code editor
-- [Ghostty](https://github.com/ghostty-org/ghostty) terminal emulator
-- [zsh](https://github.com/zsh-users/zsh) shell
-- [ags-shell](https://github.com/jburke-dev/ags-shell) custom desktop shell written with [AGS](https://github.com/Aylur/ags)
+## Hosts
 
-## Pandora
-Custom router/firewall on an intel n355-based mini-PC.
-- [nftables](https://netfilter.org/projects/nftables/) firewall
-- [blocky](https://github.com/0xERR0R/blocky) ad-blocking DNS
-- [kea](https://github.com/isc-projects/kea) dhcp server
+- **[Desktop](hosts/desktop/README.md)** - Main desktop workstation with Hyprland
+- **[Laptop](hosts/laptop/README.md)** - Laptop with Hyprland
+- **[Pandora](hosts/pandora/README.md)** - Router/firewall with nftables, Blocky DNS, and Kea DHCP
+- **[Kraken](hosts/kraken/README.md)** - Server for testing and future k3s cluster
+- **[Installer](hosts/installer/README.md)** - Custom NixOS installation ISO
 
-## Common Server Configuration
-:warning: :warning: Servers listed below are pending migration to new network configuration :warning: :warning:
-- [Traefik](https://github.com/traefik/traefik) reverse proxy with LetsEncrypt ACME dns challenge for automated wildcard certs
-- [Keepalived](https://github.com/acassen/keepalived) virtual shared IP for Traefik failover
-- [Postgres](https://github.com/postgres/postgres) RDMS
-- Networking with systemd-networkd
+## Flake
 
-## Kaiju
-Custom built AMD Epyc server
-- [Vaultwarden](https://github.com/dani-garcia/vaultwarden) local password manager
-- [Glance](https://github.com/glanceapp/glance) dashboard
-- [Forgejo](https://forgejo.org) local git forge
+This flake is supported by various utilities to make NixOS development easier:
+- [Home Manager](https://github.com/nix-community/home-manager) - Home directory and user profile management
+- [Denix](https://github.com/yunfachi/denix) - Modular multi-host NixOS configuration framework
+- [SOPS-nix](https://github.com/Mic92/sops-nix) - Secrets management
+- [Flake-parts](https://github.com/hercules-ci/flake-parts) - Multi-system flake support
+- [Git-hooks](https://github.com/cachix/git-hooks.nix) - Git hooks integration
+- [nixos-anywhere](https://github.com/nix-community/nixos-anywhere) - Automated NixOS installation
+- [Disko](https://github.com/nix-community/disko) - Declarative disk partitioning
 
-## Colossus
-Custom built AMD Epyc server
-- [Jellyfin](https://github.com/jellyfin/jellyfin) local media server
+## Future Plans
 
-## Kraken
-Minisforum MS-01
-- [Home Assistant](https://github.com/home-assistant) home automation
-- Monitoring with [Prometheus](https://github.com/prometheus/prometheus) and [Grafana](https://github.com/grafana/grafana)
-
-# Flake
-This flake is supported by various utilities to make Nix development easier:
-- [Home manager](https://github.com/nix-community/home-manager) home directory and user profile management
-- [Denix](https://github.com/yunfachi/denix) modular multi-host nix config
-- [Sops-nix](https://github.com/Mic92/sops-nix) secret management
-- [Flake-parts](https://github.com/hercules-ci/flake-parts) multi-system flake support
-- [Git-hooks](https://github.com/cachix/git-hooks.nix) git hooks nix integration
-
-# Planned
-- Local SSO with [authentik-nix](https://github.com/nix-community/authentik-nix)
-- k3s cluster on servers
+For planned features and improvements, please see the [GitHub Issues](https://github.com/jburke-dev/nix-fleet/issues) for this repository.

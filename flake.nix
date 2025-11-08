@@ -98,18 +98,11 @@
                   hosts.features = {
                     features = [
                       "gui"
-                      "gnome"
                       "hyprland"
                       "gaming"
                       "dev"
                       "installer"
-                      "reverseProxy"
-                      "zfs"
-                      "homeAssistant"
                       "nvidia"
-                      "mediaServer"
-                      "monitoring"
-                      "k3s"
                       "router"
                     ];
                     defaultByHostType = {
