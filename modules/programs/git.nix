@@ -11,11 +11,11 @@ delib.module {
         enable = true;
         lfs.enable = true;
 
-        inherit (myconfig.constants) userEmail;
-
-        userName = myconfig.constants.userFullName;
-
-        extraConfig = {
+        settings = {
+          user = {
+            email = myconfig.constants.userEmail;
+            name = myconfig.constants.userFullName;
+          };
           credential.helper = "store";
           init.defaultBranch = "main";
           push.autoSetupRemote = true;
