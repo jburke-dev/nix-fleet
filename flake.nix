@@ -98,18 +98,11 @@
                   hosts.features = {
                     features = [
                       "gui"
-                      "gnome"
                       "hyprland"
                       "gaming"
                       "dev"
                       "installer"
-                      "reverseProxy"
-                      "zfs"
-                      "homeAssistant"
                       "nvidia"
-                      "mediaServer"
-                      "monitoring"
-                      "k3s"
                       "router"
                     ];
                     defaultByHostType = {
@@ -159,6 +152,12 @@
               nixfmt-rfc-style.enable = true;
               commitizen.enable = true;
               shellcheck.enable = true;
+              markdownlint = {
+                enable = true;
+                settings.configuration = {
+                  line-length = false;
+                };
+              };
             };
             check.enable = true;
           };

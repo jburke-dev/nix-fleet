@@ -12,6 +12,7 @@ delib.module {
         css = [ "prettier" ];
         typescriptreact = [ "prettier" ];
         typescript = [ "prettier" ];
+        markdown = [ "markdownlint" ];
         sh = [ "shellcheck" ];
       };
       format_on_save = {
