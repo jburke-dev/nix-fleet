@@ -14,6 +14,8 @@ delib.module {
       just
       nixfmt-rfc-style
       sops
+      xz
+      file
     ];
   };
 }
