@@ -4,7 +4,7 @@ fmt:
 _format-targets +TARGETS:
     printf ".#%s " {{ TARGETS }} | sed 's/ $//'
 
-write-installer DEV: (build-installer)
+write-installer DEV: build-installer
     #!/usr/bin/env bash
     isoFile=$(ls ./result/iso/nixos*.iso)
     sudo dd if=${isoFile} of=/dev/{{ DEV }} bs=4M status=progress conv=fdatasync

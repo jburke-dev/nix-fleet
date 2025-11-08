@@ -1,13 +1,12 @@
 { delib, ... }:
 delib.module {
-  name = "programs.nixvim.lsp.nil_ls";
+  name = "programs.nixvim.lsp.marksman";
 
   options = delib.singleCascadeEnableOption;
 
   home.ifEnabled = {
-    programs.nixvim.lsp.servers.nil_ls = {
+    programs.nixvim.lsp.servers.marksman = {
       enable = true;
-      config.nil.nix.flake.autoEvalInputs = true;
     };
   };
 }

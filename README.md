@@ -31,6 +31,7 @@ See the [justfile](justfile) for all available commands.
 ## Flake
 
 This flake is supported by various utilities to make NixOS development easier:
+
 - [Home Manager](https://github.com/nix-community/home-manager) - Home directory and user profile management
 - [Denix](https://github.com/yunfachi/denix) - Modular multi-host NixOS configuration framework
 - [SOPS-nix](https://github.com/Mic92/sops-nix) - Secrets management

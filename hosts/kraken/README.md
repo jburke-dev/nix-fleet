@@ -27,21 +27,25 @@ Currently configured as a minimal server for testing purposes. This host will ev
 ## Deployment
 
 Deploy from another machine:
+
 ```bash
 just rebuild-remote kraken
 ```
 
 Deploy along with all other servers:
+
 ```bash
 just rebuild-servers
 ```
 
 Initial deployment with nixos-anywhere:
+
 ```bash
 just deploy kraken <IP_ADDRESS>
 ```
 
 Build without deploying:
+
 ```bash
 just build kraken
 ```

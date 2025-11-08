@@ -152,6 +152,12 @@
               nixfmt-rfc-style.enable = true;
               commitizen.enable = true;
               shellcheck.enable = true;
+              markdownlint = {
+                enable = true;
+                settings.configuration = {
+                  line-length = false;
+                };
+              };
             };
             check.enable = true;
           };

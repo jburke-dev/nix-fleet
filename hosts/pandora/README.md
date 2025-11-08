@@ -28,6 +28,7 @@ Pandora serves as the primary router and firewall for the homelab, managing mult
 ### Firewall Rules
 
 Using [nftables](https://netfilter.org/projects/nftables/) for firewall management with network-specific outbound policies:
+
 - **lan**: Full access to all networks
 - **servers**: Access to WAN, trusted, and servers networks
 - **trusted**: Access to WAN, lan, servers, and untrusted networks
@@ -38,6 +39,7 @@ Configuration in `modules/networking/router/firewall.nix`
 ### DNS
 
 [Blocky](https://github.com/0xERR0R/blocky) - Ad-blocking DNS server with:
+
 - Ad and tracker blocking
 - Custom upstream resolvers
 - Query logging
@@ -48,6 +50,7 @@ Configuration in `modules/networking/router/dns.nix`
 ### DHCP
 
 [Kea](https://github.com/isc-projects/kea) - DHCP server providing:
+
 - Static DHCP reservations for servers and infrastructure
 - Dynamic DHCP pools for trusted devices
 - VLAN-aware DHCP serving
@@ -63,16 +66,19 @@ Configuration in `modules/networking/router/kernel.nix`
 ## Deployment
 
 Deploy from another machine:
+
 ```bash
 just rebuild-remote pandora
 ```
 
 Initial deployment with nixos-anywhere:
+
 ```bash
 just deploy pandora <IP_ADDRESS>
 ```
 
 Build without deploying:
+
 ```bash
 just build pandora
 ```
