@@ -6,6 +6,6 @@ delib.module {
 
   home.ifEnabled.programs.nixvim.lsp.servers.nil_ls = {
     enable = true;
-    settings.nil.nix.flake.autoEvalInputs = true;
+    config.nil.nix.flake.autoEvalInputs = true;
   };
 }
