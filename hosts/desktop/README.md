@@ -40,7 +40,7 @@ Each display has its own wallpaper directory configured.
 
 ### Terminal
 
-- [Ghostty](https://github.com/ghostty-org/ghostty) - GPU-accelerated terminal emulator
+- [kitty](https://github.com/kovidgoyal/kitty) - GPU-accelerated terminal emulator
 - [zsh](https://www.zsh.org/) - Shell with custom configuration
 
 ### Browsers

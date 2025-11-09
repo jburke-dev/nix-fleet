@@ -57,6 +57,12 @@ delib.module {
         enable = true;
         ruleset = ''
           table inet filter {
+            # MSS clamping for PMTU discovery - prevents TCP hangs.  This was preventing terminal emulators from successfully copying terminfo on first ssh
+            chain forward_mss {
+              type filter hook forward priority -150;
+              tcp flags syn tcp option maxseg size set rt mtu;
+            }
+
             chain input {
               type filter hook input priority 0; policy drop;
 
