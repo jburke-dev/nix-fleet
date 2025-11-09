@@ -33,6 +33,10 @@ delib.host {
           host = "kraken";
           hostname = "10.12.1.1";
         }
+        {
+          host = "kaiju";
+          hostname = "10.12.1.2";
+        }
       ];
     };
   };

@@ -65,4 +65,23 @@ rec {
       v6Fragment = lib.replaceStrings [ "." ] [ ":" ] ipFragment;
     in
     "${vlanPrefixV6 network}:${v6Fragment}";
+
+  mkBridgeNetwork = name: bridgeInterfaceName: {
+    matchConfig.Name = name;
+    networkConfig = {
+      Bridge = bridgeInterfaceName;
+    };
+    linkConfig.RequiredForOnline = "enslaved";
+    bridgeConfig = {
+      HairPin = false;
+      FastLeave = true;
+      Cost = 4;
+    };
+  };
+
+  mkBondChildNetwork = name: bondInterfaceName: {
+    matchConfig.Name = name;
+    networkConfig.Bond = bondInterfaceName;
+    linkConfig.RequiredForOnline = "enslaved";
+  };
 }

@@ -45,18 +45,6 @@ delib.module {
           }
         ];
       };
-      mkBridgeNetwork = name: {
-        matchConfig.Name = name;
-        networkConfig = {
-          Bridge = lan.interface;
-        };
-        linkConfig.RequiredForOnline = "enslaved";
-        bridgeConfig = {
-          HairPin = false;
-          FastLeave = true;
-          Cost = 4;
-        };
-      };
     in
     {
       systemd.network = {
@@ -113,9 +101,9 @@ delib.module {
             };
             linkConfig.RequiredForOnline = "routable";
           };
-          "11-lan1" = mkBridgeNetwork "lan1";
-          "11-lan2" = mkBridgeNetwork "lan2";
-          "11-lan3" = mkBridgeNetwork "lan3";
+          "11-lan1" = netLib.mkBridgeNetwork "lan1" lan.interface;
+          "11-lan2" = netLib.mkBridgeNetwork "lan2" lan.interface;
+          "11-lan3" = netLib.mkBridgeNetwork "lan3" lan.interface;
           "15-${lan.interface}" = {
             matchConfig.Name = lan.interface;
             address = [
@@ -144,16 +132,8 @@ delib.module {
             ];
             linkConfig.RequiredForOnline = "no";
           };
-          "30-trunk1" = {
-            matchConfig.Name = "trunk1";
-            networkConfig.Bond = "bond0";
-            linkConfig.RequiredForOnline = "enslaved";
-          };
-          "30-trunk2" = {
-            matchConfig.Name = "trunk2";
-            networkConfig.Bond = "bond0";
-            linkConfig.RequiredForOnline = "enslaved";
-          };
+          "30-trunk1" = netLib.mkBondChildNetwork "trunk1" "bond0";
+          "30-trunk2" = netLib.mkBondChildNetwork "trunk2" "bond0";
           "40-bond0" = {
             matchConfig.Name = "bond0";
             linkConfig = {

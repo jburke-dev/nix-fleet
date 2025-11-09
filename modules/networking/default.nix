@@ -29,12 +29,12 @@ delib.module {
             };
           })
           {
+            kaiju = {
+              networkName = "servers";
+              ipFragment = "1.2";
+              mac = "02:fe:3d:da:12:9a";
+            };
             /*
-              kaiju = {
-                networkName = "servers";
-                ipFragment = "1.1";
-                mac = ""; # TODO: fill this in
-              };
               colossus = {
                 networkName = "servers";
                 ipFragment = "1.2";
@@ -49,7 +49,7 @@ delib.module {
             kraken = {
               networkName = "servers";
               ipFragment = "1.1";
-              mac = "58:47:ca:7d:96:ae";
+              mac = "02:ed:aa:06:23:86";
             };
             mikrotik = {
               networkName = "lan";
