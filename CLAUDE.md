@@ -99,7 +99,7 @@ Current active hosts:
   - `display-manager.nix`, `wallpaper.nix`, `hyprlock.nix`
   - `custom-shell.nix` (ags-shell integration)
   - `wleave/` (logout menu), `utils.nix`
-- Terminal: `ghostty.nix`, `zsh.nix`
+- Terminal: `kitty.nix`, `zsh.nix`
 - Utilities: `general-utils.nix`, `network-utils.nix`, `ssh.nix`
 
 **Services** (`modules/services/`):

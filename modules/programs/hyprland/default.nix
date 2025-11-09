@@ -71,7 +71,7 @@ delib.module {
         portalPackage = inputs.hyprland.packages.${pkgs.system}.xdg-desktop-portal-hyprland;
 
         settings = {
-          "$terminal" = "ghostty";
+          "$terminal" = "kitty";
           "$browser" = "zen-twilight";
           "$mainMod" = "SUPER";
           exec-once = [
