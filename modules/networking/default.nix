@@ -29,12 +29,12 @@ delib.module {
             };
           })
           {
+            kaiju = {
+              networkName = "servers";
+              ipFragment = "1.2";
+              mac = "02:fe:3d:da:12:9a";
+            };
             /*
-              kaiju = {
-                networkName = "servers";
-                ipFragment = "1.1";
-                mac = ""; # TODO: fill this in
-              };
               colossus = {
                 networkName = "servers";
                 ipFragment = "1.2";

@@ -6,7 +6,7 @@ delib.module {
   name = "networking.server";
 
   nixos.ifEnabled =
-    { parent, ... }:
+    { parent, cfg, ... }:
     {
       systemd.network = {
         enable = true;
@@ -15,19 +15,43 @@ delib.module {
           name: linkCfg:
           lib.nameValuePair "${toString linkCfg.priority}-${name}" (netLib.mkEthLink name linkCfg)
         ) parent.links;
-        # TODO: make this handle device specific configs
-        networks = {
-          "11-lan3" = {
-            matchConfig.Name = "lan3";
-            networkConfig.DHCP = "yes";
-            linkConfig.RequiredForOnline = "no";
+        netdevs = {
+          "10-${cfg.interface.Name}" = {
+            netdevConfig = {
+              inherit (cfg.interface) Name Kind MACAddress;
+            };
+          }
+          // lib.optionalAttrs (cfg.interface.Kind == "bridge") {
+            bridgeConfig = {
+              STP = true;
+              ForwardDelaySec = 4;
+              HelloTimeSec = 2;
+              MaxAgeSec = 20;
+            };
+          }
+          // lib.optionalAttrs (cfg.interface.Kind == "bond") {
+            bondConfig = {
+              Mode = "802.3ad";
+              TransmitHashPolicy = "layer2+3";
+            };
           };
-          "11-lan4" = {
-            matchConfig.Name = "lan4";
+        };
+        networks = {
+          "15-${cfg.interface.Name}" = {
+            matchConfig = { inherit (cfg.interface) Name; };
             networkConfig.DHCP = "yes";
             linkConfig.RequiredForOnline = "routable";
           };
-        };
+        }
+        // lib.mapAttrs' (
+          name: _:
+          lib.nameValuePair "11-${name}" (
+            if cfg.interface.Kind == "bridge" then
+              (netLib.mkBridgeNetwork name cfg.interface.Name)
+            else
+              (netLib.mkBondChildNetwork name cfg.interface.Name)
+          )
+        ) parent.links;
       };
     };
 }
