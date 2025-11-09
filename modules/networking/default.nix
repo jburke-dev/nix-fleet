@@ -49,7 +49,7 @@ delib.module {
             kraken = {
               networkName = "servers";
               ipFragment = "1.1";
-              mac = "58:47:ca:7d:96:ae";
+              mac = "02:ed:aa:06:23:86";
             };
             mikrotik = {
               networkName = "lan";
