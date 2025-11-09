@@ -48,7 +48,6 @@ delib.module {
             enable = true;
             plugins = [
               { name = "zsh-users/zsh-autosuggestions"; }
-              { name = "jeffreytse/zsh-vi-mode"; }
               { name = "Aloxaf/fzf-tab"; }
               {
                 name = "plugins/git";
@@ -58,6 +57,7 @@ delib.module {
                 name = "jackharrisonsherlock/common";
                 tags = [ "as:theme" ];
               }
+              { name = "unixorn/fzf-zsh-plugin"; }
             ];
           };
 
