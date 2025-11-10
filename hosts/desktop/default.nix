@@ -37,6 +37,10 @@ delib.host {
           host = "kaiju";
           hostname = "10.12.1.2";
         }
+        {
+          host = "glados";
+          hostname = "10.12.1.3";
+        }
       ];
     };
   };

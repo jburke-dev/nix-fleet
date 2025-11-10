@@ -34,6 +34,11 @@ delib.module {
               ipFragment = "1.2";
               mac = "02:fe:3d:da:12:9a";
             };
+            glados = {
+              networkName = "servers";
+              ipFragment = "1.3";
+              mac = "02:c9:96:20:34:72";
+            };
             /*
               colossus = {
                 networkName = "servers";
