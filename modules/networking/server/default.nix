@@ -5,7 +5,7 @@ delib.module {
   options =
     with delib;
     moduleOptions {
-      enable = readOnly (boolOption (host.isServer && !host.routerFeatured));
+      enable = readOnly (boolOption (host.isServer && !host.routerFeatured && !host.installerFeatured));
       interface = submoduleOption {
         options = {
           Name = strOption "";

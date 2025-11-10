@@ -71,11 +71,11 @@ delib.module {
                 submoduleOption
                   {
                     options = {
+                      isTrusted = boolOption false;
                       allowOutbound = listOfOption str [ ];
                     };
                   }
                   {
-                    allowOutbound = [ ];
                   };
             };
           })
@@ -87,6 +87,7 @@ delib.module {
               cidr = 16;
               dhcpMode = "static";
               firewall = {
+                isTrusted = true;
                 allowOutbound = [
                   "wan"
                   "servers"
@@ -113,6 +114,7 @@ delib.module {
               cidr = 16;
               dhcpMode = "dynamic";
               firewall = {
+                isTrusted = true;
                 allowOutbound = [
                   "wan"
                   "lan"

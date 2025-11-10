@@ -64,7 +64,7 @@ delib.module {
         ) 200>"$HOSTS_LOCK"
       '';
     in
-    { parent, ... }:
+    { parent, cfg, ... }:
     let
       allNetworks = parent.networks;
     in
@@ -115,6 +115,18 @@ delib.module {
                     name = "${keaHostsHook}";
                     sync = false;
                   };
+                }
+                {
+                  library = "${pkgs.kea}/lib/kea/hooks/libdhcp_lease_cmds.so";
+                  parameters = { };
+                }
+              ];
+
+              control-sockets = [
+                {
+                  "socket-type" = "http";
+                  "socket-address" = netLib.vlanGateway allNetworks.lan;
+                  "socket-port" = cfg.privilegedPorts.dhcp4ControlHttp;
                 }
               ];
               subnet4 = lib.imap1 (
@@ -179,6 +191,13 @@ delib.module {
                 max-row-errors = 100;
               };
 
+              control-sockets = [
+                {
+                  "socket-type" = "http";
+                  "socket-address" = netLib.vlanGateway allNetworks.lan;
+                  "socket-port" = cfg.privilegedPorts.dhcp6ControlHttp;
+                }
+              ];
               hooks-libraries = [
                 {
                   library = "${pkgs.kea}/lib/kea/hooks/libdhcp_run_script.so";
@@ -186,6 +205,10 @@ delib.module {
                     name = "${keaHostsHook}";
                     sync = false;
                   };
+                }
+                {
+                  library = "${pkgs.kea}/lib/kea/hooks/libdhcp_lease_cmds.so";
+                  parameters = { };
                 }
               ];
 
