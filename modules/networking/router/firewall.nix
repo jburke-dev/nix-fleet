@@ -10,9 +10,22 @@ delib.module {
   name = "networking.router";
 
   nixos.ifEnabled =
-    { parent, ... }:
+    { parent, cfg, ... }:
     let
       allNetworks = parent.networks;
+      trustedNetworks = lib.filterAttrs (n: v: v.firewall.isTrusted) allNetworks;
+      privilegedPortString = lib.concatMapStringsSep ", " toString (
+        builtins.attrValues cfg.privilegedPorts
+      );
+      # TODO: pattern of concatMapStringsSep with iifname could probably be pulled out into a function
+      privilegedPortRules = lib.concatMapStringsSep "\n" (
+        networkName:
+        let
+          network = allNetworks.${networkName};
+          iface = netLib.getNetworkInterface networkName network;
+        in
+        "    iifname \"${iface}\" tcp dport { ${privilegedPortString} } accept;"
+      ) (builtins.attrNames trustedNetworks);
 
       # Generate a firewall chain for a network
       mkNetworkChain =
@@ -93,9 +106,8 @@ delib.module {
                 "    iifname \"${iface}\" tcp dport 53 accept;"
               ) (builtins.attrNames allNetworks)}
 
-              # Allow SSH from trusted networks (add specific network names as needed)
-              iifname "vlan-trusted" tcp dport 22 accept;
-              iifname "br-lan" tcp dport 22 accept;
+              # allow trusted networks access to privileged ports
+              ${privilegedPortRules}
 
               # Log and drop everything else
               # log prefix "INPUT DROP: " drop;
