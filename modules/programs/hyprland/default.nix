@@ -76,7 +76,6 @@ delib.module {
           "$mainMod" = "SUPER";
           exec-once = [
             "ags-shell"
-            "obsidian ~/obsidian-vaults/sol"
           ];
 
           general = {
@@ -111,6 +110,7 @@ delib.module {
 
           dwindle = {
             split_width_multiplier = 1.5;
+            force_split = 2; # split to the right
           };
 
           misc = {
