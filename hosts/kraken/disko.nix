@@ -34,6 +34,23 @@ delib.host {
               };
             };
           };
+          crucial_t700_2tb = {
+            type = "disk";
+            device = "/dev/disk/by-id/nvme-CT2000T700SSD3_2447E994DECB";
+            content = {
+              type = "gpt";
+              partitions = {
+                longhorn = {
+                  size = "100%";
+                  content = {
+                    type = "filesystem";
+                    format = "ext4";
+                    mountpoint = "/var/lib/longhorn";
+                  };
+                };
+              };
+            };
+          };
         };
       };
     };
