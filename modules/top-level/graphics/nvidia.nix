@@ -14,8 +14,7 @@ delib.module {
       nvidiaSettings = false;
       nvidiaPersistenced = true;
       modesetting.enable = true;
-      # Use proprietary driver for Pascal (P2200) compatibility
-      open = false;
+      open = true;
     };
   };
 }

@@ -1,15 +1,15 @@
 { delib, ... }:
 delib.host {
-  name = "kraken";
+  name = "glados";
 
   myconfig = {
     disko = {
       enable = true;
       configuration.devices = {
         disk = {
-          kingston_1tb = {
+          samsung_970_2tb = {
             type = "disk";
-            device = "/dev/disk/by-id/nvme-KINGSTON_OM8PGP41024N-A0_50026B7383A11DD2";
+            device = "/dev/disk/by-id/nvme-Samsung_SSD_970_EVO_Plus_2TB_S59CNM0R730285N";
             content = {
               type = "gpt";
               partitions = {
@@ -34,9 +34,9 @@ delib.host {
               };
             };
           };
-          crucial_t700_2tb = {
+          crucial_p3_4tb = {
             type = "disk";
-            device = "/dev/disk/by-id/nvme-CT2000T700SSD3_2447E994DECB";
+            device = "/dev/disk/by-id/nvme-CT4000P3PSSD8_2325E6E7A261";
             content = {
               type = "gpt";
               partitions = {

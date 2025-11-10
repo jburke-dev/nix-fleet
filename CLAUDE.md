@@ -58,6 +58,8 @@ Current active hosts:
 - **laptop** - Portable machine (type: laptop)
 - **pandora** - Router/firewall (type: server, features: router)
 - **kraken** - Server for testing.  Will eventually be part of a k3s cluster (type: server)
+- **glados** - Server for testing.  Will eventually be part of a k3s cluster (type: server)
+- **kaiju** - Server for testing.  Will eventually be part of a k3s cluster (type: server)
 - **installer** - NixOS installation ISO (type: server, features: installer)
 
 ### Module Organization

@@ -1,8 +1,8 @@
 { delib, ... }:
 delib.host {
-  name = "kaiju";
+  name = "glados";
 
   type = "server";
 
-  features = [ "nvidia" ];
+  features = [ ];
 }
