@@ -26,6 +26,8 @@ See the [justfile](justfile) for all available commands.
 - **[Laptop](hosts/laptop/README.md)** - Laptop with Hyprland
 - **[Pandora](hosts/pandora/README.md)** - Router/firewall with nftables, Blocky DNS, and Kea DHCP
 - **[Kraken](hosts/kraken/README.md)** - Server for testing and future k3s cluster
+- **[Kaiju](hosts/kaiju/README.md)** - Server for testing and future k3s cluster
+- **[Glados](hosts/glados/README.md)** - Server for testing and future k3s cluster
 - **[Installer](hosts/installer/README.md)** - Custom NixOS installation ISO
 
 ## Flake

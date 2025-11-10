@@ -1,6 +1,6 @@
-# Kraken
+# Glados
 
-Minisforum MS-01 server for testing and future k3s cluster deployment.
+Framework desktop mini-PC for testing and future k3s cluster deployment.
 
 ## Configuration
 
@@ -8,11 +8,11 @@ Minisforum MS-01 server for testing and future k3s cluster deployment.
 
 **Features:** None (minimal server configuration)
 
-**IP Address:** 10.12.1.1 (servers VLAN)
+**IP Address:** 10.12.1.3 (servers VLAN)
 
 ## Hardware
 
-Minisforum MS-01. See `hardware.nix` for hardware-specific configuration.
+Framework desktop. See `hardware.nix` for hardware-specific configuration.
 
 ## Network Configuration
 
@@ -27,7 +27,7 @@ Currently configured as a minimal server for testing purposes. This host will ev
 Deploy from another machine:
 
 ```bash
-just rebuild-remote kraken
+just rebuild-remote glados
 ```
 
 Deploy along with all other servers:
@@ -39,11 +39,11 @@ just rebuild-servers
 Initial deployment with nixos-anywhere:
 
 ```bash
-just deploy kraken <IP_ADDRESS>
+just deploy glados <IP_ADDRESS>
 ```
 
 Build without deploying:
 
 ```bash
-just build kraken
+just build glados
 ```
