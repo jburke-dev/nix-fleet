@@ -80,10 +80,10 @@ delib.module {
                 );
               };
 
-              valid-lifetime = 172800; # 48 hours
+              valid-lifetime = 43200; # 12 hours
               max-valid-lifetime = 604800; # 7 days max
-              renew-timer = 43200; # clients renew after 12 hours
-              rebind-timer = 129600; # clients rebind after 36 hours
+              renew-timer = 21600; # clients renew after 6 hours
+              rebind-timer = 32400; # clients rebind after 9 hours
               decline-probation-period = 300; # 5 minutes
 
               # reservation options at subnet level take priority over the global ones
@@ -101,9 +101,9 @@ delib.module {
               };
 
               expired-leases-processing = {
-                reclaim-timer-wait-time = 900; # reclaim expired every 15 min
-                hold-reclaimed-time = 900; # keep reclaimed for 15 mins before purging
-                flush-reclaimed-timer-wait-time = 900;
+                reclaim-timer-wait-time = 3600; # reclaim expired every hour
+                hold-reclaimed-time = 172800;
+                flush-reclaimed-timer-wait-time = 3600;
                 max-reclaim-leases = 500;
                 max-reclaim-time = 500;
               };
@@ -167,6 +167,20 @@ delib.module {
                   ];
                 }
               ) (builtins.attrNames allNetworks);
+              loggers = [
+                {
+                  name = "kea-dhcp4";
+                  output-options = [
+                    {
+                      output = "/var/log/kea/kea-dhcp4.log";
+                      maxsize = 2048000; # 2 MB
+                      maxver = 4;
+                    }
+                  ];
+                  severity = "INFO";
+                  debuglevel = 0;
+                }
+              ];
             };
           };
           dhcp6 = {
@@ -251,6 +265,7 @@ delib.module {
       systemd = {
         tmpfiles.rules = [
           "d /var/lib/kea 0755 kea kea -"
+          "d /var/log/kea 0755 kea kea -"
           "d /run/kea 0755 kea kea -"
           "C ${dhcpHostsFile} 0644 kea kea - ${staticHostsFile}"
         ];
