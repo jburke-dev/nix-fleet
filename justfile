@@ -41,4 +41,4 @@ rebuild-remote HOST:
 deploy HOST IP:
     #!/usr/bin/env bash
     set -euo pipefail
-    nixos-anywhere --flake ".#{{ HOST }}" --target-host {{ IP }} --build-on remote
+    nixos-anywhere --flake ".#{{ HOST }}" --target-host {{ IP }} --build-on remote --phases kexec,disko,install
