@@ -22,7 +22,7 @@ delib.module {
             };
           }
 
-          # ClusterRole
+          # ClusterRole (control-plane HA only, no service load balancing)
           {
             apiVersion = "rbac.authorization.k8s.io/v1";
             kind = "ClusterRole";
@@ -33,24 +33,6 @@ delib.module {
               name = "system:kube-vip-role";
             };
             rules = [
-              {
-                apiGroups = [ "" ];
-                resources = [ "services/status" ];
-                verbs = [ "update" ];
-              }
-              {
-                apiGroups = [ "" ];
-                resources = [
-                  "services"
-                  "endpoints"
-                ];
-                verbs = [
-                  "list"
-                  "get"
-                  "watch"
-                  "update"
-                ];
-              }
               {
                 apiGroups = [ "" ];
                 resources = [ "nodes" ];
@@ -72,21 +54,6 @@ delib.module {
                   "update"
                   "create"
                 ];
-              }
-              {
-                apiGroups = [ "discovery.k8s.io" ];
-                resources = [ "endpointslices" ];
-                verbs = [
-                  "list"
-                  "get"
-                  "watch"
-                  "update"
-                ];
-              }
-              {
-                apiGroups = [ "" ];
-                resources = [ "pods" ];
-                verbs = [ "list" ];
               }
             ];
           }
@@ -169,7 +136,7 @@ delib.module {
                           value = "true";
                         }
                         {
-                          name = "port";
+                          name = "lb_port";
                           value = "6443";
                         }
                         {
