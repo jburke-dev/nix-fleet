@@ -46,5 +46,5 @@ deploy HOST IP:
 sync-k8s-infra:
     #!/usr/bin/env bash
     set -euo pipefail
-    helmfile -f ./k8s/infrastructure/helmfile.yaml sync
+    helmfile -f ./k8s/infrastructure/helmfile.yaml apply
     kubectl apply -f ./k8s/infrastructure/manifests/

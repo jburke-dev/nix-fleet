@@ -1,6 +1,8 @@
 repositories:
   - name: metallb
     url: https://metallb.github.io/metallb
+  - name: longhorn
+    url: https://charts.longhorn.io
 
 releases:
   - name: metallb
@@ -9,3 +11,10 @@ releases:
     createNamespace: true
     values:
       - ./metallb/values.yaml
+
+  - name: longhorn
+    chart: longhorn/longhorn
+    namespace: longhorn-system
+    createNamespace: true
+    values:
+      - ./longhorn/values.yaml
