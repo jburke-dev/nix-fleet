@@ -16,10 +16,10 @@ delib.host {
           priority = 11;
         };
       };
-      server.interface = {
-        Name = "br-lan";
-        Kind = "bridge";
-        MACAddress = "02:ed:aa:06:23:86";
+      server = {
+        bridge = {
+          MACAddress = "02:ed:aa:06:23:86";
+        };
       };
     };
   };

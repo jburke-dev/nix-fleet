@@ -15,10 +15,13 @@ delib.host {
           priority = 11;
         };
       };
-      server.interface = {
-        Name = "bond0";
-        Kind = "bond";
-        MACAddress = "02:fe:3d:da:12:9a";
+      server = {
+        bridge = {
+          MACAddress = "02:fe:3d:da:12:9a";
+        };
+        bond = {
+          enable = true;
+        };
       };
     };
   };
