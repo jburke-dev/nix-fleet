@@ -1,12 +1,12 @@
 keys:
   - &desktop age1gjcz224g0sfx5cerygqc678kmqw67svguuyq36rczpg97ac3td8s4e88lu
-  - &kaiju age1y7gnxlsx2tq5wecl6ahenrd6rcmvx3rtq7vks0utu9vgy450ffpq9mcvx7
-  - &colossus age10gq4xfspah2fuhhr8v3yz6tlrhzdzv8q3pn46xjr8ckc3fr2eftsn7uew6
-  - &kraken age1gtuzqrt9d80hhd3uza0qhhtjedlf7wcjkxx7n9rluzp6mgljgfdq474l2f
+  - &kaiju age1hcz0d0mq0jw6d5mmz6a0q7slwkfer6ry253y6yrc26fhjksees9q4lyplf
+  - &kraken age1rwxn243045x99qu8x5j4556pmn7c50hp9xf9hsulhujmr9z36sns6nltvx
+  - &glados age1vhszt0du96c22mf634n6hss96vva9qlym8dszt8telasr3vaj5hse6sxsa
 creation_rules:
   - key_groups:
     - age:
       - *desktop
       - *kaiju
-      - *colossus
       - *kraken
+      - *glados

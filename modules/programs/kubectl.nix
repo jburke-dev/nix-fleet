@@ -10,6 +10,8 @@ delib.module {
   options = delib.singleEnableOption host.isDesktop;
 
   home.ifEnabled = {
-    home.packages = with pkgs; [ kubectl ];
+    home.packages = with pkgs; [
+      kubectl
+    ];
   };
 }

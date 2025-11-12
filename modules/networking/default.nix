@@ -1,8 +1,12 @@
 {
   delib,
   host,
+  lib,
   ...
 }:
+let
+  netLib = import ../lib/networking.nix { inherit lib; };
+in
 delib.module {
   name = "networking";
 
@@ -29,6 +33,10 @@ delib.module {
             };
           })
           {
+            kube-vip = {
+              networkName = "servers";
+              ipFragment = "1.100";
+            };
             kaiju = {
               networkName = "servers";
               ipFragment = "1.2";
@@ -141,6 +149,17 @@ delib.module {
             };
           }
       );
+    };
+
+  myconfig.always =
+    { cfg, ... }:
+    {
+      args.shared = {
+        staticHosts = builtins.mapAttrs (
+          _: host: netLib.getHostIpFromNetwork cfg.networks host
+        ) cfg.staticHosts;
+        inherit (cfg) domain;
+      };
     };
 
   nixos.ifEnabled =

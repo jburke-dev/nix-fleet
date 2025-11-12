@@ -155,11 +155,14 @@ delib.module {
                   reservations-global = false;
                   reservations-in-subnet = network.dhcpMode == "static";
                   reservations-out-of-pool = network.dhcpMode == "static";
-                  reservations = lib.mapAttrsToList (hostName: hostCfg: {
-                    hw-address = hostCfg.mac;
-                    ip-address = netLib.getHostIpFromNetwork allNetworks hostCfg;
-                    hostname = hostName;
-                  }) (lib.filterAttrs (_: host: host.networkName == networkName) parent.staticHosts);
+                  reservations =
+                    lib.mapAttrsToList
+                      (hostName: hostCfg: {
+                        hw-address = hostCfg.mac;
+                        ip-address = netLib.getHostIpFromNetwork allNetworks hostCfg;
+                        hostname = hostName;
+                      })
+                      (lib.filterAttrs (_: host: host.networkName == networkName && host.mac != "") parent.staticHosts);
                   pools = [
                     {
                       pool = netLib.vlanDhcpPool network;

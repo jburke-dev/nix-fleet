@@ -15,6 +15,14 @@ delib.module {
       } { };
     };
 
+  myconfig.always =
+    { cfg, ... }:
+    {
+      args.shared = {
+        networkInterface = cfg.interface.Name;
+      };
+    };
+
   nixos.ifEnabled =
     { parent, cfg, ... }:
     {
