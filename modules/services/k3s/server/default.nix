@@ -4,7 +4,6 @@
   host,
   staticHosts,
   domain,
-  networkInterface,
   ...
 }:
 delib.module {
@@ -26,7 +25,7 @@ delib.module {
     {
       services.k3s = {
         inherit (cfg) clusterInit;
-        serverAddr = if !cfg.clusterInit then "https://${parent.bootstrapHost}:6443" else "";
+        serverAddr = if !cfg.clusterInit then "https://${cfg.kubeVip}:6443" else "";
         extraFlags = [
           "--disable traefik"
           "--disable servicelb"
