@@ -1,0 +1,20 @@
+domain: https://vaultwarden.apps.chesurah.net
+
+database:
+  type: postgresql
+  host: postgres-ha-rw.databases.svc.cluster.local
+  dbName: vaultwarden
+  existingSecret: vaultwarden-db
+  existingSecretUserKey: username
+  existingSecretPasswordKey: password
+
+storage:
+  data:
+    name: vaultwarden-data
+    size: 2Gi
+    class: longhorn
+    accessMode: ReadWriteOnce
+
+adminToken:
+  existingSecret: vaultwarden-admin-token
+  existingSecretKey: token

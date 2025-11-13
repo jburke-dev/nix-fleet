@@ -10,6 +10,13 @@ spec:
   # Primary update strategy - switchover with zero downtime
   primaryUpdateStrategy: unsupervised
 
+  managed:
+    roles:
+      - name: vaultwarden
+        login: true
+        passwordSecret:
+          name: vaultwarden-db
+
   # PostgreSQL configuration
   postgresql:
     parameters:
