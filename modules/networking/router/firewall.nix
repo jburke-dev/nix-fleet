@@ -42,10 +42,31 @@ delib.module {
               in
               "    oifname \"${destIface}\" accept;"
           ) network.firewall.allowOutbound;
+
+          # Generate rules for IP-specific port access
+          ipPortRules = lib.concatMapStringsSep "\n" (
+            rule:
+            let
+              portList = lib.concatMapStringsSep ", " toString rule.ports;
+              protocols =
+                if rule.protocol == "both" then
+                  [
+                    "tcp"
+                    "udp"
+                  ]
+                else
+                  [ rule.protocol ];
+              protoRules = lib.concatMapStringsSep "\n" (
+                proto: "    ip daddr ${rule.ip} ${proto} dport { ${portList} } accept;"
+              ) protocols;
+            in
+            protoRules
+          ) network.firewall.allowOutboundToIp;
         in
         ''
           chain from_${networkName} {
           ${allowRules}
+          ${ipPortRules}
           log prefix "[nftables] from_${networkName} denied: " counter drop;
           }
         '';

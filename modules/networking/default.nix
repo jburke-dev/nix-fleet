@@ -30,12 +30,19 @@ delib.module {
               ipFragment = strOption "";
               deviceType = enumOption [ "server" "router" ] "server";
               mac = strOption "";
+              addToStaticHostsFile = boolOption true;
             };
           })
           {
             kube-vip = {
               networkName = "servers";
               ipFragment = "1.100";
+            };
+            traefik = {
+              networkName = "servers";
+              ipFragment = "2.1";
+              # TODO: would it be worth it to skip this and setup CNAMEs?
+              addToStaticHostsFile = false;
             };
             kaiju = {
               networkName = "servers";
@@ -86,6 +93,13 @@ delib.module {
                     options = {
                       isTrusted = boolOption false;
                       allowOutbound = listOfOption str [ ];
+                      allowOutboundToIp = listOfOption (submodule {
+                        options = {
+                          ip = strOption "";
+                          ports = listOfOption int [ ];
+                          protocol = enumOption [ "tcp" "udp" "both" ] "tcp";
+                        };
+                      }) [ ];
                     };
                   }
                   {
@@ -146,6 +160,16 @@ delib.module {
                 allowOutbound = [
                   "wan"
                   "untrusted"
+                ];
+                allowOutboundToIp = [
+                  {
+                    ip = "10.12.2.1"; # Traefik
+                    ports = [
+                      80
+                      443
+                    ];
+                    protocol = "tcp";
+                  }
                 ];
               };
             };

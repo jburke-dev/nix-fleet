@@ -1,23 +1,16 @@
 {
   delib,
   pkgs,
-  lib,
+  staticHosts,
   ...
 }:
-let
-  netLib = import ../../lib/networking.nix { inherit lib; };
-in
 delib.module {
   name = "networking.router";
 
   nixos.ifEnabled =
     { cfg, parent, ... }:
     let
-      allNetworks = parent.networks;
-      traefikIp = netLib.getHostIpFromNetwork allNetworks {
-        networkName = "servers";
-        ipFragment = "2.1";
-      };
+      traefikIp = staticHosts.traefik;
       traefikDomains = [
         "apps.chesurah.net"
         "testing.chesurah.net"
