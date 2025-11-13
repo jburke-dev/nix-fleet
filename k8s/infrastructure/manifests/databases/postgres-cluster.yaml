@@ -1,0 +1,89 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: postgres-ha
+  namespace: databases
+spec:
+  instances: 3
+
+  # Primary update strategy - switchover with zero downtime
+  primaryUpdateStrategy: unsupervised
+
+  # PostgreSQL configuration
+  postgresql:
+    parameters:
+      # Performance tuning
+      max_connections: "200"
+      shared_buffers: "256MB"
+      effective_cache_size: "1GB"
+      maintenance_work_mem: "128MB"
+      checkpoint_completion_target: "0.9"
+      wal_buffers: "16MB"
+      default_statistics_target: "100"
+      random_page_cost: "1.1"
+      effective_io_concurrency: "200"
+      work_mem: "2621kB"
+      min_wal_size: "1GB"
+      max_wal_size: "4GB"
+      max_worker_processes: "4"
+      max_parallel_workers_per_gather: "2"
+      max_parallel_workers: "4"
+      max_parallel_maintenance_workers: "2"
+
+      # WAL and replication
+      wal_level: "replica"
+      max_wal_senders: "10"
+      max_replication_slots: "10"
+
+      # Logging
+      logging_collector: "on"
+      log_line_prefix: "%m [%p] %q%u@%d "
+      log_timezone: "UTC"
+
+  # Storage configuration using Longhorn
+  # Using single-replica storage class since PostgreSQL handles replication
+  storage:
+    storageClass: longhorn-database
+    size: 20Gi
+
+  # WAL storage (write-ahead log) - separate for better I/O
+  walStorage:
+    storageClass: longhorn-database
+    size: 5Gi
+
+  # Affinity rules - spread across nodes
+  affinity:
+    enablePodAntiAffinity: true
+    topologyKey: kubernetes.io/hostname
+    podAntiAffinityType: required
+
+  # Backup configuration (to be configured with object storage later)
+  # backup:
+  #   barmanObjectStore:
+  #     destinationPath: s3://postgres-backups/
+  #     s3Credentials:
+  #       accessKeyId:
+  #         name: minio-credentials
+  #         key: ACCESS_KEY_ID
+  #       secretAccessKey:
+  #         name: minio-credentials
+  #         key: SECRET_ACCESS_KEY
+  #     wal:
+  #       compression: gzip
+  #     data:
+  #       compression: gzip
+  #   retentionPolicy: "30d"
+
+---
+# ScheduledBackup example (uncomment after configuring object storage)
+# apiVersion: postgresql.cnpg.io/v1
+# kind: ScheduledBackup
+# metadata:
+#   name: postgres-ha-backup
+#   namespace: databases
+# spec:
+#   schedule: "0 2 * * *"  # Daily at 2 AM
+#   backupOwnerReference: self
+#   cluster:
+#     name: postgres-ha
