@@ -297,7 +297,7 @@ delib.module {
           lib.mapAttrsToList (
             hostname: hostCfg:
             "${netLib.getHostIpFromNetwork allNetworks hostCfg} ${hostname} ${hostname}.${parent.domain}"
-          ) parent.staticHosts
+          ) (lib.filterAttrs (host: hostCfg: hostCfg.addToStaticHostsFile) parent.staticHosts)
         )}
       '';
 
