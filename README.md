@@ -25,9 +25,9 @@ See the [justfile](justfile) for all available commands.
 - **[Desktop](hosts/desktop/README.md)** - Main desktop workstation with Hyprland
 - **[Laptop](hosts/laptop/README.md)** - Laptop with Hyprland
 - **[Pandora](hosts/pandora/README.md)** - Router/firewall with nftables, Blocky DNS, and Kea DHCP
-- **[Kraken](hosts/kraken/README.md)** - Server for testing and future k3s cluster
-- **[Kaiju](hosts/kaiju/README.md)** - Server for testing and future k3s cluster
-- **[Glados](hosts/glados/README.md)** - Server for testing and future k3s cluster
+- **[Kraken](hosts/kraken/README.md)** - k3s HA cluster node (control plane + workloads)
+- **[Kaiju](hosts/kaiju/README.md)** - k3s HA cluster node (control plane + workloads)
+- **[Glados](hosts/glados/README.md)** - k3s HA cluster node (control plane + workloads)
 - **[Installer](hosts/installer/README.md)** - Custom NixOS installation ISO
 
 ## Flake
@@ -41,6 +41,22 @@ This flake is supported by various utilities to make NixOS development easier:
 - [Git-hooks](https://github.com/cachix/git-hooks.nix) - Git hooks integration
 - [nixos-anywhere](https://github.com/nix-community/nixos-anywhere) - Automated NixOS installation
 - [Disko](https://github.com/nix-community/disko) - Declarative disk partitioning
+
+## k3s Cluster
+
+The homelab includes a highly available k3s Kubernetes cluster running on three servers (kraken, kaiju, and glados). All three nodes function as control plane nodes using kube-vip for HA (virtual IP: 10.12.1.100) and are also available for workload scheduling.
+
+### Infrastructure Components
+
+- **kube-vip** - Highly available control plane with virtual IP failover
+- **Traefik** - Ingress controller and reverse proxy with automatic TLS
+- **cert-manager** - Automated TLS certificate management with Let's Encrypt and Cloudflare DNS
+- **Reflector** - Automatic secret and configmap replication across namespaces
+- **Longhorn** - Distributed block storage with replication
+- **MetalLB** - Load balancer for bare-metal Kubernetes
+- **SOPS** - Encrypted secrets management integrated with Kubernetes
+
+Cluster configurations and manifests are located in the `k8s/` directory, organized by infrastructure components and applications.
 
 ## Future Plans
 

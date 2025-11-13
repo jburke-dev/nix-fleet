@@ -1,6 +1,6 @@
 # Glados
 
-Framework desktop mini-PC for testing and future k3s cluster deployment.
+Framework desktop mini-PC running as part of the k3s HA cluster.
 
 ## Configuration
 
@@ -10,6 +10,8 @@ Framework desktop mini-PC for testing and future k3s cluster deployment.
 
 **IP Address:** 10.12.1.3 (servers VLAN)
 
+**Cluster Role:** k3s control plane + workload node
+
 ## Hardware
 
 Framework desktop. See `hardware.nix` for hardware-specific configuration.
@@ -18,9 +20,25 @@ Framework desktop. See `hardware.nix` for hardware-specific configuration.
 
 Connected to the servers VLAN (VLAN 12) with static IP assignment via MAC address reservation.
 
-## Current Role
+## k3s Cluster Role
 
-Currently configured as a minimal server for testing purposes. This host will eventually be part of a k3s cluster deployment.
+This host is one of three nodes in a highly available k3s cluster. All three nodes (kraken, kaiju, glados) run as control plane nodes with kube-vip providing HA using virtual IP 10.12.1.100. The nodes are not tainted, allowing them to run workloads alongside control plane components.
+
+### Cluster Infrastructure
+
+The cluster has the following infrastructure deployed:
+
+- **kube-vip** - HA control plane with virtual IP failover (10.12.1.100)
+- **Traefik** - Ingress controller with automatic TLS termination
+- **cert-manager** - Let's Encrypt certificate management with Cloudflare DNS validation
+- **Reflector** - Automatic secret and configmap replication across namespaces
+- **Longhorn** - Distributed block storage with 3-way replication
+- **MetalLB** - Load balancer providing IPs from pool 10.12.1.100-10.12.1.200
+- **SOPS** - Encrypted secrets management for Kubernetes
+
+### Managing the Cluster
+
+Access the cluster using `kubectl` from any machine with the kubeconfig. The kubeconfig should point to the kube-vip virtual IP (10.12.1.100) for HA access. Cluster configuration and manifests are stored in the repository's `k8s/` directory.
 
 ## Deployment
 
