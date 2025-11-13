@@ -46,6 +46,7 @@ delib.module {
         ''
           chain from_${networkName} {
           ${allowRules}
+          log prefix "[nftables] from_${networkName} denied: " counter drop;
           }
         '';
 
@@ -124,7 +125,7 @@ delib.module {
               ${forwardJumps}
 
               # Log and drop everything else
-              # log prefix "FORWARD DROP: " drop;
+              log prefix "[nftables] forward denied: " counter drop;
             }
 
             # Per-network chains

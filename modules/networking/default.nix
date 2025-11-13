@@ -119,6 +119,7 @@ delib.module {
                   "wan"
                   "trusted"
                   "servers"
+                  "lan"
                 ];
               };
             };

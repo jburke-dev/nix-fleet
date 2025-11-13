@@ -1,0 +1,34 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mikrotik
+  namespace: infrastructure
+spec:
+  type: ExternalName
+  externalName: 10.10.1.1
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: mikrotik-ingress-route
+  namespace: infrastructure
+  annotations:
+    kubernetes.io/ingress.class: traefik-external
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`mikrotik.infra.chesurah.net`)
+      services:
+        - name: mikrotik
+          namespace: infrastructure
+          port: 80
+  tls:
+    secretName: infra-chesurah-net-prod-tls

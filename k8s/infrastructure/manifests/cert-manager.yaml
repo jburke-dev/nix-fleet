@@ -82,3 +82,24 @@ spec:
   dnsNames:
     - "apps.chesurah.net"
     - "*.apps.chesurah.net"
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: infra-chesurah-net
+  namespace: cert-manager
+spec:
+  secretName: infra-chesurah-net-prod-tls
+  secretTemplate:
+    annotations:
+      reflector.v1.k8s.emberstack.com/reflection-allowed: "true"
+      reflector.v1.k8s.emberstack.com/reflection-allowed-namespaces: "infrastructure"
+      reflector.v1.k8s.emberstack.com/reflection-auto-enabled: "true"
+      reflector.v1.k8s.emberstack.com/reflection-auto-namespaces: "infrastructure"
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+  commonName: "*.infra.chesurah.net"
+  dnsNames:
+    - "infra.chesurah.net"
+    - "*.infra.chesurah.net"

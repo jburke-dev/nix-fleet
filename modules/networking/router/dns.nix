@@ -1,9 +1,29 @@
-{ delib, pkgs, ... }:
+{
+  delib,
+  pkgs,
+  lib,
+  ...
+}:
+let
+  netLib = import ../../lib/networking.nix { inherit lib; };
+in
 delib.module {
   name = "networking.router";
 
   nixos.ifEnabled =
-    { cfg, ... }:
+    { cfg, parent, ... }:
+    let
+      allNetworks = parent.networks;
+      traefikIp = netLib.getHostIpFromNetwork allNetworks {
+        networkName = "servers";
+        ipFragment = "2.1";
+      };
+      traefikDomains = [
+        "apps.chesurah.net"
+        "testing.chesurah.net"
+        "infra.chesurah.net"
+      ];
+    in
     {
       services.blocky = {
         enable = true;
@@ -50,11 +70,12 @@ delib.module {
           customDNS = {
             customTTL = "1h";
             filterUnmappedTypes = true;
-            mapping = {
-              # TODO: unhardcode this?
-              "apps.chesurah.net" = "10.12.2.1";
-              "testing.chesurah.net" = "10.12.2.1";
-            };
+            mapping = builtins.listToAttrs (
+              builtins.map (domain: {
+                name = domain;
+                value = traefikIp;
+              }) traefikDomains
+            );
           };
           blocking = {
             denylists = {

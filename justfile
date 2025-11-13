@@ -48,3 +48,8 @@ sync-k8s-infra:
     set -euo pipefail
     helmfile -f ./k8s/infrastructure/helmfile.yaml apply
     kubectl apply -f ./k8s/infrastructure/manifests/
+
+sync-k8s-apps:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    kubectl apply -f ./k8s/apps/manifests/ -R
