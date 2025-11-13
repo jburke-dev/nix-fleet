@@ -50,6 +50,11 @@ delib.module {
           customDNS = {
             customTTL = "1h";
             filterUnmappedTypes = true;
+            mapping = {
+              # TODO: unhardcode this?
+              "apps.chesurah.net" = "10.12.2.1";
+              "testing.chesurah.net" = "10.12.2.1";
+            };
           };
           blocking = {
             denylists = {

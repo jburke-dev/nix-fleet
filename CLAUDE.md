@@ -57,9 +57,9 @@ Current active hosts:
 - **desktop** - Main desktop workstation (type: desktop)
 - **laptop** - Portable machine (type: laptop)
 - **pandora** - Router/firewall (type: server, features: router)
-- **kraken** - Server for testing.  Will eventually be part of a k3s cluster (type: server)
-- **glados** - Server for testing.  Will eventually be part of a k3s cluster (type: server)
-- **kaiju** - Server for testing.  Will eventually be part of a k3s cluster (type: server)
+- **kraken** - k3s HA cluster node - control plane + workloads (type: server)
+- **glados** - k3s HA cluster node - control plane + workloads (type: server)
+- **kaiju** - k3s HA cluster node - control plane + workloads (type: server)
 - **installer** - NixOS installation ISO (type: server, features: installer)
 
 ### Module Organization
@@ -180,3 +180,21 @@ Theming configurations in `rices/` directory:
 - Use `just rebuild-remote HOST` for deploying to existing servers
 - Use `just deploy HOST IP` for initial deployment with nixos-anywhere
 - Use `just rebuild-servers` to deploy to all servers in parallel
+
+**k3s Cluster:**
+
+- Highly available three-node cluster: kraken, kaiju, and glados
+- All three nodes run as control plane nodes with workload scheduling enabled
+- kube-vip provides control plane HA with virtual IP 10.12.1.100
+- Cluster configurations stored in `k8s/` directory
+- Infrastructure components deployed via helmfile:
+  - kube-vip - HA control plane with VIP failover
+  - Traefik - Ingress controller with automatic TLS termination
+  - cert-manager - Let's Encrypt certificates with Cloudflare DNS validation
+  - Reflector - Automatic secret/configmap replication
+  - Longhorn - Distributed block storage (3-way replication)
+  - MetalLB - Load balancer for bare-metal (IP pool: 10.12.1.100-10.12.1.200)
+  - SOPS - Kubernetes secrets encrypted with age keys
+- Secrets managed via SOPS in `k8s/secrets/`
+- Manifests for cluster-wide resources in `k8s/infrastructure/manifests/`
+- Each component has Helm values in `k8s/infrastructure/COMPONENT/values.yaml`

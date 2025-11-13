@@ -4,5 +4,8 @@ delib.host {
 
   type = "server";
 
-  features = [ "nvidia" ];
+  features = [
+    "nvidia"
+    "k3s"
+  ];
 }

@@ -1,4 +1,4 @@
-{ delib, ... }:
+{ delib, pkgs, ... }:
 delib.module {
   name = "programs.nixvim.plugins";
 
@@ -12,6 +12,7 @@ delib.module {
       vim-css-color.enable = true;
       noice.enable = true;
     };
+    extraPlugins = with pkgs.vimPlugins; [ helm-ls-nvim ];
 
     keymaps = [
       {

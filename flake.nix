@@ -104,6 +104,7 @@
                       "installer"
                       "nvidia"
                       "router"
+                      "k3s"
                     ];
                     defaultByHostType = {
                       desktop = [

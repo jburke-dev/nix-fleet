@@ -1,0 +1,7 @@
+speaker:
+  enabled: true
+  frr:
+    enabled: false
+
+controller:
+  enabled: true
