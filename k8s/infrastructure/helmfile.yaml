@@ -13,6 +13,8 @@ repositories:
     oci: true
   - name: sops
     url: https://isindir.github.io/sops-secrets-operator
+  - name: cnpg
+    url: https://cloudnative-pg.github.io/charts
 
 releases:
   - name: metallb
@@ -63,3 +65,10 @@ releases:
     createNamespace: true
     values:
       - ./sops/values.yaml
+
+  - name: cloudnative-pg
+    chart: cnpg/cloudnative-pg
+    namespace: cnpg-system
+    createNamespace: true
+    values:
+      - ./cloudnative-pg/values.yaml

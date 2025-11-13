@@ -1,0 +1,33 @@
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: longhorn-database
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "false"
+provisioner: driver.longhorn.io
+allowVolumeExpansion: true
+reclaimPolicy: Retain # Prevent accidental data loss
+volumeBindingMode: WaitForFirstConsumer
+parameters:
+  # Single replica - PostgreSQL cluster handles HA at application level
+  numberOfReplicas: "1"
+
+  # Stale replica timeout
+  staleReplicaTimeout: "2880" # 48 hours
+
+  # Data locality - prefer local access for performance
+  dataLocality: "strict-local"
+
+  # Fsync before marking write as complete (critical for databases)
+  fromBackup: ""
+  fsType: "ext4"
+
+  # Disable automatic replica rebuild during maintenance
+  disableRevisionCounter: "false"
+
+  # Unmount and detach when not in use
+  unmapMarkSnapChainRemoved: "ignored"
+
+  # Faster failover for database workloads
+  replicaAutoBalance: "disabled"
