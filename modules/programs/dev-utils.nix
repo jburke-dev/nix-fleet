@@ -14,6 +14,7 @@ delib.module {
       just
       nixfmt-rfc-style
       sops
+      age
       xz
       file
     ];

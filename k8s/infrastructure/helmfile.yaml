@@ -3,6 +3,16 @@ repositories:
     url: https://metallb.github.io/metallb
   - name: longhorn
     url: https://charts.longhorn.io
+  - name: traefik
+    url: https://traefik.github.io/charts
+  - name: jetstack
+    url: quay.io/jetstack/charts
+    oci: true
+  - name: emberstack
+    url: ghcr.io/emberstack/helm-charts
+    oci: true
+  - name: sops
+    url: https://isindir.github.io/sops-secrets-operator
 
 releases:
   - name: metallb
@@ -18,3 +28,38 @@ releases:
     createNamespace: true
     values:
       - ./longhorn/values.yaml
+
+  - name: cert-manager
+    chart: jetstack/cert-manager
+    namespace: cert-manager
+    createNamespace: true
+    version: 1.19.1
+    values:
+      - ./cert-manager/values.yaml
+
+  - name: traefik-crds
+    chart: traefik/traefik-crds
+    namespace: traefik
+    createNamespace: true
+
+  - name: traefik
+    chart: traefik/traefik
+    namespace: traefik
+    createNamespace: false
+    needs:
+      - traefik/traefik-crds
+    values:
+      - ./traefik/values.yaml
+
+  - name: reflector
+    chart: emberstack/reflector
+    namespace: reflector
+    createNamespace: true
+    version: 9.1.39
+
+  - name: sops
+    chart: sops/sops-secrets-operator
+    namespace: sops
+    createNamespace: true
+    values:
+      - ./sops/values.yaml
