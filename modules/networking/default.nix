@@ -118,6 +118,7 @@ delib.module {
                 allowOutbound = [
                   "wan"
                   "trusted"
+                  "untrusted"
                   "servers"
                   "lan"
                 ];
