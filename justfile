@@ -43,7 +43,12 @@ deploy HOST IP:
     set -euo pipefail
     nixos-anywhere --flake ".#{{ HOST }}" --target-host {{ IP }} --build-on remote --phases kexec,disko,install
 
-sync-k8s: sync-k8s-infra sync-k8s-apps
+sync-k8s: sync-k8s-secrets sync-k8s-infra sync-k8s-apps
+
+sync-k8s-secrets:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    kubectl apply -f ./k8s/secrets/ -R
 
 sync-k8s-infra:
     #!/usr/bin/env bash
@@ -54,4 +59,5 @@ sync-k8s-infra:
 sync-k8s-apps:
     #!/usr/bin/env bash
     set -euo pipefail
+    helmfile -f ./k8s/apps/helmfile.yaml apply
     kubectl apply -f ./k8s/apps/manifests/ -R
