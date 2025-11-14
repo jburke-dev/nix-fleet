@@ -55,11 +55,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1763091141,
-        "narHash": "sha256-QZS50j4EwtJ38G1pBPY50J8jtK04zW/BvNJ4s7S4mgc=",
+        "lastModified": 1763135885,
+        "narHash": "sha256-gI0NYVEf+bSKYQYIuDJNi0f+8d9QiSrxrqF7kWSrYCQ=",
         "ref": "home-manager-module",
-        "rev": "bc502588b3e4f5779c336a0a557c70530913f96b",
-        "revCount": 26,
+        "rev": "84a88f056eea23b9e0fb01555735ba0ab0858041",
+        "revCount": 27,
         "type": "git",
         "url": "file:../ags-shell/"
       },
