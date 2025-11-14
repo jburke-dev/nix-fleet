@@ -14,7 +14,7 @@ delib.module {
     wayland.windowManager.hyprland = {
       plugins = [
         #pkgs.hyprlandPlugins.hyprexpo
-        inputs.hyprXPrimary.packages.${pkgs.system}.default
+        inputs.hyprXPrimary.packages.${pkgs.stdenv.hostPlatform.system}.default
       ];
       settings.plugin = {
         /*

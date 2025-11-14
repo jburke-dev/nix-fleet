@@ -1,7 +1,6 @@
 {
   delib,
   inputs,
-  pkgs,
   ...
 }:
 delib.module {
@@ -9,7 +8,34 @@ delib.module {
 
   options = delib.singleCascadeEnableOption;
 
+  home.always.imports = [ inputs.ags-shell.homeManagerModules.ags-shell ];
+
   home.ifEnabled = {
-    home.packages = [ inputs.ags-shell.packages.${pkgs.system}.default ];
+    programs.ags-shell = {
+      enable = true;
+      settings = {
+        statusBar = {
+          workspaces.rules = [
+            {
+              match = "class";
+              content = "kitty";
+              icon = "";
+            }
+            {
+              match = "class";
+              content = "discord";
+              icon = "";
+            }
+            {
+              match = "class";
+              content = "zen-twilight";
+              icon = "";
+            }
+          ];
+        };
+        picker = {
+        };
+      };
+    };
   };
 }
