@@ -15,9 +15,13 @@ ports:
     redirections:
       entrypoint:
         to: websecure
+    observability:
+      metrics: true
   websecure:
     tls:
       enabled: true
+    observability:
+      metrics: true
 
 ingressRoute:
   dashboard:
@@ -28,6 +32,7 @@ providers:
     enabled: true
     ingressClass: traefik-external
     allowExternalNameServices: true
+    allowCrossNamespace: true
   kubernetesIngress:
     enabled: true
     allowExternalNameServices: true
@@ -37,8 +42,17 @@ providers:
 rbac:
   enabled: true
 
+metrics:
+  prometheus:
+    service:
+      enabled: true
+    serviceMonitor:
+      enabled: true
+
 service:
   enabled: true
   type: LoadBalancer
+  spec:
+    externalTrafficPolicy: Local
   annotations:
     metallb.io/loadBalancerIPs: 10.12.2.1

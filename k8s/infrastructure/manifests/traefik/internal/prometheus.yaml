@@ -13,6 +13,9 @@ spec:
   routes:
     - kind: Rule
       match: Host(`prometheus.infra.chesurah.net`)
+      middlewares:
+        - name: trusted-only
+          namespace: traefik
       services:
         - name: kube-prometheus-stack-prometheus
           namespace: monitoring

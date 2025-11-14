@@ -13,6 +13,9 @@ spec:
   routes:
     - kind: Rule
       match: Host(`longhorn.infra.chesurah.net`)
+      middlewares:
+        - name: trusted-only
+          namespace: traefik
       services:
         - name: longhorn-frontend
           namespace: longhorn-system
