@@ -1,0 +1,35 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: pandora-node-exporter
+  namespace: monitoring
+  labels:
+    prometheus: kube-prometheus-stack
+spec:
+  staticConfigs:
+    - targets:
+        - 10.10.0.1:9100
+      labels:
+        instance: pandora
+        job: node-exporter
+  scrapeInterval: 30s
+  scrapeTimeout: 10s
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: pandora-blocky-exporter
+  namespace: monitoring
+  labels:
+    prometheus: kube-prometheus-stack
+spec:
+  staticConfigs:
+    - targets:
+        - 10.10.0.1:4000
+      labels:
+        instance: pandora
+        job: blocky-exporter
+  scrapeInterval: 30s
+  scrapeTimeout: 10s

@@ -131,6 +131,9 @@ delib.module {
               # allow trusted networks access to privileged ports
               ${privilegedPortRules}
 
+              # allow reserved server addresses access to monitoring ports
+              ip saddr 10.12.1.0/24 ip daddr 10.10.0.1 tcp dport { 9100, 4000 } accept;
+
               # Log and drop everything else
               # log prefix "INPUT DROP: " drop;
             }

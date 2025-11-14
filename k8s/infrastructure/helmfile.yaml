@@ -15,6 +15,9 @@ repositories:
     url: https://isindir.github.io/sops-secrets-operator
   - name: cnpg
     url: https://cloudnative-pg.github.io/charts
+  - name: prometheus-community
+    url: ghcr.io/prometheus-community/charts
+    oci: true
 
 releases:
   - name: metallb
@@ -72,3 +75,11 @@ releases:
     createNamespace: true
     values:
       - ./cloudnative-pg/values.yaml
+
+  - name: kube-prometheus-stack
+    chart: prometheus-community/kube-prometheus-stack
+    namespace: monitoring
+    createNamespace: true
+    version: 79.5.0
+    values:
+      - ./kube-prometheus-stack/values.yaml
