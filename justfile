@@ -53,11 +53,11 @@ sync-k8s-secrets:
 sync-k8s-infra:
     #!/usr/bin/env bash
     set -euo pipefail
-    helmfile -f ./k8s/infrastructure/helmfile.yaml apply
+    helmfile -f ./k8s/infrastructure/helmfile.yaml apply --skip-diff-on-install 
     kubectl apply -f ./k8s/infrastructure/manifests/ -R
 
 sync-k8s-apps:
     #!/usr/bin/env bash
     set -euo pipefail
-    helmfile -f ./k8s/apps/helmfile.yaml apply
+    helmfile -f ./k8s/apps/helmfile.yaml apply --skip-diff-on-install 
     kubectl apply -f ./k8s/apps/manifests/ -R

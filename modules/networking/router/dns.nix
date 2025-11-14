@@ -29,9 +29,10 @@ delib.module {
               "10.25.0.1:53"
             ];
             http = [
-              4000
+              "10.10.0.1:4000"
             ];
           };
+          prometheus.enable = true;
           # TODO: add another provider besides cloudflare!!
           bootstrapDns = [
             {

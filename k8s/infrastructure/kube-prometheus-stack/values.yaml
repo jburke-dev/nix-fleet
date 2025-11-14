@@ -1,0 +1,28 @@
+alertmanager:
+  enabled: false
+
+grafana:
+  enabled: true
+  persistence:
+    enabled: true
+    storageClassName: longhorn
+    size: 10Gi
+  admin:
+    existingSecret: grafana-admin
+    userKey: username
+    passwordKey: password
+
+prometheus:
+  prometheusSpec:
+    retention: 14d
+    storageSpec:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: longhorn
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 50Gi
+    scrapeConfigSelector:
+      matchLabels:
+        prometheus: kube-prometheus-stack
