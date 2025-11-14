@@ -6,8 +6,17 @@ delib.module {
 
   home.ifEnabled = {
     programs.nixvim.lsp.servers = {
-      yamlls.enable = true;
       helm_ls.enable = true;
+      yamlls = {
+        enable = true;
+        settings = {
+          settings.yaml = {
+            schemas = {
+              "kubernetes" = "**/manifests/**/*.yaml";
+            };
+          };
+        };
+      };
     };
   };
 }
