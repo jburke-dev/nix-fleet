@@ -1,7 +1,6 @@
 {
   delib,
   inputs,
-  pkgs,
   ...
 }:
 delib.module {
@@ -9,10 +8,9 @@ delib.module {
 
   options = delib.singleCascadeEnableOption;
 
-  home.always.imports = [ inputs.ags-shell-local.homeManagerModules.ags-shell ];
+  home.always.imports = [ inputs.ags-shell.homeManagerModules.ags-shell ];
 
   home.ifEnabled = {
-    # home.packages = [ inputs.ags-shell.packages.${pkgs.system}.default ];
     programs.ags-shell = {
       enable = true;
       settings = {
