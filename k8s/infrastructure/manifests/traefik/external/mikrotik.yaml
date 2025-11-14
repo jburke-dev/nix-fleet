@@ -27,6 +27,9 @@ spec:
   routes:
     - kind: Rule
       match: Host(`mikrotik.infra.chesurah.net`)
+      middlewares:
+        - name: trusted-only
+          namespace: traefik
       services:
         - name: mikrotik
           namespace: infrastructure
