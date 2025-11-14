@@ -16,7 +16,26 @@ delib.module {
     programs.ags-shell = {
       enable = true;
       settings = {
-        workspaces = {
+        statusBar = {
+          workspaces.rules = [
+            {
+              match = "class";
+              content = "kitty";
+              icon = "";
+            }
+            {
+              match = "class";
+              content = "discord";
+              icon = "";
+            }
+            {
+              match = "class";
+              content = "zen-twilight";
+              icon = "";
+            }
+          ];
+        };
+        picker = {
         };
       };
     };
