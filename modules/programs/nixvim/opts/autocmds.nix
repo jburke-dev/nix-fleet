@@ -37,6 +37,12 @@ delib.module {
           __raw = "function() if vim.fn.argv(0) == '' then vim.defer_fn(function() vim.cmd('Oil') end, 0) end end";
         };
       }
+      {
+        event = [ "CursorHold" ];
+        callback = {
+          __raw = "function() vim.diagnostic.open_float(nil, { focusable = false, scope = 'cursor' }) end";
+        };
+      }
     ];
   };
 }

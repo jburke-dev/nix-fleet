@@ -55,16 +55,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1763135885,
-        "narHash": "sha256-gI0NYVEf+bSKYQYIuDJNi0f+8d9QiSrxrqF7kWSrYCQ=",
-        "ref": "home-manager-module",
-        "rev": "84a88f056eea23b9e0fb01555735ba0ab0858041",
-        "revCount": 27,
+        "lastModified": 1763229419,
+        "narHash": "sha256-gHYoiA5PI9Zh17DZNt9Mm7u8ouo4pSvplu4fG1eu5bg=",
+        "ref": "laptop-battery",
+        "rev": "5fbe41736eb1ba7824d1fe20f2ba68a70b4de62b",
+        "revCount": 29,
         "type": "git",
         "url": "file:../ags-shell/"
       },
       "original": {
-        "ref": "home-manager-module",
+        "ref": "laptop-battery",
         "type": "git",
         "url": "file:../ags-shell/"
       }
