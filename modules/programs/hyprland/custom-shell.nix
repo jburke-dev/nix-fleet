@@ -9,7 +9,7 @@ delib.module {
 
   options = delib.singleCascadeEnableOption;
 
-  home.always.imports = [ inputs.ags-shell-local.homeManagerModules.ags-shell ];
+  home.always.imports = [ inputs.ags-shell.homeManagerModules.ags-shell ];
 
   home.ifEnabled = {
     programs.ags-shell = {

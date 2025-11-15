@@ -32,11 +32,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1763136225,
-        "narHash": "sha256-gI0NYVEf+bSKYQYIuDJNi0f+8d9QiSrxrqF7kWSrYCQ=",
+        "lastModified": 1763235139,
+        "narHash": "sha256-9dI73ERQKmtQDNO8wxx6tQJWIHu8sxRNay+G6Dut4zg=",
         "owner": "jburke-dev",
         "repo": "ags-shell",
-        "rev": "164936a9ce2413e4e410b13a7073e8dd4e897582",
+        "rev": "0ee96b75e4d1c8e7a7dbd56256705ad14695dd11",
         "type": "github"
       },
       "original": {
@@ -55,11 +55,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1763229419,
-        "narHash": "sha256-gHYoiA5PI9Zh17DZNt9Mm7u8ouo4pSvplu4fG1eu5bg=",
+        "lastModified": 1763234779,
+        "narHash": "sha256-9dI73ERQKmtQDNO8wxx6tQJWIHu8sxRNay+G6Dut4zg=",
         "ref": "laptop-battery",
-        "rev": "5fbe41736eb1ba7824d1fe20f2ba68a70b4de62b",
-        "revCount": 29,
+        "rev": "4178c4ec0751b552f1b264884488e11a4d7af45a",
+        "revCount": 30,
         "type": "git",
         "url": "file:../ags-shell/"
       },
