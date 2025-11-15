@@ -1,6 +1,7 @@
 {
   delib,
   inputs,
+  host,
   ...
 }:
 delib.module {
@@ -15,6 +16,7 @@ delib.module {
       enable = true;
       settings = {
         statusBar = {
+          battery.enable = host.isLaptop;
           workspaces.rules = [
             {
               match = "class";

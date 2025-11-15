@@ -10,6 +10,7 @@ delib.module {
         nix = [ "nixfmt" ];
         scss = [ "prettier" ];
         css = [ "prettier" ];
+        jsonc = [ "prettier" ];
         typescriptreact = [ "prettier" ];
         typescript = [ "prettier" ];
         markdown = [ "markdownlint" ];

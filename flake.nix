@@ -44,7 +44,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ags-shell-local = {
-      url = "git+file:../ags-shell/?ref=home-manager-module";
+      url = "git+file:../ags-shell/?ref=laptop-battery";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser = {
