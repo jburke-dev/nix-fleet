@@ -1,4 +1,4 @@
-{ delib, ... }:
+{ delib, homeconfig, ... }:
 delib.host {
   name = "laptop";
 
@@ -13,6 +13,14 @@ delib.host {
         }
       ];
     };
+    hyprland.displays = [
+      {
+        name = "eDP-1";
+        resolution = "1920x1200@120.00Hz";
+        wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/ultrawide/";
+        leftMost = true;
+      }
+    ];
   };
   rice = "dark";
 }
