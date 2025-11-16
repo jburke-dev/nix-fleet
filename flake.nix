@@ -107,6 +107,7 @@
                       "dev"
                       "installer"
                       "nvidia"
+                      "amd"
                       "router"
                       "k3s"
                     ];
