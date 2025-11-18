@@ -7,5 +7,6 @@ delib.host {
   features = [
     "nvidia"
     "k3s"
+    "ipmi"
   ];
 }

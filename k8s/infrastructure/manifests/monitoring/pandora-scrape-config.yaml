@@ -33,3 +33,26 @@ spec:
         job: blocky-exporter
   scrapeInterval: 30s
   scrapeTimeout: 10s
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: ipmi-exporter
+  namespace: monitoring
+  labels:
+    prometheus: kube-prometheus-stack
+spec:
+  staticConfigs:
+    - targets:
+        - 10.12.1.2:9290
+      labels:
+        instance: kaiju
+        job: ipmi-exporter
+    - targets:
+        - 10.12.1.4:9290
+      labels:
+        instance: colossus
+        job: ipmi-exporter
+  scrapeInterval: 30s
+  scrapeTimeout: 10s
