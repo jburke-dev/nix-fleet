@@ -109,6 +109,7 @@
                       "nvidia"
                       "router"
                       "k3s"
+                      "ipmi"
                     ];
                     defaultByHostType = {
                       desktop = [

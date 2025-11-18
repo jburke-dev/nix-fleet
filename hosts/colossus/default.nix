@@ -12,6 +12,7 @@ delib.host {
   features = [
     "nvidia"
     "k3s"
+    "ipmi"
   ];
 
   myconfig.services.k3s.role = "agent";
