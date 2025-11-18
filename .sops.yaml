@@ -3,6 +3,7 @@ keys:
   - &kaiju age1hcz0d0mq0jw6d5mmz6a0q7slwkfer6ry253y6yrc26fhjksees9q4lyplf
   - &kraken age1rwxn243045x99qu8x5j4556pmn7c50hp9xf9hsulhujmr9z36sns6nltvx
   - &glados age1vhszt0du96c22mf634n6hss96vva9qlym8dszt8telasr3vaj5hse6sxsa
+  - &colossus age14m7xchp0kpegq0l0pvmd5devwgzkluynq3ymspgem7lj2fnqt36q89ujta
 creation_rules:
   - path_regex: secrets\.yaml$
     key_groups:
@@ -11,6 +12,7 @@ creation_rules:
           - *kaiju
           - *kraken
           - *glados
+          - *colossus
   - path_regex: k8s/secrets/.*\.yaml$
     encrypted_regex: ^(data|stringData)$
     key_groups:
