@@ -54,13 +54,11 @@ delib.module {
               ipFragment = "1.3";
               mac = "02:c9:96:20:34:72";
             };
-            /*
-              colossus = {
-                networkName = "servers";
-                ipFragment = "1.2";
-                mac = "";
-              };
-            */
+            colossus = {
+              networkName = "servers";
+              ipFragment = "1.4";
+              mac = "02:ff:33:9b:15:73";
+            };
             home-assistant = {
               networkName = "untrusted"; # some iot devices like philips hue don't play nice in initial configuration across subnets
               ipFragment = "1.1";

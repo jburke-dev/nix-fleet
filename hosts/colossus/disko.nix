@@ -2,23 +2,21 @@
 let
   disksLib = import ../../modules/lib/disks.nix { inherit lib; };
   lvmDisks = {
-    samsung_2tb_a = "ata-Samsung_SSD_870_EVO_2TB_S753NS0X525305A";
-    samsung_2tb_b = "ata-Samsung_SSD_870_EVO_2TB_S753NS0X525393D";
-    samsung_2tb_c = "ata-Samsung_SSD_860_EVO_2TB_S597NJ0NB23502H";
-    samsung_2tb_d = "ata-Samsung_SSD_860_EVO_2TB_S597NJ0NB21852X";
+    samsung_2tb_a = "ata-Samsung_SSD_870_EVO_2TB_S753NS0X526784H";
+    samsung_2tb_b = "ata-Samsung_SSD_870_EVO_2TB_S753NS0X532371A";
   };
 in
 delib.host {
-  name = "kaiju";
+  name = "colossus";
 
   myconfig = {
     disko = {
       enable = true;
       configuration.devices = {
         disk = {
-          crucial_2tb = {
+          crucial_t500_2tb = {
             type = "disk";
-            device = "/dev/disk/by-id/nvme-CT2000T500SSD5_2340449E6841";
+            device = "/dev/disk/by-id/nvme-CT2000T500SSD5_2340449E63A3";
             content = {
               type = "gpt";
               partitions = {

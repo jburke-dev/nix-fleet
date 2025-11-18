@@ -114,6 +114,7 @@
                       "amd"
                       "router"
                       "k3s"
+                      "ipmi"
                     ];
                     defaultByHostType = {
                       desktop = [
