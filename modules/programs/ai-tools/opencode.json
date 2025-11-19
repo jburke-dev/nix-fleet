@@ -1,0 +1,19 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "ollama-rocm/qwen3-coder:latest",
+  "theme": "system",
+  "provider": {
+    "ollama-rocm": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Ollama ROCm Local",
+      "options": {
+        "baseURL": "https://ollama.apps.chesurah.net/v1"
+      },
+      "models": {
+        "qwen3-coder:latest": {
+          "name": "qwen3-coder"
+        }
+      }
+    }
+  }
+}

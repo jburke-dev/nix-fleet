@@ -1,6 +1,5 @@
 {
   delib,
-  inputs,
   pkgs,
   ...
 }:
@@ -9,8 +8,8 @@ delib.module {
 
   home.ifEnabled = {
     home = {
-      packages = [ inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default ];
-      #file.".config/opencode/opencode.json".text = builtins.readFile
+      packages = with pkgs; [ opencode ];
+      file.".config/opencode/opencode.json".text = builtins.readFile ./opencode.json;
     };
   };
 }

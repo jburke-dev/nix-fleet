@@ -59,10 +59,6 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    opencode = {
-      url = "github:Alb-O/opencode/nix-support";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =

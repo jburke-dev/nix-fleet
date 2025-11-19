@@ -61,3 +61,21 @@ sync-k8s-apps:
     set -euo pipefail
     helmfile -f ./k8s/apps/helmfile.yaml apply --skip-diff-on-install 
     kubectl apply -f ./k8s/apps/manifests/ -R
+
+ollama-create MODEL:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    kubectl exec -it -n ollama deployments/ollama-rocm -- ollama create {{ MODEL }} -f /models/{{ MODEL }}.model
+
+ollama-ls: (ollama-cli "ls")
+
+ollama-ps: (ollama-cli "ps")
+
+ollama-rm MODEL: (ollama-cli "rm" MODEL)
+
+ollama-show MODEL: (ollama-cli "show" "--modelfile" MODEL)
+
+ollama-cli +ARGS:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    kubectl exec -it -n ollama deployments/ollama-rocm -- ollama {{ ARGS }}

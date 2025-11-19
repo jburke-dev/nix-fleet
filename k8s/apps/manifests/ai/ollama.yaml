@@ -18,6 +18,54 @@ spec:
     requests:
       storage: 100G
 ---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ollama-models
+  namespace: ollama
+data:
+  qwen3-coder.model: |
+    FROM qwen3-coder:30b
+    SYSTEM """You are Qwen, created by Alibaba Cloud.  You are a helpful assistant."""
+    # template found at https://gist.github.com/adstastic/71632f39f4ea8d7facc2eddf0e46b3fd
+    TEMPLATE """{{- if .System }}<|im_start|>system
+    {{ .System }}
+    {{- if .Tools }}
+    You have access to the following tools. To use a tool, you MUST respond with a single, valid JSON object in the specified format.
+
+    # Tools Available
+
+    {{ .Tools }}
+
+    Tool Call Format
+    When you decide to call a tool, you MUST respond with nothing but a single JSON object. Do not add any other text, markdown, or explanations before or after the JSON. The JSON object must have a tool key with the name of the function to call, and an arguments key containing an object of the parameters.
+
+    For example:
+
+    {
+      "tool": "name_of_the_function",
+      "arguments": {
+        "parameter_name_1": "value_1",
+        "parameter_name_2": "value_2"
+      }
+    }
+    {{- end }}
+    <|im_end|>
+    {{ end }}
+    {{- range .Messages }}
+    {{- if eq .Role "user" }}
+    <|im_start|>user
+    {{ .Content }}<|im_end|>
+    {{ else if eq .Role "assistant" }}
+    <|im_start|>assistant
+    {{ .Content }}<|im_end|>
+    {{ else if eq .Role "tool" }}
+    <|im_start|>tool
+    {{ .Content }}<|im_end|>
+    {{ end }}
+    {{- end }}<|im_start|>assistant
+    """
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -36,12 +84,20 @@ spec:
       containers:
         - name: ollama
           image: ollama/ollama:rocm
+          env:
+            - name: OLLAMA_CONTEXT_LENGTH
+              value: "65536"
+            - name: OLLAMA_DEBUG
+              value: "1"
           ports:
             - containerPort: 11434
               name: ollama
           volumeMounts:
             - mountPath: /root/.ollama
               name: ollama-data
+            - mountPath: /models
+              name: ollama-models
+              readOnly: true
           resources:
             requests:
               memory: "32Gi"
@@ -83,6 +139,12 @@ spec:
         - name: ollama-data
           persistentVolumeClaim:
             claimName: ollama-pvc
+        - name: ollama-models
+          configMap:
+            name: ollama-models
+            items:
+              - key: "qwen3-coder.model"
+                path: "qwen3-coder.model"
 ---
 apiVersion: v1
 kind: Service
