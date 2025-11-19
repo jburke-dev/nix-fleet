@@ -33,6 +33,10 @@ delib.host {
         kernelModules = [ "dm-snapshot" ];
       };
       kernelModules = [ "kvm-amd" ];
+      kernelParams = [
+        "ttm.pages_limit=26367190" # 108 GB max allocation, divided by 4KiB page size, see https://www.jeffgeerling.com/blog/2025/increasing-vram-allocation-on-amd-ai-apus-under-linux
+        "ttm.page_pool_size=26367190"
+      ];
       extraModulePackages = [ ];
     };
 

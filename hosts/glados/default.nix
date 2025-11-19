@@ -4,5 +4,8 @@ delib.host {
 
   type = "server";
 
-  features = [ "k3s" ];
+  features = [
+    "k3s"
+    "amd"
+  ];
 }

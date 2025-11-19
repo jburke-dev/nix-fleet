@@ -18,6 +18,9 @@ repositories:
   - name: prometheus-community
     url: ghcr.io/prometheus-community/charts
     oci: true
+  - name: rocm
+    url: https://rocm.github.io/gpu-operator
+    
 
 releases:
   - name: metallb
@@ -83,3 +86,8 @@ releases:
     version: 79.5.0
     values:
       - ./kube-prometheus-stack/values.yaml
+
+  - name: amd-gpu-operator
+    chart: rocm/gpu-operator-charts
+    namespace: kube-amd-gpu
+    createNamespace: true

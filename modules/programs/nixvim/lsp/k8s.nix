@@ -9,7 +9,7 @@ delib.module {
       helm_ls.enable = true;
       yamlls = {
         enable = true;
-        settings = {
+        config = {
           settings.yaml = {
             schemas = {
               "kubernetes" = "**/manifests/**/*.yaml";

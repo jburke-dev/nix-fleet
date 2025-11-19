@@ -8,6 +8,7 @@ delib.module {
     programs.nixvim.lsp.servers = {
       ts_ls.enable = true;
       cssls.enable = true;
+      jsonls.enable = true;
     };
   };
 }
