@@ -12,5 +12,6 @@ delib.module {
     pciutils
     unzip
     jq
+    yq
   ];
 }

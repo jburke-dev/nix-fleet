@@ -20,6 +20,7 @@ repositories:
     oci: true
   - name: rocm
     url: https://rocm.github.io/gpu-operator
+    
 
 releases:
   - name: metallb

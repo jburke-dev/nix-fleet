@@ -1,0 +1,3 @@
+# yaml-language-server: $schema=./schemas/models/schema.yaml
+- name: "gemma3:1b"
+  enabled: false
