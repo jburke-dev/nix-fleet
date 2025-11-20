@@ -66,9 +66,10 @@ Current active hosts:
 - **desktop** - Main desktop workstation (type: desktop)
 - **laptop** - Portable machine (type: laptop)
 - **pandora** - Router/firewall (type: server, features: router)
-- **kraken** - k3s HA cluster node - control plane + workloads (type: server)
-- **glados** - k3s HA cluster node - control plane + workloads (type: server)
-- **kaiju** - k3s HA cluster node - control plane + workloads (type: server)
+- **kraken** - k3s HA cluster control plane node (type: server)
+- **glados** - k3s HA cluster control plane node (type: server)
+- **kaiju** - k3s HA cluster control plane node (type: server)
+- **colossus** - k3s HA cluster worker node (type: server)
 - **installer** - NixOS installation ISO (type: server, features: installer)
 
 ### Module Organization
@@ -192,18 +193,43 @@ Theming configurations in `rices/` directory:
 
 **k3s Cluster:**
 
-- Highly available three-node cluster: kraken, kaiju, and glados
-- All three nodes run as control plane nodes with workload scheduling enabled
+- Highly available four-node cluster: kraken, glados, kaiju, and colossus
+- kraken, glados, and kaiju run as control plane nodes with workload scheduling enabled
+- colossus runs as a worker node with workload scheduling enabled
 - kube-vip provides control plane HA with virtual IP 10.12.1.100
 - Cluster configurations stored in `k8s/` directory
-- Infrastructure components deployed via helmfile:
-  - kube-vip - HA control plane with VIP failover
-  - Traefik - Ingress controller with automatic TLS termination
-  - cert-manager - Let's Encrypt certificates with Cloudflare DNS validation
-  - Reflector - Automatic secret/configmap replication
-  - Longhorn - Distributed block storage (3-way replication)
-  - MetalLB - Load balancer for bare-metal (IP pool: 10.12.1.100-10.12.1.200)
-  - SOPS - Kubernetes secrets encrypted with age keys
+
+## K3s Cluster Applications
+
+The k3s cluster hosts several key applications and services:
+
 - Secrets managed via SOPS in `k8s/secrets/`
 - Manifests for cluster-wide resources in `k8s/infrastructure/manifests/`
-- Each component has Helm values in `k8s/infrastructure/COMPONENT/values.yaml`
+- Cluster-wide resources have Helm values in `k8s/infrastructure/COMPONENT/values.yaml` as well as custom manifests in `k8s/infrastructure/manifests`
+- Applications have Helm values in `k8s/apps/COMPONENT/values.yaml` as well as custom manifests in `k8s/apps/manifests/`
+
+### Observability
+
+- **kube-prometheus-stack**: Prometheus, Grafana, and Alertmanager for monitoring and alerting
+- **Longhorn**: Distributed block storage solution with 3-way replication and snapshots
+
+### Networking & Ingress
+
+- **Traefik**: Ingress controller with automatic TLS termination
+- **MetalLB**: Load balancer for bare-metal environments using IP pool 10.12.1.100-10.12.1.200
+- **kube-vip**: HA control plane with virtual IP 10.12.1.100
+
+### Security & Secrets
+
+- **cert-manager**: Let's Encrypt certificates with Cloudflare DNS validation
+- **SOPS**: Kubernetes secrets encrypted with age keys for secure secret management
+
+### Databases
+
+- **cloudnative-pg**: PostgreSQL operator for managed database clusters
+- **Longhorn**: Storage infrastructure for database persistent volumes
+
+### Applications
+
+- **vaultwarden**: Password manager (Bitwarden-like) instance for secure credential storage
+- **ollama**: Local AI model serving for running large language models
