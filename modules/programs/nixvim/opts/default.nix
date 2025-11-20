@@ -8,6 +8,7 @@ delib.module {
     globals.mapleader = " ";
 
     opts = {
+      autoread = true;
       number = true;
 
       expandtab = true;

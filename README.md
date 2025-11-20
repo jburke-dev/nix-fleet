@@ -28,6 +28,7 @@ See the [justfile](justfile) for all available commands.
 - **[Kraken](hosts/kraken/README.md)** - k3s HA cluster node (control plane + workloads)
 - **[Kaiju](hosts/kaiju/README.md)** - k3s HA cluster node (control plane + workloads)
 - **[Glados](hosts/glados/README.md)** - k3s HA cluster node (control plane + workloads)
+- **[Colossus](hosts/colossus/README.md)** - k3s HA cluster node (worker only)
 - **[Installer](hosts/installer/README.md)** - Custom NixOS installation ISO
 
 ## Flake
@@ -44,7 +45,7 @@ This flake is supported by various utilities to make NixOS development easier:
 
 ## k3s Cluster
 
-The homelab includes a highly available k3s Kubernetes cluster running on three servers (kraken, kaiju, and glados). All three nodes function as control plane nodes using kube-vip for HA (virtual IP: 10.12.1.100) and are also available for workload scheduling.
+The homelab includes a highly available k3s Kubernetes cluster running on four servers (kraken, kaiju, glados, and colossus). All three control plane nodes (kraken, kaiju, and glados) use kube-vip for HA (virtual IP: 10.12.1.100) and are also available for workload scheduling. The colossus node functions as a dedicated worker node.
 
 ### Infrastructure Components
 
