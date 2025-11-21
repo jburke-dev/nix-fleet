@@ -10,6 +10,7 @@ delib.module {
     home = {
       packages = with pkgs; [ opencode ];
       file.".config/opencode/opencode.json".text = builtins.readFile ./opencode.json;
+      file.".config/opencode/prompts/brainstorm.txt".text = builtins.readFile ./prompts/brainstorm.txt;
     };
   };
 }
