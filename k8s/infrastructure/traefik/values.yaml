@@ -25,7 +25,16 @@ ports:
 
 ingressRoute:
   dashboard:
-    enabled: false
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: traefik-external
+    matchRule: Host(`traefik.infra.chesurah.net`)
+    middlewares:
+      - name: trusted-only
+        namespace: traefik
+    entryPoints:
+      - traefik
+      - websecure
 
 providers:
   kubernetesCRD:
@@ -34,10 +43,7 @@ providers:
     allowExternalNameServices: true
     allowCrossNamespace: true
   kubernetesIngress:
-    enabled: true
-    allowExternalNameServices: true
-    publishedService:
-      enabled: false
+    enabled: false
 
 rbac:
   enabled: true

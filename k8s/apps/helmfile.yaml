@@ -1,6 +1,9 @@
 repositories:
   - name: vaultwarden
     url: https://guerzon.github.io/vaultwarden
+  - name: forgejo
+    url: code.forgejo.org/forgejo-helm
+    oci: true
 
 releases:
   - name: vaultwarden
@@ -9,3 +12,9 @@ releases:
     createNamespace: true
     values:
       - ./vaultwarden/values.yaml
+  - name: forgejo
+    chart: forgejo/forgejo
+    namespace: forgejo
+    version: 15.0.3
+    values:
+      - ./forgejo/values.yaml

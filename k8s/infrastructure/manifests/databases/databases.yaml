@@ -9,3 +9,15 @@ spec:
   owner: vaultwarden
   cluster:
     name: postgres-ha
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/postgresql.cnpg.io/database_v1.json
+apiVersion: postgresql.cnpg.io/v1
+kind: Database
+metadata:
+  name: forgejo
+  namespace: databases
+spec:
+  name: forgejo
+  owner: forgejo
+  cluster:
+    name: postgres-ha
