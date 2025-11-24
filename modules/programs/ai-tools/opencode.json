@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "ollama-rocm/qwen3-coder:latest",
+  "model": "opencode/qwen3-coder",
   "theme": "system",
   "provider": {
     "ollama-rocm": {
@@ -13,6 +13,42 @@
         "qwen3-coder:latest": {
           "name": "qwen3-coder"
         }
+      }
+    }
+  },
+  "formatter": {
+    "markdown-lint": {
+      "command": [
+        "markdownlint",
+        "-f",
+        "$FILE"
+      ],
+      "extensions": [
+        ".md"
+      ]
+    }
+  },
+  "permission": {
+    "webfetch": "ask",
+    "edit": "ask",
+    "bash": "ask"
+  },
+  "agent": {
+    "plan": {
+      "temperature": 0.1
+    },
+    "build": {
+      "temperature": 0.3
+    },
+    "brainstorm": {
+      "temperature": 0.7,
+      "prompt": "{file:./prompts/brainstorm.txt}",
+      "tools": {
+        "write": false,
+        "webfetch": true
+      },
+      "permission": {
+        "edit": "deny"
       }
     }
   }

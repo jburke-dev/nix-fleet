@@ -24,6 +24,78 @@ metadata:
   name: ollama-models
   namespace: ollama
 data:
+  qwen3-small.model: |
+    FROM qwen3:14b
+    SYSTEM """You are Qwen, created by Alibaba Cloud.  You are a helpful assistant."""
+    TEMPLATE """{{- $lastUserIdx := -1 -}}
+    {{- range $idx, $msg := .Messages -}}
+    {{- if eq $msg.Role "user" }}{{ $lastUserIdx = $idx }}{{ end -}}
+    {{- end }}
+    {{- if or .System .Tools }}<|im_start|>system
+    {{ if .System }}
+    {{ .System }}
+    {{- end }}
+    {{- if .Tools }}
+
+    # Tools
+
+    You have access to the following tools. To use a tool, you MUST respond with a single, valid JSON object in the specified format.
+
+    ## Tools Available
+
+    {{ .Tools }}
+
+    ## Tool Call Format
+    When you decide to call a tool, you MUST respond with nothing but a single JSON object. Do not add any other text, markdown, or explanations before or after the JSON. The JSON object must have a tool key with the name of the function to call, and an arguments key containing an object of the parameters.
+
+    For example:
+
+    {
+      "tool": "name_of_the_function",
+      "arguments": {
+        "parameter_name_1": "value_1",
+        "parameter_name_2": "value_2"
+      }
+    }
+    {{- end -}}
+    <|im_end|>
+    {{ end }}
+    {{- range $i, $_ := .Messages }}
+    {{- $last := eq (len (slice $.Messages $i)) 1 -}}
+    {{- if eq .Role "user" }}<|im_start|>user
+    {{ .Content }}
+    {{- if and $.IsThinkSet (eq $i $lastUserIdx) }}
+       {{- if $.Think -}}
+          {{- " "}}/think
+       {{- else -}}
+          {{- " "}}/no_think
+       {{- end -}}
+    {{- end }}<|im_end|>
+    {{ else if eq .Role "assistant" }}<|im_start|>assistant
+    {{ if (and $.IsThinkSet (and .Thinking (or $last (gt $i $lastUserIdx)))) -}}
+    <think>{{ .Thinking }}</think>
+    {{ end -}}
+    {{ if .Content }}{{ .Content }}
+    {{- else if .ToolCalls }}<tool_call>
+    {{ range .ToolCalls }}{"name": "{{ .Function.Name }}", "arguments": {{ .Function.Arguments }}}
+    {{ end }}</tool_call>
+    {{- end }}{{ if not $last }}<|im_end|>
+    {{ end }}
+    {{- else if eq .Role "tool" }}<|im_start|>user
+    <tool_response>
+    {{ .Content }}
+    </tool_response><|im_end|>
+    {{ end }}
+    {{- if and (ne .Role "assistant") $last }}<|im_start|>assistant
+    {{ if and $.IsThinkSet (not $.Think) -}}
+    <think>
+
+    </think>
+
+    {{ end -}}
+    {{ end }}
+    {{- end }}
+    """
   qwen3-coder.model: |
     FROM qwen3-coder:30b
     SYSTEM """You are Qwen, created by Alibaba Cloud.  You are a helpful assistant."""
@@ -142,9 +214,6 @@ spec:
         - name: ollama-models
           configMap:
             name: ollama-models
-            items:
-              - key: "qwen3-coder.model"
-                path: "qwen3-coder.model"
 ---
 apiVersion: v1
 kind: Service
