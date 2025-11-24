@@ -1,6 +1,7 @@
 {
   delib,
   pkgs,
+  inputs,
   ...
 }:
 delib.module {
@@ -8,7 +9,7 @@ delib.module {
 
   home.ifEnabled = {
     home = {
-      packages = with pkgs; [ opencode ];
+      packages = [ inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default ];
       file.".config/opencode/opencode.json".text = builtins.readFile ./opencode.json;
       file.".config/opencode/prompts/brainstorm.txt".text = builtins.readFile ./prompts/brainstorm.txt;
     };

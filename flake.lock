@@ -1453,6 +1453,27 @@
         "type": "github"
       }
     },
+    "opencode": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1763883251,
+        "narHash": "sha256-qDM7zby+SFbenJGLoxjd6paAUjFjMRmThs+wvEtyP3k=",
+        "owner": "Alb-O",
+        "repo": "opencode",
+        "rev": "dd3347ecf48659d69ec81a1fd53d18e5cb7df0ac",
+        "type": "github"
+      },
+      "original": {
+        "owner": "Alb-O",
+        "ref": "nix-support",
+        "repo": "opencode",
+        "type": "github"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_3",
@@ -1511,6 +1532,7 @@
         "nixos-anywhere": "nixos-anywhere",
         "nixpkgs": "nixpkgs_3",
         "nixvim": "nixvim",
+        "opencode": "opencode",
         "sops-nix": "sops-nix",
         "stylix": "stylix",
         "zen-browser": "zen-browser"
