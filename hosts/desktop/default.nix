@@ -45,6 +45,10 @@ delib.host {
           host = "colossus";
           hostname = "10.12.1.4";
         }
+        {
+          host = "forgejo";
+          hostname = "10.12.2.2";
+        }
       ];
     };
   };

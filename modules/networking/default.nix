@@ -44,6 +44,10 @@ delib.module {
               # TODO: would it be worth it to skip this and setup CNAMEs?
               addToStaticHostsFile = false;
             };
+            forgejo = {
+              networkName = "servers";
+              ipFragment = "2.2";
+            };
             kaiju = {
               networkName = "servers";
               ipFragment = "1.2";

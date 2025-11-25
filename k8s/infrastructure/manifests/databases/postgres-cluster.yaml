@@ -17,6 +17,10 @@ spec:
         login: true
         passwordSecret:
           name: vaultwarden-db
+      - name: forgejo
+        login: true
+        passwordSecret:
+          name: forgejo-db
 
   # PostgreSQL configuration
   postgresql:

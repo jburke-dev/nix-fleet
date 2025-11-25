@@ -1,0 +1,63 @@
+persistence:
+  enabled: true
+  create: true
+  mount: true
+  claimName: forgejo-data
+  size: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClass: longhorn
+  annotations:
+    helm.sh/resource-policy: keep
+
+service:
+  http:
+    type: ClusterIP
+    port: 3000
+  ssh:
+    type: LoadBalancer
+    port: 2222
+    annotations:
+      metallb.io/loadBalancerIPs: 10.12.2.2
+
+ingress:
+  enabled: false
+
+gitea:
+  config:
+    APP_NAME: "Forgejo: Git with a cup of tea"
+    RUN_MODE: prod
+
+    server:
+      DOMAIN: forgejo.apps.chesurah.net
+      ROOT_URL: https://forgejo.apps.chesurah.net/
+      SSH_DOMAIN: forgejo
+      SSH_PORT: 2222
+      SSH_LISTEN_PORT: 2222
+
+    service:
+      ENABLE_REGISTRATION_CAPTCHA: false
+      REGISTER_EMAIL_CONFIRM: false
+      ENABLE_NOTIFY_MAIL: false
+      DISABLE_REGISTRATION: false
+      ALLOW_ONLY_EXTERNAL_REGISTRATION: false
+      ENABLE_CAPTCHA: false
+      REQUIRE_SIGNIN_VIEW: false
+
+    openid:
+      ENABLE_OPENID_SIGNIN: true
+      ENABLE_OPENID_SIGNUP: true
+
+    mailer:
+      ENABLED: false
+    log:
+      LEVEL: Debug
+  admin:
+    existingSecret: forgejo-admin-secret
+  additionalConfigSources:
+    - secret:
+        secretName: forgejo-app-ini-db
+  metrics:
+    enabled: true
+    serviceMonitor:
+      enabled: true
