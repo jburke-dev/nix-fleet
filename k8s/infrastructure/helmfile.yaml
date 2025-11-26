@@ -20,7 +20,8 @@ repositories:
     oci: true
   - name: rocm
     url: https://rocm.github.io/gpu-operator
-    
+  - name: nvidia
+    url: https://helm.ngc.nvidia.com/nvidia
 
 releases:
   - name: metallb
@@ -91,3 +92,10 @@ releases:
     chart: rocm/gpu-operator-charts
     namespace: kube-amd-gpu
     createNamespace: true
+
+  - name: nvidia-gpu-operator
+    chart: nvidia/gpu-operator
+    namespace: kube-nvidia-gpu
+    createNamespace: true
+    values:
+      - ./nvidia-gpu-operator/values.yaml
