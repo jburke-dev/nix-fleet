@@ -13,6 +13,7 @@ delib.host {
     "nvidia"
     "k3s"
     "ipmi"
+    "forgejoRunner"
   ];
 
   myconfig.services.k3s.role = "agent";

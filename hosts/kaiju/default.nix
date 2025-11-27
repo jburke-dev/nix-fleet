@@ -8,5 +8,6 @@ delib.host {
     "nvidia"
     "k3s"
     "ipmi"
+    "forgejoRunner"
   ];
 }
