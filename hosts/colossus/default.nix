@@ -14,6 +14,7 @@ delib.host {
     "k3s"
     "ipmi"
     "forgejoRunner"
+    "nfsServer"
   ];
 
   myconfig.services.k3s.role = "agent";
@@ -31,5 +32,6 @@ delib.host {
         extraPools = [ "tank" ];
       };
     };
+
   };
 }

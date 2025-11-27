@@ -1,0 +1,19 @@
+controller:
+  replicas: 2
+  runOnControlPlane: true
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - csi-nfs-controller
+            topologyKey: kubernetes.io/hostname
+
+feature:
+  enableFSGroupPolicy: true
+  enableInlineVolume: false

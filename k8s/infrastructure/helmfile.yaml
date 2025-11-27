@@ -22,6 +22,8 @@ repositories:
     url: https://rocm.github.io/gpu-operator
   - name: nvidia
     url: https://helm.ngc.nvidia.com/nvidia
+  - name: csi-driver-nfs
+    url: https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
 
 releases:
   - name: metallb
@@ -99,3 +101,9 @@ releases:
     createNamespace: true
     values:
       - ./nvidia-gpu-operator/values.yaml
+
+  - name: csi-driver-nfs
+    chart: csi-driver-nfs/csi-driver-nfs
+    namespace: kube-system
+    values:
+      - ./csi-driver-nfs/values.yaml
