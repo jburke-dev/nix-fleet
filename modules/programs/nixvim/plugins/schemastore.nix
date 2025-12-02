@@ -16,5 +16,6 @@ delib.module {
         }
       ];
     };
+    yaml.enable = false;
   };
 }

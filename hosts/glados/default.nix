@@ -8,4 +8,6 @@ delib.host {
     "k3s"
     "amd"
   ];
+
+  myconfig.services.k3s.hasMediaUser = false;
 }

@@ -20,7 +20,10 @@ repositories:
     oci: true
   - name: rocm
     url: https://rocm.github.io/gpu-operator
-    
+  - name: nvdp
+    url: https://nvidia.github.io/k8s-device-plugin
+  - name: csi-driver-nfs
+    url: https://raw.githubusercontent.com/kubernetes-csi/csi-driver-nfs/master/charts
 
 releases:
   - name: metallb
@@ -91,3 +94,16 @@ releases:
     chart: rocm/gpu-operator-charts
     namespace: kube-amd-gpu
     createNamespace: true
+
+  - name: nvdp
+    chart: nvdp/nvidia-device-plugin
+    namespace: nvidia-device-plugin
+    createNamespace: true
+    values:
+      - ./nvidia-device-plugin/values.yaml
+
+  - name: csi-driver-nfs
+    chart: csi-driver-nfs/csi-driver-nfs
+    namespace: kube-system
+    values:
+      - ./csi-driver-nfs/values.yaml

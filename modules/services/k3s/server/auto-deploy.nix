@@ -181,7 +181,7 @@ delib.module {
                         }
                         {
                           name = "address";
-                          value = cfg.kubeVip;
+                          value = parent.kubeVip;
                         }
                       ];
                       securityContext = {

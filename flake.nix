@@ -115,6 +115,8 @@
                       "router"
                       "k3s"
                       "ipmi"
+                      "forgejoRunner"
+                      "nfsServer"
                     ];
                     defaultByHostType = {
                       desktop = [

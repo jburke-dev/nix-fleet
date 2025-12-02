@@ -186,6 +186,7 @@ delib.module {
         staticHosts = builtins.mapAttrs (
           _: host: netLib.getHostIpFromNetwork cfg.networks host
         ) cfg.staticHosts;
+        networkCidrs = builtins.mapAttrs (_: network: netLib.vlanSubnet network) cfg.networks;
         inherit (cfg) domain;
       };
     };
