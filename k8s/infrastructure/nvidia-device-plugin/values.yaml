@@ -1,0 +1,10 @@
+nodeSelector:
+  nvidia-gpu: "present"
+
+runtimeClassName: nvidia
+
+gfd:
+  enabled: true
+
+nfd:
+  enabled: false # already installed in amd gpu operator

@@ -10,9 +10,12 @@ delib.module {
       yamlls = {
         enable = true;
         config = {
-          settings.yaml = {
-            schemas = {
-              "kubernetes" = "**/manifests/**/*.yaml";
+          settings = {
+            yaml = {
+              schemas = {
+                kubernetes = "*.yaml";
+              };
+              completion = true;
             };
           };
         };

@@ -1,7 +1,6 @@
 {
   delib,
   host,
-  networkCidrs,
   ...
 }:
 delib.module {
@@ -15,8 +14,7 @@ delib.module {
       services.nfs.server = {
         enable = true;
         exports = ''
-          /tank/downloads ${networkCidrs.servers}${nfs_opts} 10.42.0.0/16${nfs_opts}
-          /tank/media ${networkCidrs.servers}${nfs_opts} 10.42.0.0/16${nfs_opts}
+          /tank/media *${nfs_opts}
         '';
       };
 

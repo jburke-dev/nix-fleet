@@ -14,6 +14,9 @@ controller:
                     - csi-nfs-controller
             topologyKey: kubernetes.io/hostname
 
+node:
+  dnsPolicy: ClusterFirstWithHostNet
+
 feature:
   enableFSGroupPolicy: true
   enableInlineVolume: false
