@@ -17,11 +17,6 @@
       url = "github:hyprwm/Hyprland";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    hyprXPrimary = {
-      url = "github:zakk4223/hyprXPrimary";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.hyprland.follows = "hyprland";
-    };
     git-hooks-nix = {
       url = "github:cachix/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -74,7 +69,6 @@
       nixos-anywhere,
       disko,
       hyprland,
-      hyprXPrimary,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } {
