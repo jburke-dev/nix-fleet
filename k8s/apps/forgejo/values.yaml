@@ -53,7 +53,8 @@ gitea:
     log:
       LEVEL: Debug
   admin:
-    existingSecret: forgejo-admin-secret
+    #existingSecret: forgejo-admin-secret
+    username: ""
   additionalConfigSources:
     - secret:
         secretName: forgejo-app-ini-db
