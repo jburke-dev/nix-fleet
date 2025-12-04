@@ -15,14 +15,14 @@ delib.module {
         settings = {
           windowrule = [
             # TODO: adapt this for single-monitor hosts?
-            "workspace ${toString (parent.workspacesPerDisplay + 1)}, class:vivaldi-stable"
-            "workspace ${toString (parent.workspacesPerDisplay + 1)}, class:zen-twilight"
-            "workspace 2, class:discord"
-            "bordersize 0, floating:0, onworkspace:w[tv1]s[false]"
-            "rounding 0, floating:0, onworkspace:w[tv1]s[false]"
-            "bordersize 0, floating:0, onworkspace:f[1]s[false]"
-            "rounding 0, floating:0, onworkspace:f[1]s[false]"
-            "opacity 0.9 0.5, class:kitty"
+            "match:class vivaldia-stable, workspace ${toString (parent.workspacesPerDisplay + 1)}"
+            "match:class zen-twilight, workspace ${toString (parent.workspacesPerDisplay + 1)}"
+            "match:class discord, workspace 2"
+            "match:workspace w[tv1]s[false], border_size 0, float 0"
+            "match:workspace w[tv1]s[false], rounding 0, float 0"
+            "match:workspace f[1]s[false], border_size 0, float 0"
+            "match:workspace f[1]s[false], rounding 0, float 0"
+            "match:class kitty, opacity 0.9 0.5"
           ];
           windowrulev2 = [
             # Steam games - force to HDMI display
@@ -31,11 +31,6 @@ delib.module {
             # Obsidian - left 1/3 of ultrawide for sol workspace
             "size 33% 100%, initialTitle:^.*sol - Obsidian.*$" # TODO: size only works on floating windows
             "move 0 0, initialTitle:^.*sol - Obsidian.*$"
-          ];
-          layerrule = [
-            "blur, gtk4-layer-shell"
-            "ignorealpha 0, gtk4-layer-shell"
-            "noanim, gtk4-layer-shell"
           ];
           monitor =
             (builtins.map (
