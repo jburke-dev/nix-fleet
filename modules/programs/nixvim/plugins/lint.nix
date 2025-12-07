@@ -6,6 +6,7 @@ delib.module {
     lintersByFt = {
       nix = [ "statix" ];
       sh = [ "shellcheck" ];
+      yaml = [ "yamllint" ];
     };
   };
 }

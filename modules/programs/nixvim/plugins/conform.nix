@@ -15,6 +15,7 @@ delib.module {
         typescript = [ "prettier" ];
         markdown = [ "markdownlint" ];
         sh = [ "shellcheck" ];
+        yaml = [ "yamlfmt" ];
       };
       format_on_save = {
         lsp_format = "fallback";
