@@ -55,7 +55,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     opencode = {
-      url = "github:Alb-O/opencode/nix-support";
+      url = "github:sst/opencode";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
