@@ -15,6 +15,7 @@ delib.module {
         };
 
         completion = {
+          trigger.prefetch_on_insert = false;
           accept.auto_brackets.enabled = false;
           menu = {
             border = "none";

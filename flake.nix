@@ -55,7 +55,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     opencode = {
-      url = "github:Alb-O/opencode/nix-support";
+      url = "github:sst/opencode";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
@@ -159,6 +159,14 @@
               nixfmt-rfc-style.enable = true;
               commitizen.enable = true;
               shellcheck.enable = true;
+              yamllint = {
+                enable = true;
+                settings.configPath = "./.yamllint";
+              };
+              yamlfmt = {
+                enable = true;
+                settings.configPath = "./.yamlfmt";
+              };
               markdownlint = {
                 enable = true;
                 settings.configuration = {

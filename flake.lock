@@ -1439,16 +1439,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1764226786,
-        "narHash": "sha256-ZqyyM704LTqGvBDl4mFHeDA5nJexTBUsAJ4SADwf/fg=",
-        "owner": "Alb-O",
+        "lastModified": 1765121631,
+        "narHash": "sha256-a9OxbK+wM6Y3JvnchPGUqSXZGAEWuL4cM78ssRsXKq4=",
+        "owner": "sst",
         "repo": "opencode",
-        "rev": "519981068d5ce64d2446f875bec18aa77a3266ee",
+        "rev": "93917495776b37d021584f55956c3e746be4d222",
         "type": "github"
       },
       "original": {
-        "owner": "Alb-O",
-        "ref": "nix-support",
+        "owner": "sst",
         "repo": "opencode",
         "type": "github"
       }
