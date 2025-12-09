@@ -4,14 +4,17 @@
   "theme": "system",
   "provider": {
     "ollama-rocm": {
-      "npm": "@ai-sdk/openai-compatible",
+      "npm": "ollama-aik-provider-v2",
       "name": "Ollama ROCm Local",
       "options": {
-        "baseURL": "https://ollama.apps.chesurah.net/v1"
+        "baseURL": "https://ollama.apps.chesurah.net"
       },
       "models": {
         "qwen3-coder:latest": {
           "name": "qwen3-coder"
+        },
+        "qwen3-small:latest": {
+          "name": "qwen3-small"
         }
       }
     }

@@ -54,6 +54,8 @@ delib.module {
             gnused
             kubectl
             nodejs # needed for builtin actions
+            yq
+            jq
           ];
         };
       };

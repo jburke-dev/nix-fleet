@@ -13,7 +13,7 @@ delib.module {
           settings = {
             yaml = {
               schemas = {
-                kubernetes = "*.yaml";
+                kubernetes = "*.k8s.yaml";
               };
               completion = true;
             };

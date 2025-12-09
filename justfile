@@ -15,7 +15,10 @@ build HOST TARGET="toplevel":
     nix build '.#nixosConfigurations.{{ HOST }}.config.system.build.{{ TARGET }}'
 
 [parallel]
-rebuild-servers: (rebuild-remote "kaiju") (rebuild-remote "colossus") (rebuild-remote "kraken")
+rebuild-servers: (rebuild-remote "kaiju") (rebuild-remote "colossus") (rebuild-remote "kraken") (rebuild-remote "glados")
+
+[parallel]
+rebuild-runners: (rebuild-remote "kaiju") (rebuild-remote "colossus") (rebuild-remote "kraken")
 
 rebuild-local:
     #!/usr/bin/env bash
@@ -65,7 +68,7 @@ sync-k8s-apps:
 ollama-create MODEL:
     #!/usr/bin/env bash
     set -euo pipefail
-    kubectl exec -it -n ollama deployments/ollama-rocm -- ollama create {{ MODEL }} -f /models/{{ MODEL }}.model
+    kubectl exec -it -n ollama deployments/ollama-rocm -c ollama -- ollama create {{ MODEL }} -f /models/{{ MODEL }}.model
 
 ollama-ls: (ollama-cli "ls")
 
@@ -78,4 +81,4 @@ ollama-show MODEL: (ollama-cli "show" "--modelfile" MODEL)
 ollama-cli +ARGS:
     #!/usr/bin/env bash
     set -euo pipefail
-    kubectl exec -it -n ollama deployments/ollama-rocm -- ollama {{ ARGS }}
+    kubectl exec -it -n ollama deployments/ollama-rocm -c ollama -- ollama {{ ARGS }}
