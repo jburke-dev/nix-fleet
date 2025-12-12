@@ -111,11 +111,12 @@
                       "ipmi"
                       "forgejoRunner"
                       "nfsServer"
+                      "cosmic"
                     ];
                     defaultByHostType = {
                       desktop = [
                         "gui"
-                        "hyprland"
+                        "cosmic"
                         "gaming"
                         "dev"
                       ];
