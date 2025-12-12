@@ -116,7 +116,7 @@
                     defaultByHostType = {
                       desktop = [
                         "gui"
-                        "cosmic"
+                        "hyprland"
                         "gaming"
                         "dev"
                       ];
