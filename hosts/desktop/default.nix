@@ -6,18 +6,20 @@ delib.host {
 
   myconfig.programs = {
     network-utils.enable = true;
-    hyprland.displays = [
-      {
-        name = "DP-1";
-        wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/ultrawide/";
-        resolution = "3440x1440@100.00Hz";
-        leftMost = true;
-      }
-      {
-        name = "DP-2";
-        wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/hd/";
-      }
-    ];
+    /*
+      hyprland.displays = [
+        {
+          name = "DP-1";
+          wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/ultrawide/";
+          resolution = "3440x1440@100.00Hz";
+          leftMost = true;
+        }
+        {
+          name = "DP-2";
+          wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/hd/";
+        }
+      ];
+    */
     ssh = {
       sshRootDir = "/mnt/apps/ssh";
       keyConfigs = [

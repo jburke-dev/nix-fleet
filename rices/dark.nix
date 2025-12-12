@@ -10,7 +10,7 @@ delib.rice {
         profileNames = [ "default" ];
       };
 
-      hyprlock.enable = true;
+      #hyprlock.enable = true;
       zen-browser = {
         enable = true;
         profileNames = [ "default" ];
