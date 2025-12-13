@@ -1,4 +1,3 @@
----
 apiVersion: v1
 kind: Service
 metadata:
@@ -7,6 +6,20 @@ metadata:
 spec:
   type: ExternalName
   externalName: 10.10.1.1
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mikrotik-hap
+  namespace: infrastructure
+spec:
+  type: ExternalName
+  externalName: 10.25.1.2
   ports:
     - name: http
       protocol: TCP
@@ -32,6 +45,15 @@ spec:
           namespace: traefik
       services:
         - name: mikrotik
+          namespace: infrastructure
+          port: 80
+    - kind: Rule
+      match: Host(`mikrotik-hap.infra.chesurah.net`)
+      middlewares:
+        - name: trusted-only
+          namespace: traefik
+      services:
+        - name: mikrotik-hap
           namespace: infrastructure
           port: 80
   tls:

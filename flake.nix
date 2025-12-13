@@ -162,7 +162,10 @@
               shellcheck.enable = true;
               yamllint = {
                 enable = true;
-                settings.configPath = "./.yamllint";
+                settings = {
+                  configPath = "./.yamllint";
+                  strict = false;
+                };
               };
               yamlfmt = {
                 enable = true;

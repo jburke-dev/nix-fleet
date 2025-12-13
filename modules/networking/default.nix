@@ -68,6 +68,11 @@ delib.module {
               ipFragment = "1.1";
               mac = "2c:cf:67:ae:5f:94";
             };
+            mikrotik-hap = {
+              networkName = "untrusted";
+              ipFragment = "1.2";
+              mac = "04:f4:1c:59:aa:2c";
+            };
             kraken = {
               networkName = "servers";
               ipFragment = "1.1";
