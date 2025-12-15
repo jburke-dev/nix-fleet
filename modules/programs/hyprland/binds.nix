@@ -20,7 +20,7 @@ delib.module {
     bindr = [
       # anyrun seems borked after switching to unstable
       # "$mainMod, SUPER_L, exec, ${toggle "anyrun" ""}"
-      "$mainMod, SUPER_L, exec, ags-shell picker"
+      #"$mainMod, SUPER_L, exec, ags-shell picker"
       #"$mainMod SHIFT, SUPER_L, hyprexpo:expo, toggle"
     ];
 
@@ -45,9 +45,12 @@ delib.module {
       "$mainMod, S, layoutmsg, togglesplit"
       "$mainMod SHIFT, L, layoutmsg, swapsplit"
 
-      "$mainMod, D, exec, ags-shell"
-      "$mainMod SHIFT, D, exec, pkill gjs || ags-shell" # refresh ags-shell
-      "$mainMod CTRL SHIFT, D, exec, pkill gjs"
+      "$mainMod SHIFT, D, exec, pkill desktop-shell"
+      /*
+        "$mainMod, D, exec, ags-shell"
+        "$mainMod SHIFT, D, exec, pkill gjs || ags-shell" # refresh ags-shell
+        "$mainMod CTRL SHIFT, D, exec, pkill gjs"
+      */
     ]
     ++ builtins.concatLists (
       builtins.genList (

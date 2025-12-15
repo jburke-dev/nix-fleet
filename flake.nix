@@ -34,12 +34,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     claude-code.url = "github:sadjow/claude-code-nix";
-    ags-shell = {
-      url = "github:jburke-dev/ags-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    ags-shell-local = {
-      url = "git+file:../ags-shell/?ref=laptop-battery";
+    desktop-shell = {
+      url = "git+https://forgejo.apps.chesurah.net/jburke-dev/desktop-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser = {
