@@ -77,7 +77,7 @@ delib.module {
           "$browser" = "zen-twilight";
           "$mainMod" = "SUPER";
           exec-once = [
-            "ags-shell"
+            "desktop-shell"
           ];
 
           general = {
