@@ -4,6 +4,7 @@ keys:
   - &kraken age1rwxn243045x99qu8x5j4556pmn7c50hp9xf9hsulhujmr9z36sns6nltvx
   - &glados age1vhszt0du96c22mf634n6hss96vva9qlym8dszt8telasr3vaj5hse6sxsa
   - &colossus age14m7xchp0kpegq0l0pvmd5devwgzkluynq3ymspgem7lj2fnqt36q89ujta
+  - &meerkat age1zqppr46wmqr3tsjrxd9psjhts5qdrpnqe3fyeknxk5a3uudsaucsnqc9wy
 creation_rules:
   - path_regex: secrets\.yaml$
     key_groups:
@@ -13,6 +14,7 @@ creation_rules:
           - *kraken
           - *glados
           - *colossus
+          - *meerkat
   - path_regex: k8s/secrets/.*\.yaml$
     encrypted_regex: ^(data|stringData)$
     key_groups:

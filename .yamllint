@@ -1,4 +1,6 @@
 extends: default
+ignore: |
+  secrets.yaml
 rules:
   line-length:
     max: 120
