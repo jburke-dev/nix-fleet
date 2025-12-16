@@ -43,7 +43,10 @@ providers:
     allowExternalNameServices: true
     allowCrossNamespace: true
   kubernetesIngress:
-    enabled: false
+    enabled: true
+    ingressClass: traefik-external
+    allowExternalNameService: true
+    allowCrossNamespace: true
 
 rbac:
   enabled: true

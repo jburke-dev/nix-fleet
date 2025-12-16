@@ -51,12 +51,17 @@ rules:
       - cronjobs
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 
+  - apiGroups: ["networking.k8s.io"]
+    resources:
+      - ingresses
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
+
   - apiGroups: ["storage.k8s.io"]
     resources: ["storageclasses"]
     verbs: ["get", "list"]
 
   - apiGroups: [""]
-    resources: ["namespaces", "nodes"]
+    resources: ["nodes"]
     verbs: ["get", "list"]
 
   - apiGroups: ["traefik.io"]
