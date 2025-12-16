@@ -49,6 +49,10 @@ delib.host {
           host = "forgejo";
           hostname = "10.12.2.2";
         }
+        {
+          host = "meerkat";
+          hostname = "10.12.1.5";
+        }
       ];
     };
   };

@@ -63,6 +63,11 @@ delib.module {
               ipFragment = "1.4";
               mac = "02:ff:33:9b:15:73";
             };
+            meerkat = {
+              networkName = "servers";
+              ipFragment = "1.5";
+              mac = "02:ed:aa:06:23:87";
+            };
             home-assistant = {
               networkName = "untrusted"; # some iot devices like philips hue don't play nice in initial configuration across subnets
               ipFragment = "1.1";

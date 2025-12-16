@@ -17,6 +17,7 @@ delib.module {
       bootstrapHost = readOnly (strOption "kraken");
       kubeVip = strOption "10.12.1.100";
       hasMediaUser = boolOption true;
+      extraFlags = listOfOption str [ ];
     };
 
   nixos.ifEnabled =
@@ -28,7 +29,7 @@ delib.module {
         inherit (cfg) role;
         gracefulNodeShutdown.enable = true;
         tokenFile = config.sops.secrets.k3s_token.path;
-        extraFlags = [ "--node-ip ${staticHosts.${host.name}}" ];
+        extraFlags = [ "--node-ip ${staticHosts.${host.name}}" ] ++ cfg.extraFlags;
       };
 
       hardware.nvidia-container-toolkit.enable = host.nvidiaFeatured;
@@ -47,7 +48,7 @@ delib.module {
       };
 
       systemd.services.k3s = {
-        # default service from nixpkgs module includes firewall.serVice which we're not using
+        # default service from nixpkgs module includes firewall.service which we're not using
         after = lib.mkForce [ "network-online.target" ];
         wants = lib.mkForce [ "network-online.target" ];
       };
