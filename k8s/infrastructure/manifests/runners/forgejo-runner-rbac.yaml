@@ -30,6 +30,7 @@ rules:
       - services
       - persistentvolumeclaims
       - serviceaccounts
+      - namespaces
     verbs: ["get", "list", "watch", "create", "update", "patch", "delete"]
 
   - apiGroups: [""]
