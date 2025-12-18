@@ -46,8 +46,8 @@ delib.module {
       "$mainMod SHIFT, L, layoutmsg, swapsplit"
 
       "$mainMod SHIFT, D, exec, pkill desktop-shell"
+      "$mainMod, D, exec, desktop-shell"
       /*
-        "$mainMod, D, exec, ags-shell"
         "$mainMod SHIFT, D, exec, pkill gjs || ags-shell" # refresh ags-shell
         "$mainMod CTRL SHIFT, D, exec, pkill gjs"
       */
