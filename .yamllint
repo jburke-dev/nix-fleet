@@ -1,6 +1,7 @@
 extends: default
 ignore: |
   secrets.yaml
+  k8s/secrets/*.yaml
 rules:
   line-length:
     max: 120
