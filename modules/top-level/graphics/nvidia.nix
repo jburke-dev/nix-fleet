@@ -12,7 +12,6 @@ delib.module {
     services.xserver.videoDrivers = [ "nvidia" ];
     hardware.nvidia = {
       nvidiaSettings = false;
-      nvidiaPersistenced = true;
       modesetting.enable = true;
       open = true;
     };
