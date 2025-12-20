@@ -6,6 +6,5 @@ delib.host {
 
   features = [
     "k3s"
-    "forgejoRunner"
   ];
 }

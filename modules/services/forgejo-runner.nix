@@ -45,7 +45,10 @@ delib.module {
           name = cfg.instanceName;
           url = "https://forgejo.apps.chesurah.net";
           tokenFile = config.sops.secrets.forgejo_runner_registration_token.path;
-          labels = [ "native:host" ];
+          labels = [
+            "native:host"
+            "node24:docker://forgejo.apps.chesurah.net/images/forgejo-nix:1.2.1"
+          ];
           hostPackages = with pkgs; [
             bash
             coreutils
@@ -59,6 +62,7 @@ delib.module {
           ];
         };
       };
+      virtualisation.podman.enable = true;
       systemd.services."gitea-runner-${cfg.instanceName}" = {
         serviceConfig = {
           DynamicUser = lib.mkForce false;
