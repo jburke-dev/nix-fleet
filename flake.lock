@@ -173,11 +173,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1766197836,
-        "narHash": "sha256-5TWjQCJG8N1MbTBmP9G2aAydA5Ndw6sucm7mojtURmc=",
+        "lastModified": 1766244405,
+        "narHash": "sha256-zSdcgGGpSXqNsK9wcmY+2vlS0CgeOdeMfoOiU8Lt17w=",
         "ref": "refs/heads/main",
-        "rev": "0aa0b19a81828ae73b15c6111136212737ebd913",
-        "revCount": 24,
+        "rev": "a55f0776fbdfb8fc01e8c2a2ba48e0616520046b",
+        "revCount": 27,
         "type": "git",
         "url": "https://forgejo.apps.chesurah.net/jburke-dev/desktop-shell"
       },
