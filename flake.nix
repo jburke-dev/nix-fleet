@@ -108,6 +108,7 @@
                       "forgejoRunner"
                       "nfsServer"
                       "cosmic"
+                      "docker"
                     ];
                     defaultByHostType = {
                       desktop = [
@@ -115,6 +116,7 @@
                         "hyprland"
                         "gaming"
                         "dev"
+                        "docker"
                       ];
                       server = [ ];
                       laptop = [

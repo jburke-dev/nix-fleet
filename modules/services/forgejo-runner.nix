@@ -47,7 +47,7 @@ delib.module {
           tokenFile = config.sops.secrets.forgejo_runner_registration_token.path;
           labels = [
             "native:host"
-            "node24:docker://node:24-trixie"
+            "node24:docker://forgejo.apps.chesurah.net/images/forgejo-nix:1.2.1"
           ];
           hostPackages = with pkgs; [
             bash
