@@ -63,11 +63,18 @@ delib.module {
               ipFragment = "1.4";
               mac = "02:ff:33:9b:15:73";
             };
-            meerkat = {
-              networkName = "servers";
-              ipFragment = "1.5";
-              mac = "02:ed:aa:06:23:87";
+            pve-meerkat = {
+              networkName = "mgmt";
+              ipFragment = "1.1";
+              mac = "48:21:0b:56:5d:fb";
             };
+            /*
+              meerkat = {
+                networkName = "servers";
+                ipFragment = "1.5";
+                mac = "02:ed:aa:06:23:87";
+              };
+            */
             home-assistant = {
               networkName = "untrusted"; # some iot devices like philips hue don't play nice in initial configuration across subnets
               ipFragment = "1.1";
@@ -136,6 +143,17 @@ delib.module {
                 ];
               };
             };
+            mgmt = {
+              id = 11;
+              cidr = 16;
+              dhcpMode = "static";
+              firewall = {
+                allowOutbound = [
+                  "wan"
+                  "mgmt"
+                ];
+              };
+            };
             servers = {
               id = 12;
               cidr = 16;
@@ -161,6 +179,7 @@ delib.module {
                   "lan"
                   "servers"
                   "untrusted"
+                  "mgmt"
                 ];
               };
             };
