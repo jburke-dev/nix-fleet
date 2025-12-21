@@ -28,9 +28,11 @@ delib.module {
       "$mainMod, q, killactive,"
       "$mainMod, T, exec, $terminal"
       "$mainMod, B, exec, $browser"
+      "$mainMod, C, exec, discord"
+      "$mainMod, S, exec, steam"
 
       "$mainMod, L, exec, wleave -b 2"
-      "$mainMod, C, exec, hyprpicker -a"
+      "$mainMod SHIFT, C, exec, hyprpicker -a"
 
       "$mainMod SHIFT, S, exec, $screenshot -m region"
 
@@ -40,9 +42,8 @@ delib.module {
       "$mainMod CTRL SHIFT, Left, movetoworkspacesilent, -1"
       "$mainMod, Right, cyclenext"
       "$mainMod, Left, cyclenext, prev"
-      "$mainMod, Up, fullscreen, 1"
+      "$mainMod, F, fullscreen, 1"
 
-      "$mainMod, S, layoutmsg, togglesplit"
       "$mainMod SHIFT, L, layoutmsg, swapsplit"
 
       "$mainMod SHIFT, D, exec, pkill desktop-shell"
