@@ -43,6 +43,10 @@ delib.module {
           __raw = "function() vim.diagnostic.open_float(nil, { focusable = false, scope = 'cursor' }) end";
         };
       }
+      {
+        event = [ "VimResized" ];
+        command = "wincmd =";
+      }
     ];
   };
 }
