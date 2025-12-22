@@ -34,39 +34,15 @@ delib.module {
             };
           })
           {
-            kube-vip = {
-              networkName = "servers";
-              ipFragment = "1.100";
-            };
-            traefik = {
-              networkName = "servers";
-              ipFragment = "2.1";
-              # TODO: would it be worth it to skip this and setup CNAMEs?
-              addToStaticHostsFile = false;
-            };
-            forgejo = {
-              networkName = "servers";
-              ipFragment = "2.2";
-            };
-            kaiju = {
-              networkName = "servers";
-              ipFragment = "1.2";
-              mac = "02:fe:3d:da:12:9a";
-            };
-            glados = {
-              networkName = "servers";
-              ipFragment = "1.3";
-              mac = "02:c9:96:20:34:72";
-            };
-            colossus = {
-              networkName = "servers";
-              ipFragment = "1.4";
-              mac = "02:ff:33:9b:15:73";
-            };
             pve-meerkat = {
               networkName = "mgmt";
               ipFragment = "1.1";
               mac = "48:21:0b:56:5d:fb";
+            };
+            test-talos-control-plan1 = {
+              networkName = "mgmt";
+              ipFragment = "2.1";
+              mac = "BC:24:11:40:BB:BA";
             };
             /*
               meerkat = {
@@ -84,11 +60,6 @@ delib.module {
               networkName = "untrusted";
               ipFragment = "1.2";
               mac = "04:f4:1c:59:aa:2c";
-            };
-            kraken = {
-              networkName = "servers";
-              ipFragment = "1.1";
-              mac = "02:ed:aa:06:23:86";
             };
             mikrotik = {
               networkName = "lan";
