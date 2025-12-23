@@ -39,11 +39,6 @@ delib.module {
               ipFragment = "1.1";
               mac = "48:21:0b:56:5d:fb";
             };
-            test-talos-control-plan1 = {
-              networkName = "mgmt";
-              ipFragment = "2.1";
-              mac = "BC:24:11:40:BB:BA";
-            };
             /*
               meerkat = {
                 networkName = "servers";
@@ -87,6 +82,14 @@ delib.module {
                         options = {
                           ip = strOption "";
                           ports = listOfOption int [ ];
+                          protocol = enumOption [ "tcp" "udp" "both" ] "tcp";
+                        };
+                      }) [ ];
+                      allowOutboundToIpPortRange = listOfOption (submodule {
+                        options = {
+                          ip = strOption "";
+                          startPort = intOption 7000;
+                          endPort = intOption 7001;
                           protocol = enumOption [ "tcp" "udp" "both" ] "tcp";
                         };
                       }) [ ];
@@ -151,6 +154,7 @@ delib.module {
                   "servers"
                   "untrusted"
                   "mgmt"
+                  "talos"
                 ];
               };
             };
@@ -163,13 +167,22 @@ delib.module {
                   "wan"
                   "untrusted"
                 ];
-                allowOutboundToIp = [
+              };
+            };
+            talos = {
+              id = 15;
+              cidr = 16;
+              dhcpMode = "static";
+              firewall = {
+                allowOutbound = [
+                  "wan"
+                  "talos"
+                ];
+                allowOutboundToIpPortRange = [
                   {
-                    ip = "10.12.2.1"; # Traefik
-                    ports = [
-                      80
-                      443
-                    ];
+                    ip = "10.11.0.0/16";
+                    startPort = 6789;
+                    endPort = 7568;
                     protocol = "tcp";
                   }
                 ];
