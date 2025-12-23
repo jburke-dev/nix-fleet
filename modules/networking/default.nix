@@ -156,6 +156,15 @@ delib.module {
                 ];
               };
             };
+            ceph = {
+              id = 13;
+              cidr = 16;
+              firewall = {
+                allowOutbound = [
+                  "ceph"
+                ];
+              };
+            };
             trusted = {
               id = 20;
               cidr = 16;
