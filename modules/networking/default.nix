@@ -39,13 +39,26 @@ delib.module {
               ipFragment = "1.1";
               mac = "48:21:0b:56:5d:fb";
             };
-            /*
-              meerkat = {
-                networkName = "servers";
-                ipFragment = "1.5";
-                mac = "02:ed:aa:06:23:87";
-              };
-            */
+            pve-colossus = {
+              networkName = "mgmt";
+              ipFragment = "1.2";
+              mac = "98:b7:85:23:63:90";
+            };
+            pve-kaiju = {
+              networkName = "mgmt";
+              ipFragment = "1.3";
+              mac = "1a:4b:23:16:71:5b";
+            };
+            pve-kraken = {
+              networkName = "mgmt";
+              ipFragment = "1.4";
+              mac = "58:47:ca:7d:96:ae";
+            };
+            pdm = {
+              networkName = "mgmt";
+              ipFragment = "2.1";
+              mac = "bc:24:11:81:6c:6a";
+            }; # proxmox datacenter manager
             home-assistant = {
               networkName = "untrusted"; # some iot devices like philips hue don't play nice in initial configuration across subnets
               ipFragment = "1.1";
@@ -61,6 +74,11 @@ delib.module {
               ipFragment = "1.1";
               mac = "D4:01:C3:12:16:F4"; # combo3 port
             };
+            desktop = {
+              networkName = "trusted";
+              ipFragment = "1.1";
+              mac = "10:ff:e0:6f:80:80";
+            };
           }
       );
       networks = readOnly (
@@ -71,7 +89,6 @@ delib.module {
               type = enumOption [ "bridge" "vlan" ] "vlan";
               interface = allowNull (strOption null);
               cidr = enumOption [ 24 16 ] 24;
-              dhcpMode = enumOption [ "dynamic" "static" ] "dynamic";
               firewall =
                 submoduleOption
                   {
@@ -105,7 +122,6 @@ delib.module {
               type = "bridge";
               interface = "br-lan";
               cidr = 16;
-              dhcpMode = "static";
               firewall = {
                 isTrusted = true;
                 allowOutbound = [
@@ -120,7 +136,6 @@ delib.module {
             mgmt = {
               id = 11;
               cidr = 16;
-              dhcpMode = "static";
               firewall = {
                 allowOutbound = [
                   "wan"
@@ -131,7 +146,6 @@ delib.module {
             servers = {
               id = 12;
               cidr = 16;
-              dhcpMode = "static";
               firewall = {
                 allowOutbound = [
                   "wan"
@@ -145,7 +159,6 @@ delib.module {
             trusted = {
               id = 20;
               cidr = 16;
-              dhcpMode = "dynamic";
               firewall = {
                 isTrusted = true;
                 allowOutbound = [
@@ -161,7 +174,6 @@ delib.module {
             untrusted = {
               id = 25;
               cidr = 16;
-              dhcpMode = "static";
               firewall = {
                 allowOutbound = [
                   "wan"
@@ -172,7 +184,6 @@ delib.module {
             talos = {
               id = 15;
               cidr = 16;
-              dhcpMode = "static";
               firewall = {
                 allowOutbound = [
                   "wan"

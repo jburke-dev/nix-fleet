@@ -129,47 +129,41 @@ delib.module {
                   "socket-port" = cfg.privilegedPorts.dhcp4ControlHttp;
                 }
               ];
-              subnet4 = lib.imap1 (
-                idx: networkName:
-                let
-                  network = allNetworks.${networkName};
-                in
-                {
-                  id = idx;
-                  subnet = netLib.vlanSubnet network;
-                  interface = netLib.getNetworkInterface networkName network;
-                  option-data = [
-                    {
-                      name = "routers";
-                      data = netLib.vlanGateway network;
-                    }
-                    {
-                      name = "domain-name-servers";
-                      data = netLib.vlanGateway network;
-                    }
-                    {
-                      name = "domain-name";
-                      data = parent.domain;
-                    }
-                  ];
-                  reservations-global = false;
-                  reservations-in-subnet = network.dhcpMode == "static";
-                  reservations-out-of-pool = network.dhcpMode == "static";
-                  reservations =
-                    lib.mapAttrsToList
-                      (hostName: hostCfg: {
-                        hw-address = hostCfg.mac;
-                        ip-address = netLib.getHostIpFromNetwork allNetworks hostCfg;
-                        hostname = hostName;
-                      })
-                      (lib.filterAttrs (_: host: host.networkName == networkName && host.mac != "") parent.staticHosts);
-                  pools = [
-                    {
-                      pool = netLib.vlanDhcpPool network;
-                    }
-                  ];
-                }
-              ) (builtins.attrNames allNetworks);
+              subnet4 = lib.mapAttrsToList (networkName: network: {
+                inherit (network) id;
+                subnet = netLib.vlanSubnet network;
+                interface = netLib.getNetworkInterface networkName network;
+                option-data = [
+                  {
+                    name = "routers";
+                    data = netLib.vlanGateway network;
+                  }
+                  {
+                    name = "domain-name-servers";
+                    data = netLib.vlanGateway network;
+                  }
+                  {
+                    name = "domain-name";
+                    data = parent.domain;
+                  }
+                ];
+                reservations-global = false;
+                reservations-in-subnet = true;
+                reservations-out-of-pool = true;
+                reservations =
+                  lib.mapAttrsToList
+                    (hostName: hostCfg: {
+                      hw-address = hostCfg.mac;
+                      ip-address = netLib.getHostIpFromNetwork allNetworks hostCfg;
+                      hostname = hostName;
+                    })
+                    (lib.filterAttrs (_: host: host.networkName == networkName && host.mac != "") parent.staticHosts);
+                pools = [
+                  {
+                    pool = netLib.vlanDhcpPool network;
+                  }
+                ];
+              }) allNetworks;
               loggers = [
                 {
                   name = "kea-dhcp4";
@@ -229,27 +223,21 @@ delib.module {
                 }
               ];
 
-              subnet6 = lib.imap1 (
-                idx: networkName:
-                let
-                  network = allNetworks.${networkName};
-                in
-                {
-                  id = idx;
-                  subnet = netLib.vlanSubnetV6 network;
-                  interface = netLib.getNetworkInterface networkName network;
-                  option-data = [
-                    {
-                      name = "dns-servers";
-                      data = netLib.vlanGatewayV6 network;
-                    }
-                    {
-                      name = "domain-search";
-                      data = parent.domain;
-                    }
-                  ];
-                }
-              ) (builtins.attrNames allNetworks);
+              subnet6 = lib.mapAttrsToList (networkName: network: {
+                inherit (network) id;
+                subnet = netLib.vlanSubnetV6 network;
+                interface = netLib.getNetworkInterface networkName network;
+                option-data = [
+                  {
+                    name = "dns-servers";
+                    data = netLib.vlanGatewayV6 network;
+                  }
+                  {
+                    name = "domain-search";
+                    data = parent.domain;
+                  }
+                ];
+              }) allNetworks;
             };
           };
         };

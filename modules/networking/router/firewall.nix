@@ -66,7 +66,7 @@ delib.module {
           ipPortRangeRules = lib.concatMapStringsSep "\n" (
             rule:
             let
-              portRange = "${rule.startPort}-${rule.endPort}";
+              portRange = "${toString rule.startPort}-${toString rule.endPort}";
               protocols =
                 if rule.protocol == "both" then
                   [
