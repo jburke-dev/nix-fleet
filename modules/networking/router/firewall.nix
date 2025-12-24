@@ -62,11 +62,31 @@ delib.module {
             in
             protoRules
           ) network.firewall.allowOutboundToIp;
+
+          ipPortRangeRules = lib.concatMapStringsSep "\n" (
+            rule:
+            let
+              portRange = "${toString rule.startPort}-${toString rule.endPort}";
+              protocols =
+                if rule.protocol == "both" then
+                  [
+                    "tcp"
+                    "udp"
+                  ]
+                else
+                  [ rule.protocol ];
+              protoRules = lib.concatMapStringsSep "\n" (
+                proto: "    ip daddr ${rule.ip} ${proto} dport { ${portRange} } accept;"
+              ) protocols;
+            in
+            protoRules
+          ) network.firewall.allowOutboundToIpPortRange;
         in
         ''
           chain from_${networkName} {
           ${allowRules}
           ${ipPortRules}
+          ${ipPortRangeRules}
           log prefix "[nftables] from_${networkName} denied: " counter drop;
           }
         '';

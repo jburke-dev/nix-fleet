@@ -16,6 +16,7 @@ delib.module {
         markdown = [ "markdownlint" ];
         sh = [ "shellcheck" ];
         yaml = [ "yamlfmt" ];
+        terraform = [ "terraform_fmt" ];
       };
       format_on_save = {
         lsp_format = "fallback";

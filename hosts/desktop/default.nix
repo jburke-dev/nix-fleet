@@ -5,7 +5,6 @@ delib.host {
   type = "desktop";
 
   myconfig.programs = {
-    network-utils.enable = true;
     hyprland.displays = [
       {
         name = "DP-1";
@@ -28,30 +27,6 @@ delib.host {
         {
           host = "pandora";
           hostname = "10.10.0.1"; # not using hostname just incase dns breaks
-        }
-        {
-          host = "kraken";
-          hostname = "10.12.1.1";
-        }
-        {
-          host = "kaiju";
-          hostname = "10.12.1.2";
-        }
-        {
-          host = "glados";
-          hostname = "10.12.1.3";
-        }
-        {
-          host = "colossus";
-          hostname = "10.12.1.4";
-        }
-        {
-          host = "forgejo";
-          hostname = "10.12.2.2";
-        }
-        {
-          host = "meerkat";
-          hostname = "10.12.1.5";
         }
       ];
     };

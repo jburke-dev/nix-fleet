@@ -34,40 +34,31 @@ delib.module {
             };
           })
           {
-            kube-vip = {
-              networkName = "servers";
-              ipFragment = "1.100";
+            pve-meerkat = {
+              networkName = "mgmt";
+              ipFragment = "1.1";
+              mac = "48:21:0b:56:5d:fb";
             };
-            traefik = {
-              networkName = "servers";
-              ipFragment = "2.1";
-              # TODO: would it be worth it to skip this and setup CNAMEs?
-              addToStaticHostsFile = false;
-            };
-            forgejo = {
-              networkName = "servers";
-              ipFragment = "2.2";
-            };
-            kaiju = {
-              networkName = "servers";
+            pve-colossus = {
+              networkName = "mgmt";
               ipFragment = "1.2";
-              mac = "02:fe:3d:da:12:9a";
+              mac = "98:b7:85:23:63:90";
             };
-            glados = {
-              networkName = "servers";
+            pve-kaiju = {
+              networkName = "mgmt";
               ipFragment = "1.3";
-              mac = "02:c9:96:20:34:72";
+              mac = "1a:4b:23:16:71:5b";
             };
-            colossus = {
-              networkName = "servers";
+            pve-kraken = {
+              networkName = "mgmt";
               ipFragment = "1.4";
-              mac = "02:ff:33:9b:15:73";
+              mac = "58:47:ca:7d:96:ae";
             };
-            meerkat = {
-              networkName = "servers";
-              ipFragment = "1.5";
-              mac = "02:ed:aa:06:23:87";
-            };
+            pdm = {
+              networkName = "mgmt";
+              ipFragment = "2.1";
+              mac = "bc:24:11:81:6c:6a";
+            }; # proxmox datacenter manager
             home-assistant = {
               networkName = "untrusted"; # some iot devices like philips hue don't play nice in initial configuration across subnets
               ipFragment = "1.1";
@@ -78,15 +69,15 @@ delib.module {
               ipFragment = "1.2";
               mac = "04:f4:1c:59:aa:2c";
             };
-            kraken = {
-              networkName = "servers";
-              ipFragment = "1.1";
-              mac = "02:ed:aa:06:23:86";
-            };
             mikrotik = {
               networkName = "lan";
               ipFragment = "1.1";
               mac = "D4:01:C3:12:16:F4"; # combo3 port
+            };
+            desktop = {
+              networkName = "trusted";
+              ipFragment = "1.1";
+              mac = "10:ff:e0:6f:80:80";
             };
           }
       );
@@ -98,7 +89,6 @@ delib.module {
               type = enumOption [ "bridge" "vlan" ] "vlan";
               interface = allowNull (strOption null);
               cidr = enumOption [ 24 16 ] 24;
-              dhcpMode = enumOption [ "dynamic" "static" ] "dynamic";
               firewall =
                 submoduleOption
                   {
@@ -109,6 +99,14 @@ delib.module {
                         options = {
                           ip = strOption "";
                           ports = listOfOption int [ ];
+                          protocol = enumOption [ "tcp" "udp" "both" ] "tcp";
+                        };
+                      }) [ ];
+                      allowOutboundToIpPortRange = listOfOption (submodule {
+                        options = {
+                          ip = strOption "";
+                          startPort = intOption 7000;
+                          endPort = intOption 7001;
                           protocol = enumOption [ "tcp" "udp" "both" ] "tcp";
                         };
                       }) [ ];
@@ -124,7 +122,6 @@ delib.module {
               type = "bridge";
               interface = "br-lan";
               cidr = 16;
-              dhcpMode = "static";
               firewall = {
                 isTrusted = true;
                 allowOutbound = [
@@ -133,13 +130,22 @@ delib.module {
                   "trusted"
                   "untrusted"
                   "lan"
+                ];
+              };
+            };
+            mgmt = {
+              id = 11;
+              cidr = 16;
+              firewall = {
+                allowOutbound = [
+                  "wan"
+                  "mgmt"
                 ];
               };
             };
             servers = {
               id = 12;
               cidr = 16;
-              dhcpMode = "static";
               firewall = {
                 allowOutbound = [
                   "wan"
@@ -150,10 +156,18 @@ delib.module {
                 ];
               };
             };
+            ceph = {
+              id = 13;
+              cidr = 16;
+              firewall = {
+                allowOutbound = [
+                  "ceph"
+                ];
+              };
+            };
             trusted = {
               id = 20;
               cidr = 16;
-              dhcpMode = "dynamic";
               firewall = {
                 isTrusted = true;
                 allowOutbound = [
@@ -161,25 +175,34 @@ delib.module {
                   "lan"
                   "servers"
                   "untrusted"
+                  "mgmt"
+                  "talos"
                 ];
               };
             };
             untrusted = {
               id = 25;
               cidr = 16;
-              dhcpMode = "static";
               firewall = {
                 allowOutbound = [
                   "wan"
                   "untrusted"
                 ];
-                allowOutboundToIp = [
+              };
+            };
+            talos = {
+              id = 15;
+              cidr = 16;
+              firewall = {
+                allowOutbound = [
+                  "wan"
+                  "talos"
+                ];
+                allowOutboundToIpPortRange = [
                   {
-                    ip = "10.12.2.1"; # Traefik
-                    ports = [
-                      80
-                      443
-                    ];
+                    ip = "10.11.0.0/16";
+                    startPort = 6789;
+                    endPort = 7568;
                     protocol = "tcp";
                   }
                 ];

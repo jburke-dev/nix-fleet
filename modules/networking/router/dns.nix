@@ -1,7 +1,6 @@
 {
   delib,
   pkgs,
-  staticHosts,
   ...
 }:
 delib.module {
@@ -9,14 +8,6 @@ delib.module {
 
   nixos.ifEnabled =
     { cfg, parent, ... }:
-    let
-      traefikIp = staticHosts.traefik;
-      traefikDomains = [
-        "apps.chesurah.net"
-        "testing.chesurah.net"
-        "infra.chesurah.net"
-      ];
-    in
     {
       services.blocky = {
         enable = true;
@@ -24,7 +15,10 @@ delib.module {
           ports = {
             dns = [
               "10.10.0.1:53"
+              "10.11.0.1:53"
               "10.12.0.1:53"
+              "10.13.0.1:53"
+              "10.15.0.1:53"
               "10.20.0.1:53"
               "10.25.0.1:53"
             ];
@@ -60,16 +54,6 @@ delib.module {
                 #"2606:4700:4700::1001"
               ];
             };
-          };
-          customDNS = {
-            customTTL = "1h";
-            filterUnmappedTypes = true;
-            mapping = builtins.listToAttrs (
-              builtins.map (domain: {
-                name = domain;
-                value = traefikIp;
-              }) traefikDomains
-            );
           };
           blocking = {
             denylists = {

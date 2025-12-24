@@ -103,10 +103,7 @@
                       "nvidia"
                       "amd"
                       "router"
-                      "k3s"
                       "ipmi"
-                      "forgejoRunner"
-                      "nfsServer"
                       "cosmic"
                       "docker"
                     ];

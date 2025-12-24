@@ -37,14 +37,12 @@ rec {
   vlanDhcpPool =
     {
       id,
-      dhcpMode,
       ...
     }@vlan:
     let
       prefix = vlanPrefix vlan;
-      poolEnd = if dhcpMode == "static" then "${prefix}.0.254" else "${prefix}.255.254";
     in
-    "${prefix}.0.2-${poolEnd}";
+    "${prefix}.0.2-${prefix}.0.254";
   getVlanInterfaceName = name: "vlan-${name}";
 
   # IPv6 ULA helpers

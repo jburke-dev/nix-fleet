@@ -11,7 +11,6 @@ This is a NixOS homelab infrastructure repository using Denix framework. Use Jus
 - `just rebuild-boot-local` - Rebuild current host configuration for next boot
 - `just rebuild-remote HOST` - Deploy configuration to remote HOST
 - `just rebuild-boot-remote HOST` - Deploy configuration to remote HOST for next boot
-- `just rebuild-servers` - Deploy to all servers in parallel (kraken)
 - `just build HOST [TARGET]` - Build specific host configuration (default: toplevel)
 - `just build-installer` - Build NixOS installer ISO image
 - `just write-installer DEV` - Write installer ISO to device
@@ -57,9 +56,6 @@ Current active hosts:
 - **desktop** - Main desktop workstation (type: desktop)
 - **laptop** - Portable machine (type: laptop)
 - **pandora** - Router/firewall (type: server, features: router)
-- **kraken** - k3s HA cluster node - control plane + workloads (type: server)
-- **glados** - k3s HA cluster node - control plane + workloads (type: server)
-- **kaiju** - k3s HA cluster node - control plane + workloads (type: server)
 - **installer** - NixOS installation ISO (type: server, features: installer)
 
 ### Module Organization
@@ -163,7 +159,14 @@ Theming configurations in `rices/` directory:
 **Networking configuration:**
 
 - Network topology defined in `modules/networking/default.nix`
-- Networks: lan (router bridge, used for infrastructure), servers (vlan 12), trusted (vlan 20), untrusted (vlan 25)
+- Networks:
+  - lan (vlan 10, bridge) - Infrastructure network
+  - mgmt (vlan 11) - Proxmox management network
+  - servers (vlan 12) - Server network
+  - ceph (vlan 13) - Ceph storage network
+  - talos (vlan 15) - Talos Kubernetes VMs
+  - trusted (vlan 20) - Trusted clients
+  - untrusted (vlan 25) - Untrusted/guest devices
 - Static hosts configured with MAC addresses in the networking module
 - Client networking (desktop/laptop) configured in `modules/networking/client/`
 - Server networking uses systemd-networkd in `modules/networking/server/`
@@ -177,24 +180,20 @@ Theming configurations in `rices/` directory:
 
 **Server deployment:**
 
-- Use `just rebuild-remote HOST` for deploying to existing servers
+- Use `just rebuild-remote HOST` for deploying to existing servers (e.g., pandora router)
 - Use `just deploy HOST IP` for initial deployment with nixos-anywhere
-- Use `just rebuild-servers` to deploy to all servers in parallel
 
-**k3s Cluster:**
+**Proxmox Infrastructure:**
 
-- Highly available three-node cluster: kraken, kaiju, and glados
-- All three nodes run as control plane nodes with workload scheduling enabled
-- kube-vip provides control plane HA with virtual IP 10.12.1.100
-- Cluster configurations stored in `k8s/` directory
-- Infrastructure components deployed via helmfile:
-  - kube-vip - HA control plane with VIP failover
-  - Traefik - Ingress controller with automatic TLS termination
-  - cert-manager - Let's Encrypt certificates with Cloudflare DNS validation
-  - Reflector - Automatic secret/configmap replication
-  - Longhorn - Distributed block storage (3-way replication)
-  - MetalLB - Load balancer for bare-metal (IP pool: 10.12.1.100-10.12.1.200)
-  - SOPS - Kubernetes secrets encrypted with age keys
-- Secrets managed via SOPS in `k8s/secrets/`
-- Manifests for cluster-wide resources in `k8s/infrastructure/manifests/`
-- Each component has Helm values in `k8s/infrastructure/COMPONENT/values.yaml`
+- Four Proxmox VE nodes on mgmt network: pve-meerkat, pve-colossus, pve-kaiju, pve-kraken
+- Proxmox Datacenter Manager (pdm) for cluster management
+- Ceph storage network (vlan 13) for distributed storage across nodes
+- Talos network (vlan 15) prepared for future Talos Kubernetes VMs
+
+**Kubernetes (Future Migration):**
+
+- Previous k3s cluster (kraken, kaiju, glados, colossus) has been decommissioned
+- Migrating to multiple Talos-based Kubernetes clusters running as VMs on Proxmox
+- Cluster configurations preserved in `k8s/` directory for future deployment:
+  - Infrastructure components: kube-vip, Traefik, cert-manager, Longhorn, MetalLB
+  - Secrets and Helm configurations ready for re-deployment
