@@ -25,10 +25,6 @@ See the [justfile](justfile) for all available commands.
 - **[Desktop](hosts/desktop/README.md)** - Main desktop workstation with Hyprland
 - **[Laptop](hosts/laptop/README.md)** - Laptop with Hyprland
 - **[Pandora](hosts/pandora/README.md)** - Router/firewall with nftables, Blocky DNS, and Kea DHCP
-- **[Kraken](hosts/kraken/README.md)** - k3s HA cluster node (control plane + workloads)
-- **[Kaiju](hosts/kaiju/README.md)** - k3s HA cluster node (control plane + workloads)
-- **[Glados](hosts/glados/README.md)** - k3s HA cluster node (control plane + workloads)
-- **[Colossus](hosts/colossus/README.md)** - k3s HA cluster node (worker only)
 - **[Installer](hosts/installer/README.md)** - Custom NixOS installation ISO
 
 ## Flake
@@ -43,21 +39,30 @@ This flake is supported by various utilities to make NixOS development easier:
 - [nixos-anywhere](https://github.com/nix-community/nixos-anywhere) - Automated NixOS installation
 - [Disko](https://github.com/nix-community/disko) - Declarative disk partitioning
 
-## k3s Cluster
+## Infrastructure
 
-The homelab includes a highly available k3s Kubernetes cluster running on four servers (kraken, kaiju, glados, and colossus). All three control plane nodes (kraken, kaiju, and glados) use kube-vip for HA (virtual IP: 10.12.1.100) and are also available for workload scheduling. The colossus node functions as a dedicated worker node.
+### Proxmox Cluster
 
-### Infrastructure Components
+The homelab is built on a Proxmox VE cluster with four nodes:
 
-- **kube-vip** - Highly available control plane with virtual IP failover
-- **Traefik** - Ingress controller and reverse proxy with automatic TLS
-- **cert-manager** - Automated TLS certificate management with Let's Encrypt and Cloudflare DNS
-- **Reflector** - Automatic secret and configmap replication across namespaces
-- **Longhorn** - Distributed block storage with replication
-- **MetalLB** - Load balancer for bare-metal Kubernetes
-- **SOPS** - Encrypted secrets management integrated with Kubernetes
+- **pve-meerkat**, **pve-colossus**, **pve-kaiju**, **pve-kraken** - Hypervisor nodes
+- **Ceph storage** - Distributed storage across the cluster (vlan 13)
+- **Management network** - Dedicated network for Proxmox management (vlan 11)
 
-Cluster configurations and manifests are located in the `k8s/` directory, organized by infrastructure components and applications.
+### Kubernetes (Future)
+
+The previous k3s cluster has been decommissioned in preparation for migration to Talos Linux. The new infrastructure will consist of:
+
+- **Talos Kubernetes VMs** running on Proxmox (vlan 15)
+- **Multiple clusters** for better workload isolation
+- Preserved cluster configurations in `k8s/` directory ready for deployment
+
+Infrastructure components planned for deployment:
+
+- **Traefik** - Ingress controller with automatic TLS
+- **cert-manager** - Let's Encrypt certificate management
+- **Rook-Ceph** - Kubernetes storage orchestrator for external Ceph cluster
+- **MetalLB** - Load balancer for bare-metal
 
 ## Future Plans
 

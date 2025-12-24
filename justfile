@@ -14,12 +14,6 @@ build-installer: (build "installer" "isoImage")
 build HOST TARGET="toplevel":
     nix build '.#nixosConfigurations.{{ HOST }}.config.system.build.{{ TARGET }}'
 
-[parallel]
-rebuild-servers: (rebuild-remote "kaiju") (rebuild-remote "colossus") (rebuild-remote "kraken") (rebuild-remote "glados")
-
-[parallel]
-rebuild-runners: (rebuild-remote "kaiju") (rebuild-remote "colossus") (rebuild-remote "kraken")
-
 rebuild-local:
     #!/usr/bin/env bash
     set -euo pipefail
