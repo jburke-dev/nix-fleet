@@ -24,6 +24,10 @@ delib.module {
       )) [ ];
     };
 
+  nixos.ifEnabled = {
+    programs.ssh.startAgent = true;
+  };
+
   home.ifEnabled =
     { cfg, ... }:
     {
