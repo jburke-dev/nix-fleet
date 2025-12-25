@@ -47,6 +47,16 @@ delib.module {
         event = [ "VimResized" ];
         command = "wincmd =";
       }
+      {
+        event = [
+          "BufRead"
+          "BufNewFile"
+        ];
+        pattern = "*.tf";
+        callback = {
+          __raw = "function() vim.bo.filetype = 'terraform' end";
+        };
+      }
     ];
   };
 }

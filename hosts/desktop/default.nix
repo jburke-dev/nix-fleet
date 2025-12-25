@@ -28,6 +28,18 @@ delib.host {
           host = "pandora";
           hostname = "10.10.0.1"; # not using hostname just incase dns breaks
         }
+        {
+          host = "pve-colossus";
+          identityFileSuffix = "root_pve";
+        }
+        {
+          host = "pve-kraken";
+          identityFileSuffix = "root_pve";
+        }
+        {
+          host = "pve-kaiju";
+          identityFileSuffix = "root_pve";
+        }
       ];
     };
   };

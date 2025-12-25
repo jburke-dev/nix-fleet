@@ -35,7 +35,7 @@
     };
     claude-code.url = "github:sadjow/claude-code-nix";
     desktop-shell = {
-      url = "git+https://forgejo.apps.chesurah.net/jburke-dev/desktop-shell";
+      url = "github:jburke-dev/desktop-shell";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     zen-browser = {

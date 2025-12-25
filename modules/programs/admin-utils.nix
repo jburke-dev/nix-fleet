@@ -1,7 +1,6 @@
 {
   delib,
   host,
-  pkgs,
   ...
 }:
 delib.module {
@@ -12,20 +11,16 @@ delib.module {
   nixos.ifEnabled =
     { myconfig, ... }:
     {
-      sops.secrets = {
-        "attic/configure_cache_token" = {
-          owner = myconfig.constants.username;
-          sopsFile = ../../hosts/desktop/secrets.yaml;
+      sops.secrets =
+        let
+          sopsCfg = {
+            owner = myconfig.constants.username;
+            sopsFile = ../../hosts/desktop/secrets.yaml;
+          };
+        in
+        {
+          "terraform/token/id" = sopsCfg;
+          "terraform/token/secret" = sopsCfg;
         };
-      };
     };
-
-  home.ifEnabled = {
-    home.packages = with pkgs; [
-      attic-client
-      (pkgs.writeShellScriptBin "attic-login" ''
-        attic login homelab https://cache.apps.chesurah.net $(cat /run/secrets/attic/configure_cache_token)
-      '')
-    ];
-  };
 }
