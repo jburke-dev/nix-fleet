@@ -6,6 +6,61 @@
 }:
 let
   netLib = import ../lib/networking.nix { inherit lib; };
+  mkTalosIpFragment = { netNum, id, ... }: "${toString netNum}.${toString id}";
+  mkTalosHostName = clusterName: { id, role, ... }: "${clusterName}-${role}-${toString id}";
+  talosNetwork = "talos";
+  talosVlanId = 15;
+  mkTalosMac =
+    { id, netNum, ... }:
+    let
+      vlanHex = lib.toLower (lib.toHexString talosVlanId); # TODO: assuming vlan between 0 and 254 for now
+    in
+    "02:00:${vlanHex}:${toString netNum}:00:${toString id}";
+  mkTalosRoleNodes =
+    clusterName:
+    (
+      {
+        count,
+        netNum,
+        role,
+        ...
+      }:
+      (builtins.listToAttrs (
+        builtins.genList (
+          i:
+          let
+            nodeCfg = {
+              id = i + 1;
+              inherit role netNum;
+            };
+          in
+          {
+            name = mkTalosHostName clusterName nodeCfg;
+            value = {
+              networkName = talosNetwork;
+              ipFragment = mkTalosIpFragment nodeCfg;
+              mac = mkTalosMac nodeCfg;
+              addToStaticHostsFile = true;
+            };
+          }
+        ) count
+      ))
+    );
+  mkTalosCluster =
+    clusterName:
+    (
+      { controlPlane, workers }:
+      (mkTalosRoleNodes clusterName controlPlane)
+      // (mkTalosRoleNodes clusterName workers)
+      // {
+        "${clusterName}" = {
+          networkName = talosNetwork;
+          ipFragment = "${toString controlPlane.netNum}.${toString controlPlane.vip}";
+          mac = "";
+          addToStaticHostsFile = true;
+        };
+      }
+    );
 in
 delib.module {
   name = "networking";
@@ -22,6 +77,40 @@ delib.module {
           priority = intOption 10;
         };
       }) { };
+      talosClusters = readOnly (
+        attrsOfOption
+          (submodule {
+            options = {
+              controlPlane = submoduleOption {
+                options = {
+                  count = intOption 1;
+                  role = strOption "cp";
+                  netNum = intOption 1;
+                  vip = intOption 100;
+                };
+              } { };
+              workers = submoduleOption {
+                options = {
+                  count = intOption 1;
+                  role = strOption "worker";
+                  netNum = intOption 2;
+                };
+              } { };
+            };
+          })
+          {
+            test-talos = {
+              controlPlane = {
+                count = 3;
+                netNum = 1;
+              };
+              workers = {
+                count = 2;
+                netNum = 2;
+              };
+            };
+          }
+      );
       staticHosts = readOnly (
         attrsOfOption
           (submodule {
@@ -191,7 +280,7 @@ delib.module {
               };
             };
             talos = {
-              id = 15;
+              id = talosVlanId;
               cidr = 16;
               firewall = {
                 allowOutbound = [
@@ -219,6 +308,7 @@ delib.module {
         staticHosts = builtins.mapAttrs (
           _: host: netLib.getHostIpFromNetwork cfg.networks host
         ) cfg.staticHosts;
+        staticHostReservations = cfg.staticHosts // (lib.concatMapAttrs mkTalosCluster cfg.talosClusters);
         networkCidrs = builtins.mapAttrs (_: network: netLib.vlanSubnet network) cfg.networks;
         inherit (cfg) domain;
       };
