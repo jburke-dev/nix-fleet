@@ -2,6 +2,7 @@
   delib,
   lib,
   pkgs,
+  staticHostReservations,
   ...
 }:
 let
@@ -100,6 +101,9 @@ delib.module {
                 max-row-errors = 100;
               };
 
+              # TODO: host database is supported, and can be read from in addition to the config file.
+              # This will help with provisioning VMs dynamically
+
               expired-leases-processing = {
                 reclaim-timer-wait-time = 3600; # reclaim expired every hour
                 hold-reclaimed-time = 172800;
@@ -119,6 +123,9 @@ delib.module {
                 {
                   library = "${pkgs.kea}/lib/kea/hooks/libdhcp_lease_cmds.so";
                   parameters = { };
+                }
+                {
+                  library = "${pkgs.kea}/lib/kea/hooks/libdhcp_host_cmds.so";
                 }
               ];
 
@@ -157,7 +164,9 @@ delib.module {
                       ip-address = netLib.getHostIpFromNetwork allNetworks hostCfg;
                       hostname = hostName;
                     })
-                    (lib.filterAttrs (_: host: host.networkName == networkName && host.mac != "") parent.staticHosts);
+                    (
+                      lib.filterAttrs (_: host: host.networkName == networkName && host.mac != "") staticHostReservations
+                    );
                 pools = [
                   {
                     pool = netLib.vlanDhcpPool network;
@@ -285,7 +294,7 @@ delib.module {
           lib.mapAttrsToList (
             hostname: hostCfg:
             "${netLib.getHostIpFromNetwork allNetworks hostCfg} ${hostname} ${hostname}.${parent.domain}"
-          ) (lib.filterAttrs (host: hostCfg: hostCfg.addToStaticHostsFile) parent.staticHosts)
+          ) (lib.filterAttrs (host: hostCfg: hostCfg.addToStaticHostsFile) staticHostReservations)
         )}
       '';
 

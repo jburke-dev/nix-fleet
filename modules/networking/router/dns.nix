@@ -1,6 +1,7 @@
 {
   delib,
   pkgs,
+  lib,
   ...
 }:
 delib.module {

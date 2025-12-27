@@ -7,6 +7,7 @@ delib.module {
       nix = [ "statix" ];
       sh = [ "shellcheck" ];
       yaml = [ "yamllint" ];
+      terraform = [ "tflint" ];
     };
   };
 }
