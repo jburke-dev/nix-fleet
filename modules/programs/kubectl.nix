@@ -28,6 +28,7 @@ delib.module {
     {
       home.packages = with pkgs; [
         kubectl
+        kustomize
         talosctl
         k8s-helm
         k8s-helmfile
