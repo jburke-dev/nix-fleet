@@ -4,43 +4,45 @@ delib.host {
 
   type = "desktop";
 
-  myconfig.programs = {
-    hyprland.displays = [
-      {
-        name = "DP-1";
-        wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/ultrawide/";
-        resolution = "3440x1440@100.00Hz";
-        leftMost = true;
-      }
-      {
-        name = "DP-2";
-        wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/hd/";
-      }
-    ];
-    ssh = {
-      sshRootDir = "/mnt/apps/ssh";
-      keyConfigs = [
+  myconfig = {
+    programs = {
+      hyprland.displays = [
         {
-          host = "github.com";
-          identityFileSuffix = "github";
+          name = "DP-1";
+          wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/ultrawide/";
+          resolution = "3440x1440@100.00Hz";
+          leftMost = true;
         }
         {
-          host = "pandora";
-          hostname = "10.10.0.1"; # not using hostname just incase dns breaks
-        }
-        {
-          host = "pve-colossus";
-          identityFileSuffix = "root_pve";
-        }
-        {
-          host = "pve-kraken";
-          identityFileSuffix = "root_pve";
-        }
-        {
-          host = "pve-kaiju";
-          identityFileSuffix = "root_pve";
+          name = "DP-2";
+          wallpaperPath = "${homeconfig.home.homeDirectory}/Pictures/Wallpapers/hd/";
         }
       ];
+      ssh = {
+        sshRootDir = "/mnt/apps/ssh";
+        keyConfigs = [
+          {
+            host = "github.com";
+            identityFileSuffix = "github";
+          }
+          {
+            host = "pandora";
+            hostname = "10.10.0.1"; # not using hostname just incase dns breaks
+          }
+          {
+            host = "pve-colossus";
+            identityFileSuffix = "root_pve";
+          }
+          {
+            host = "pve-kraken";
+            identityFileSuffix = "root_pve";
+          }
+          {
+            host = "pve-kaiju";
+            identityFileSuffix = "root_pve";
+          }
+        ];
+      };
     };
   };
 
