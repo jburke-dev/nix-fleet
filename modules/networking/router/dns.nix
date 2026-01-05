@@ -56,6 +56,14 @@ delib.module {
               ];
             };
           };
+          customDNS = {
+            customTTL = "1h";
+            filterUnmappedTypes = true;
+            mapping = {
+              "infra.chesurah.net" = "10.15.4.254";
+              "external.chesurah.net" = "10.15.4.253";
+            };
+          };
           blocking = {
             denylists = {
               ads = [

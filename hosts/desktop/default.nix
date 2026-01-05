@@ -41,6 +41,10 @@ delib.host {
             host = "pve-kaiju";
             identityFileSuffix = "root_pve";
           }
+          {
+            host = "forgejo";
+            hostname = "10.15.5.1";
+          }
         ];
       };
     };

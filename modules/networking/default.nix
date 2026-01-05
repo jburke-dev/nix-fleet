@@ -99,14 +99,14 @@ delib.module {
             };
           })
           {
-            talos-infra = {
+            talos-prod = {
               controlPlane = {
                 count = 3;
                 netNum = 1;
               };
               workers = [
                 {
-                  count = 2;
+                  count = 3;
                   netNum = 2;
                 }
                 {
@@ -293,6 +293,13 @@ delib.module {
                 allowOutbound = [
                   "wan"
                   "talos"
+                ];
+                allowOutboundToIp = [
+                  {
+                    ip = "10.11.0.0/16";
+                    ports = [ 3300 ];
+                    protocol = "tcp";
+                  }
                 ];
                 allowOutboundToIpPortRange = [
                   {
