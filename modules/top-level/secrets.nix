@@ -3,29 +3,24 @@
   inputs,
   ...
 }:
-let
-  sops = {
-    defaultSopsFile = ../../secrets.yaml;
-    age.sshKeyPaths = [
-      "/etc/ssh/ssh_host_ed25519_key"
-      "/mnt/apps/ssh/id_sops"
-    ];
-  };
-in
 delib.module {
   name = "secrets";
 
   options.secrets = with delib; {
+    defaultSopsFile = pathOption ../../secrets.yaml;
+    sshKeyPaths = listOfOption str [
+      "/etc/ssh/ssh_host_ed25519_key"
+    ];
     secrets = attrsOfOption attrs { };
-    templates = attrsOfOption attrs { };
   };
 
   home.always =
     { cfg, ... }:
     {
       imports = [ inputs.sops-nix.homeManagerModules.sops ];
-      sops = sops // {
-        inherit (cfg) secrets;
+      sops = {
+        inherit (cfg) secrets defaultSopsFile;
+        age = { inherit (cfg) sshKeyPaths; };
       };
     };
 
@@ -33,8 +28,9 @@ delib.module {
     { cfg, ... }:
     {
       imports = [ inputs.sops-nix.nixosModules.sops ];
-      sops = sops // {
-        inherit (cfg) secrets;
+      sops = {
+        inherit (cfg) secrets defaultSopsFile;
+        age = { inherit (cfg) sshKeyPaths; };
       };
     };
 }

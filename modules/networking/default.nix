@@ -51,7 +51,7 @@ let
     (
       { controlPlane, workers }:
       (mkTalosRoleNodes clusterName controlPlane)
-      // (mkTalosRoleNodes clusterName workers)
+      // (lib.foldl' (acc: workerGroup: acc // (mkTalosRoleNodes clusterName workerGroup)) { } workers)
       // {
         "${clusterName}" = {
           networkName = talosNetwork;
@@ -89,25 +89,32 @@ delib.module {
                   vip = intOption 100;
                 };
               } { };
-              workers = submoduleOption {
+              workers = listOfOption (submodule {
                 options = {
                   count = intOption 1;
                   role = strOption "worker";
                   netNum = intOption 2;
                 };
-              } { };
+              }) [ ];
             };
           })
           {
-            test-talos = {
+            talos-prod = {
               controlPlane = {
                 count = 3;
                 netNum = 1;
               };
-              workers = {
-                count = 2;
-                netNum = 2;
-              };
+              workers = [
+                {
+                  count = 3;
+                  netNum = 2;
+                }
+                {
+                  count = 3;
+                  role = "db";
+                  netNum = 3;
+                }
+              ];
             };
           }
       );
@@ -286,6 +293,13 @@ delib.module {
                 allowOutbound = [
                   "wan"
                   "talos"
+                ];
+                allowOutboundToIp = [
+                  {
+                    ip = "10.11.0.0/16";
+                    ports = [ 3300 ];
+                    protocol = "tcp";
+                  }
                 ];
                 allowOutboundToIpPortRange = [
                   {

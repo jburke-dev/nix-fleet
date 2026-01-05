@@ -1,7 +1,7 @@
 match_type: doublestar
 exclude:
-  - secrets.yaml
-  - k8s/secrets/*.yaml
+  - "secrets.yaml"
+  - "**/secrets/*.yaml"
 formatter:
   type: basic
   indent: 2
