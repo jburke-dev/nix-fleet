@@ -30,6 +30,7 @@ delib.module {
         kubectl
         kustomize
         talosctl
+        fluxcd
         k8s-helm
         k8s-helmfile
       ];
