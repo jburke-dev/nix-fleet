@@ -130,6 +130,10 @@ delib.module {
             };
           })
           {
+            forgejo = {
+              networkName = "talos";
+              ipFragment = "5.1";
+            };
             pve-meerkat = {
               networkName = "mgmt";
               ipFragment = "1.1";
