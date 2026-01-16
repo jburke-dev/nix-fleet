@@ -52,10 +52,6 @@ delib.module {
             autosuggestion.enable = cfg.enableExtras;
             syntaxHighlighting.enable = cfg.enableExtras;
 
-            shellAliases = lib.mkIf cfg.enableExtras {
-              claude-full = "claude --mcp-config ~/.config/claude/mcp-servers.json";
-            };
-
             zplug = lib.mkIf cfg.enableExtras {
               enable = true;
               plugins = [

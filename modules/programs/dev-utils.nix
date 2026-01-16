@@ -12,7 +12,7 @@ delib.module {
   home.ifEnabled = {
     home.packages = with pkgs; [
       just
-      nixfmt-rfc-style
+      nixfmt
       sops
       age
       xz

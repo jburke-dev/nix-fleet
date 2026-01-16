@@ -33,7 +33,6 @@
       url = "github:nix-community/stylix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    claude-code.url = "github:sadjow/claude-code-nix";
     desktop-shell = {
       url = "github:jburke-dev/desktop-shell";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -152,7 +151,7 @@
           pre-commit = {
             settings.hooks = {
               statix.enable = true;
-              nixfmt-rfc-style.enable = true;
+              nixfmt.enable = true;
               commitizen.enable = true;
               shellcheck.enable = true;
               yamllint = {
