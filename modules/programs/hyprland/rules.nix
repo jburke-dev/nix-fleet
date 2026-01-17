@@ -24,14 +24,6 @@ delib.module {
             "match:workspace f[1]s[false], rounding 0, float 0"
             "match:class kitty, opacity 0.9 0.5"
           ];
-          windowrulev2 = [
-            # Steam games - force to HDMI display
-            #"monitor HDMI-A-1, class:^steam_app_"
-            #"workspace 1, class:^steam_app_"
-            # Obsidian - left 1/3 of ultrawide for sol workspace
-            "size 33% 100%, initialTitle:^.*sol - Obsidian.*$" # TODO: size only works on floating windows
-            "move 0 0, initialTitle:^.*sol - Obsidian.*$"
-          ];
           monitor =
             (builtins.map (
               display:
