@@ -28,29 +28,30 @@ delib.module {
             ];
           };
           prometheus.enable = true;
-          # TODO: add another provider besides cloudflare!!
-          bootstrapDns = [
-            {
-              upstream = "1.1.1.1";
-            }
-            {
-              upstream = "1.0.0.1";
-            }
-            /*
+          /*
+            bootstrapDns = [
               {
-                upstream = "2606:4700:4700::1111";
+                upstream = "1.1.1.1";
               }
               {
-                upstream = "2606:4700:4700::1001";
+                upstream = "1.0.0.1";
               }
-            */
-          ];
+                {
+                  upstream = "2606:4700:4700::1111";
+                }
+                {
+                  upstream = "2606:4700:4700::1001";
+                }
+            ];
+          */
           connectIPVersion = "dual";
           upstreams = {
             groups = {
               default = [
-                "1.1.1.1"
-                "1.0.0.1"
+                "1.1.1.1" # cloudflare
+                "1.0.0.1" # cloudflare alt
+                "9.9.9.9" # quad9
+                "149.112.112.112" # quad9 alt
                 #"2606:4700:4700::1111"
                 #"2606:4700:4700::1001"
               ];

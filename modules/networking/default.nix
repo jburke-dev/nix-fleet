@@ -84,7 +84,7 @@ delib.module {
               controlPlane = submoduleOption {
                 options = {
                   count = intOption 1;
-                  role = strOption "cp";
+                  role = strOption "control";
                   netNum = intOption 1;
                   vip = intOption 100;
                 };
@@ -113,6 +113,11 @@ delib.module {
                   count = 3;
                   role = "db";
                   netNum = 3;
+                }
+                {
+                  count = 3;
+                  role = "storage";
+                  netNum = 4;
                 }
               ];
             };
@@ -153,6 +158,16 @@ delib.module {
               networkName = "mgmt";
               ipFragment = "1.4";
               mac = "58:47:ca:7d:96:ae";
+            };
+            pve-kaiju-bmc = {
+              networkName = "mgmt";
+              ipFragment = "2.3";
+              mac = "90:5a:08:78:6f:7c";
+            };
+            pve-colossus-bmc = {
+              networkName = "mgmt";
+              ipFragment = "2.2";
+              mac = "7c:c2:55:e2:9f:02";
             };
             pdm = {
               networkName = "mgmt";
