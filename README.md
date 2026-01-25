@@ -2,6 +2,8 @@
 
 Modular NixOS configuration for my desktop, laptop, and homelab servers.
 
+**NOTE: I'm moving my NixOS configuration to dedicated repos per system, with the goal of removing bloat from unnecessary abstractions.  The first of these will be my [desktop](https://github.com/jburke-dev/desktop.git)
+
 ## Disclaimer
 
 This repository contains my personal NixOS configurations. While I welcome others to take inspiration from my setup and I strive to follow best practices, please note:
