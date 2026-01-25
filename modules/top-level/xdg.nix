@@ -36,7 +36,7 @@ delib.module {
 
         terminal-exec = {
           enable = true;
-          settings.default = [ "kitty.desktop" ];
+          settings.default = [ "com.mitchellh.ghostty.desktop" ];
         };
       };
     };

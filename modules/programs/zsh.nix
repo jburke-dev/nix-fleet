@@ -35,19 +35,21 @@ delib.module {
       programs = {
         direnv.enable = true;
         zsh =
-          let
-            initContent =
-              if cfg.enableExtras then
-                let
-                  earlyContent = lib.mkOrder 500 "zstyle :omz:plugins:ssh-agent identities /mnt/apps/ssh/id_root_pve";
-                in
-                lib.mkMerge [ earlyContent ]
-              else
-                "";
-          in
+          /*
+            let
+              initContent =
+                if cfg.enableExtras then
+                  let
+                    earlyContent = lib.mkOrder 500 "zstyle :omz:plugins:ssh-agent identities /mnt/apps/ssh/id_root_pve";
+                  in
+                  lib.mkMerge [ earlyContent ]
+                else
+                  "";
+            in
+          */
           {
             enable = true;
-            inherit initContent;
+            # inherit initContent;
             enableCompletion = cfg.enableExtras;
             autosuggestion.enable = cfg.enableExtras;
             syntaxHighlighting.enable = cfg.enableExtras;

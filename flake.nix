@@ -96,6 +96,7 @@
                     features = [
                       "gui"
                       "hyprland"
+                      "kde"
                       "gaming"
                       "dev"
                       "installer"
@@ -109,7 +110,7 @@
                     defaultByHostType = {
                       desktop = [
                         "gui"
-                        "hyprland"
+                        "kde"
                         "gaming"
                         "dev"
                         "docker"

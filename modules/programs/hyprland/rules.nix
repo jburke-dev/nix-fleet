@@ -22,7 +22,7 @@ delib.module {
             "match:workspace w[tv1]s[false], rounding 0, float 0"
             "match:workspace f[1]s[false], border_size 0, float 0"
             "match:workspace f[1]s[false], rounding 0, float 0"
-            "match:class kitty, opacity 0.9 0.5"
+            # "match:class kitty, opacity 0.9 0.5"
           ];
           monitor =
             (builtins.map (

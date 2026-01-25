@@ -73,7 +73,7 @@ delib.module {
           inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
 
         settings = {
-          "$terminal" = "kitty";
+          "$terminal" = "ghostty";
           "$browser" = "zen-twilight";
           "$mainMod" = "SUPER";
           exec-once = [

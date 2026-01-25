@@ -25,7 +25,6 @@ delib.module {
     };
 
   nixos.ifEnabled = {
-    # Disable system ssh-agent - gnome-keyring provides SSH agent
     programs.ssh.startAgent = false;
   };
 

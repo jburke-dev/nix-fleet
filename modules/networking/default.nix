@@ -152,13 +152,15 @@ delib.module {
             pve-kaiju = {
               networkName = "mgmt";
               ipFragment = "1.3";
-              mac = "1a:4b:23:16:71:5b";
+              mac = "1a:4b:23:16:71:5a";
             };
-            pve-kraken = {
-              networkName = "mgmt";
-              ipFragment = "1.4";
-              mac = "58:47:ca:7d:96:ae";
-            };
+            /*
+              pve-kraken = {
+                networkName = "mgmt";
+                ipFragment = "1.4";
+                mac = "58:47:ca:7d:96:ae";
+              };
+            */
             pve-kaiju-bmc = {
               networkName = "mgmt";
               ipFragment = "2.3";
@@ -169,11 +171,6 @@ delib.module {
               ipFragment = "2.2";
               mac = "7c:c2:55:e2:9f:02";
             };
-            pdm = {
-              networkName = "mgmt";
-              ipFragment = "2.1";
-              mac = "bc:24:11:81:6c:6a";
-            }; # proxmox datacenter manager
             home-assistant = {
               networkName = "untrusted"; # some iot devices like philips hue don't play nice in initial configuration across subnets
               ipFragment = "1.1";
